@@ -1263,8 +1263,8 @@ button { cursor: pointer; font-family: inherit; border: none; background: none; 
 }
 
 .company-logo {
-  width: 44px;
-  height: 44px;
+  width: 52px;
+  height: 52px;
   border-radius: var(--radius-sm);
   background: var(--gradient-accent);
   display: flex;
@@ -1275,6 +1275,23 @@ button { cursor: pointer; font-family: inherit; border: none; background: none; 
   color: var(--bg-primary);
   flex-shrink: 0;
   letter-spacing: 0.02em;
+}
+
+/* Logo image variant — used when real company logos are available */
+.company-logo.company-logo-img {
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  padding: 5px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+  overflow: hidden;
+}
+
+.company-logo.company-logo-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+  border-radius: 3px;
 }
 
 .timeline-role {
