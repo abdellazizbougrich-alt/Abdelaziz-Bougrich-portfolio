@@ -1367,9 +1367,34 @@ button { cursor: pointer; font-family: inherit; border: none; background: none; 
 .edu-card:hover::before { transform: scaleX(1); }
 
 .edu-icon {
-  font-size: 2.5rem;
-  margin-bottom: var(--space-sm);
-  display: block;
+  width: 56px;
+  height: 56px;
+  margin: 0 auto var(--space-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--accent-glow);
+  border: 1px solid rgba(59, 130, 246, 0.2);
+  border-radius: var(--radius-md);
+  color: var(--accent);
+  transition: all var(--t-base);
+}
+
+.edu-icon svg {
+  width: 26px;
+  height: 26px;
+  stroke: var(--accent);
+}
+
+.edu-card:hover .edu-icon {
+  background: var(--accent);
+  border-color: var(--accent);
+  box-shadow: 0 8px 20px rgba(59, 130, 246, 0.35);
+  transform: scale(1.1);
+}
+
+.edu-card:hover .edu-icon svg {
+  stroke: #fff;
 }
 
 .edu-year {
@@ -1458,9 +1483,33 @@ button { cursor: pointer; font-family: inherit; border: none; background: none; 
 }
 
 .contact-icon {
-  font-size: 1.3rem;
+  width: 44px;
+  height: 44px;
   flex-shrink: 0;
-  line-height: 1.5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--accent-glow);
+  border: 1px solid rgba(59, 130, 246, 0.2);
+  border-radius: var(--radius-md);
+  color: var(--accent);
+  transition: all var(--t-base);
+}
+
+.contact-icon svg {
+  width: 20px;
+  height: 20px;
+  stroke: var(--accent);
+}
+
+.contact-card:hover .contact-icon {
+  background: var(--accent);
+  border-color: var(--accent);
+  box-shadow: 0 6px 16px rgba(59, 130, 246, 0.35);
+}
+
+.contact-card:hover .contact-icon svg {
+  stroke: #fff;
 }
 
 .contact-label {
@@ -1629,12 +1678,57 @@ a.contact-value:hover { color: var(--accent); }
 
 .footer-bottom {
   border-top: 1px solid var(--border-subtle);
-  padding-top: 1.2rem;
+  padding-top: 1.5rem;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 0.5rem;
+  gap: 0.6rem;
+  text-align: center;
+}
+
+/* ── Handwritten Signature ── */
+.footer-signature-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 0.6rem;
+}
+
+.footer-signature {
+  font-family: 'Dancing Script', cursive;
+  font-size: clamp(2rem, 4vw, 2.8rem);
+  font-weight: 700;
+  color: var(--text-secondary);
+  letter-spacing: 0.01em;
+  line-height: 1.2;
+  transition: color var(--t-base);
+  position: relative;
+  /* Subtle ink-drop shadow to mimic real pen pressure */
+  text-shadow: 1px 2px 8px rgba(59, 130, 246, 0.15);
+}
+
+.footer-signature-line {
+  width: 0;
+  height: 1.5px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  border-radius: var(--radius-full);
+  margin-top: 4px;
+  animation: sig-underline 1.6s ease forwards 0.3s;
+}
+
+@keyframes sig-underline {
+  from { width: 0; opacity: 0; }
+  to   { width: 100%; opacity: 1; }
+}
+
+.footer-signature-wrap:hover .footer-signature {
+  color: var(--accent);
+  text-shadow: 0 0 20px rgba(59, 130, 246, 0.35);
+}
+
+[data-theme="light"] .footer-signature {
+  color: var(--text-secondary);
+  text-shadow: 1px 2px 8px rgba(37, 99, 235, 0.12);
 }
 
 .footer-copy, .footer-sub {
