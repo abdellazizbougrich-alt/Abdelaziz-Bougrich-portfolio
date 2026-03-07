@@ -2003,10 +2003,20 @@ a.contact-value:hover { color: var(--accent); }
     height: min(370px, 110vw);
   }
 
-  /* Nav actions */
-  .nav-actions { gap: 0.4rem; }
-  /* Hide lang switcher on very small screens – accessed via menu */
-  .lang-switcher { display: none; }
+  /* Nav actions — keep everything tight but visible */
+  .nav-actions { gap: 0.3rem; }
+
+  /* Keep lang switcher visible but super compact */
+  .lang-switcher { padding: 2px; gap: 0; }
+  .lang-btn {
+    padding: 0.25rem 0.45rem;
+    font-size: 0.6rem;
+    letter-spacing: 0.02em;
+  }
+
+  /* Shrink circle buttons a bit more */
+  .modern-circle-btn { width: 34px; height: 34px; }
+  .modern-circle-btn svg { width: 16px; height: 16px; }
 
   /* Stats */
   .stats-grid { grid-template-columns: 1fr 1fr; gap: 0.75rem; }
