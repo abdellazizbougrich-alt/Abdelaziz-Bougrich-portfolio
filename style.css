@@ -1002,6 +1002,51 @@ button { cursor: pointer; font-family: inherit; border: none; background: none; 
   border-color: var(--accent-secondary);
 }
 
+/* ── Driving Licence — highlighted badge ── */
+.skill-badge-driving {
+  --driving-color: #f59e0b;      /* amber-400 */
+  --driving-glow:  rgba(245, 158, 11, 0.25);
+  border-color: var(--driving-color) !important;
+  background: rgba(245, 158, 11, 0.08) !important;
+  color: var(--driving-color) !important;
+  font-weight: 700;
+  font-size: 0.85rem;
+  padding: 0.55rem 1.15rem;
+  box-shadow: 0 0 14px var(--driving-glow), 0 4px 15px rgba(0,0,0,0.12);
+  animation: driving-pulse 3s ease-in-out infinite;
+  position: relative;
+}
+
+/* Override the default blue dot — use amber dot instead */
+.skill-badge-driving::before {
+  display: none !important;  /* hide the default dot — icon replaces it */
+}
+
+/* Steering wheel SVG inherits the amber color */
+.skill-badge-driving svg {
+  flex-shrink: 0;
+  stroke: var(--driving-color);
+}
+
+.skill-badge-driving:hover {
+  transform: translateY(-4px) scale(1.04) !important;
+  background: rgba(245, 158, 11, 0.15) !important;
+  box-shadow: 0 0 28px var(--driving-glow), 0 10px 30px rgba(245, 158, 11, 0.2) !important;
+}
+
+@keyframes driving-pulse {
+  0%, 100% { box-shadow: 0 0 14px var(--driving-glow), 0 4px 15px rgba(0,0,0,0.12); }
+  50%       { box-shadow: 0 0 26px rgba(245, 158, 11, 0.45), 0 6px 20px rgba(245, 158, 11, 0.2); }
+}
+
+/* Light theme */
+[data-theme="light"] .skill-badge-driving {
+  background: rgba(245, 158, 11, 0.07) !important;
+  border-color: #d97706 !important;
+  color: #b45309 !important;
+}
+[data-theme="light"] .skill-badge-driving svg { stroke: #b45309; }
+
 [data-theme="light"] .skill-badge {
   background: #ffffff;
   color: var(--text-secondary);
