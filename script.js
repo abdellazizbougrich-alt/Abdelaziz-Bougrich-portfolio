@@ -596,5 +596,17 @@ document.addEventListener('DOMContentLoaded', () => {
     langObserver.observe(langSection);
   }
 
+  // ==========================================================
+  // 8. CONTACT EMAIL REDIRECT (Mobile/Desktop)
+  // ==========================================================
+  const contactEmailLink = document.getElementById('contact-icon-email');
+  if (contactEmailLink) {
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth <= 768;
+    if (isMobile) {
+      // Changing the link to mailto: which triggers the default native mail app (e.g. Gmail) on mobile devices
+      contactEmailLink.href = 'mailto:abdelaziz.bougrich@gmail.com';
+      contactEmailLink.removeAttribute('target'); // Removing target="_blank" since it's unnecessary for app links
+    }
+  }
 
 });
