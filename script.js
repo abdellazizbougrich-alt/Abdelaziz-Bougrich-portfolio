@@ -599,43 +599,83 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ==========================================================
-  // 7. CONTACT FORM SIMULATION
+  // 8. CONTACT MODAL (Task 2)
   // ==========================================================
-  const contactForm = document.getElementById('contact-form');
-  const submitBtn = document.getElementById('form-submit-btn');
-  const successMsg = document.getElementById('form-success');
+  const modal          = document.getElementById('contact-modal');
+  const emailTrigger   = document.getElementById('contact-icon-email');
+  const modalClose     = document.getElementById('modal-close');
+  const modalForm      = document.getElementById('modal-contact-form');
+  const modalSubmitBtn = document.getElementById('modal-submit-btn');
+  const modalSuccess   = document.getElementById('modal-form-success');
 
-  if (contactForm) {
-    contactForm.addEventListener('submit', (e) => {
+  const openModal = () => {
+    modal.setAttribute('aria-hidden', 'false');
+    modal.classList.add('is-open');
+    document.body.classList.add('modal-open');
+    // Focus the close button for accessibility
+    setTimeout(() => modalClose?.focus(), 50);
+  };
+
+  const closeModal = () => {
+    modal.classList.remove('is-open');
+    document.body.classList.remove('modal-open');
+    // Restore aria-hidden after transition
+    setTimeout(() => modal.setAttribute('aria-hidden', 'true'), 300);
+    // Return focus to trigger
+    emailTrigger?.focus();
+  };
+
+  if (emailTrigger && modal) {
+    emailTrigger.addEventListener('click', openModal);
+  }
+
+  if (modalClose) {
+    modalClose.addEventListener('click', closeModal);
+  }
+
+  // Close on backdrop click (not panel)
+  if (modal) {
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) closeModal();
+    });
+  }
+
+  // Close on Escape key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal?.classList.contains('is-open')) {
+      closeModal();
+    }
+  });
+
+  // Modal form submit
+  if (modalForm) {
+    modalForm.addEventListener('submit', (e) => {
       e.preventDefault();
-      
-      // Basic validation check
-      if (!contactForm.checkValidity()) {
-        contactForm.reportValidity();
+
+      if (!modalForm.checkValidity()) {
+        modalForm.reportValidity();
         return;
       }
 
-      // Simulate sending
-      submitBtn.classList.add('loading');
-      submitBtn.disabled = true;
+      modalSubmitBtn.classList.add('loading');
+      modalSubmitBtn.disabled = true;
 
       setTimeout(() => {
-        submitBtn.classList.remove('loading');
-        submitBtn.disabled = false;
-        
-        // Show success message (translated)
-        const translatedSuccess = contactForm.dataset.successMsg || 'Thank you! Your message has been sent successfully.';
-        successMsg.textContent = translatedSuccess;
-        successMsg.classList.add('show');
-        
-        // Reset form
-        contactForm.reset();
-        
-        // Hide success message after 5 seconds
+        modalSubmitBtn.classList.remove('loading');
+        modalSubmitBtn.disabled = false;
+
+        const dict = translations[localStorage.getItem('preferred_lang') || 'en'] || translations['en'];
+        const msg  = dict['contact.form_success'] || 'Thank you! Your message has been sent successfully.';
+        modalSuccess.textContent = msg;
+        modalSuccess.classList.add('show');
+
+        modalForm.reset();
+
         setTimeout(() => {
-          successMsg.classList.remove('show');
-        }, 5000);
-      }, 1500); // 1.5s simulated loading
+          modalSuccess.classList.remove('show');
+          closeModal();
+        }, 3000);
+      }, 1500);
     });
   }
 });
