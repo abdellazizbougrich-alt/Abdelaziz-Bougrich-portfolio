@@ -531,9 +531,9 @@
         <!-- Standardized contact icon pills -->
         <div class="contact-icons-row reveal">
 
-          <!-- Email — triggers contact modal -->
-          <button type="button" class="contact-icon-pill contact-email-trigger" id="contact-icon-email"
-            aria-label="Open contact form" aria-haspopup="dialog">
+          <!-- Email -->
+          <a href="https://mail.google.com/mail/u/0/?ogbl#inbox" target="_blank" rel="noopener"
+            class="contact-icon-pill" id="contact-icon-email" aria-label="Contact me via Gmail">
             <span class="contact-circle-frame" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
                 stroke-linejoin="round">
@@ -542,11 +542,10 @@
               </svg>
             </span>
             <span class="contact-pill-text">
-              <span class="contact-pill-label">Email</span>
+              <span class="contact-pill-label">Contact me via Gmail</span>
               <span class="contact-pill-value">abdelaziz.bougrich@gmail.com</span>
             </span>
-            <span class="contact-pill-cta" aria-hidden="true">Tap to message →</span>
-          </button>
+          </a>
 
           <!-- Phone -->
           <a href="tel:+393534875880" class="contact-icon-pill" id="contact-icon-phone" aria-label="Call phone">
@@ -651,73 +650,7 @@
     <button id="scroll-top" class="scroll-top-btn" aria-label="Scroll to top">↑</button>
   </footer>
 
-  <!-- ============================================================
-       CONTACT MODAL
-  ============================================================ -->
-  <div id="contact-modal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="modal-title"
-    aria-hidden="true">
-    <div class="modal-panel" role="document">
 
-      <!-- Modal Header -->
-      <div class="modal-header">
-        <div class="modal-header-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
-            stroke-linejoin="round">
-            <rect x="2" y="4" width="20" height="16" rx="2" />
-            <polyline points="22,6 12,13 2,6" />
-          </svg>
-        </div>
-        <div class="modal-header-text">
-          <h3 id="modal-title" class="modal-title">Send a Message</h3>
-          <p class="modal-subtitle">EMAIL: abdelaziz.bougrich@gmail.com</p>
-        </div>
-        <button type="button" class="modal-close-btn" id="modal-close" aria-label="Close dialog">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
-            stroke-linecap="round">
-            <line x1="18" y1="6" x2="6" y2="18" />
-            <line x1="6" y1="6" x2="18" y2="18" />
-          </svg>
-        </button>
-      </div>
-
-      <!-- Modal Form -->
-      <form id="modal-contact-form" novalidate class="modal-form">
-        <div class="form-row">
-          <div class="form-group">
-            <label for="modal-name" class="form-label" data-i18n="contact.form_name">Full Name</label>
-            <input type="text" id="modal-name" name="name" class="form-input"
-              data-i18n-placeholder="contact.form_name_ph" placeholder="Your full name" required />
-          </div>
-          <div class="form-group">
-            <label for="modal-email" class="form-label" data-i18n="contact.form_email">Email Address</label>
-            <input type="email" id="modal-email" name="email" class="form-input" placeholder="your@email.com"
-              required />
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="modal-subject" class="form-label" data-i18n="contact.form_subject">Subject</label>
-          <input type="text" id="modal-subject" name="subject" class="form-input"
-            data-i18n-placeholder="contact.form_subject_ph" placeholder="What's this about?" required />
-        </div>
-        <div class="form-group">
-          <label for="modal-message" class="form-label" data-i18n="contact.form_message">Message</label>
-          <textarea id="modal-message" name="message" class="form-input form-textarea"
-            data-i18n-placeholder="contact.form_message_ph" placeholder="Tell me more..." rows="4" required></textarea>
-        </div>
-        <button type="submit" class="btn btn-primary btn-block" id="modal-submit-btn">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-            stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <line x1="22" y1="2" x2="11" y2="13" />
-            <polygon points="22 2 15 22 11 13 2 9 22 2" />
-          </svg>
-          <span class="btn-text" data-i18n="contact.form_send">Send Message</span>
-          <span class="btn-spinner" aria-hidden="true"></span>
-        </button>
-        <div id="modal-form-success" class="form-success" role="alert" aria-live="polite"></div>
-      </form>
-
-    </div>
-  </div>
 
   <script src="script.js"></script>
 </body>

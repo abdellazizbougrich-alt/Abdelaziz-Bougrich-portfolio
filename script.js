@@ -450,9 +450,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Update <html lang=""> attribute
     document.documentElement.setAttribute('lang', lang);
 
-    // Store the success message for the contact form
-    document.getElementById('contact-form')?.dataset && 
-      (document.getElementById('contact-form').dataset.successMsg = dict['contact.form_success'] || '');
+
   };
 
   const setLanguage = (lang) => {
@@ -598,114 +596,5 @@ document.addEventListener('DOMContentLoaded', () => {
     langObserver.observe(langSection);
   }
 
-  // ==========================================================
-  // 8. CONTACT MODAL (Task 2)
-  // ==========================================================
-  const modal          = document.getElementById('contact-modal');
-  const emailTrigger   = document.getElementById('contact-icon-email');
-  const modalClose     = document.getElementById('modal-close');
-  const modalForm      = document.getElementById('modal-contact-form');
-  const modalSubmitBtn = document.getElementById('modal-submit-btn');
-  const modalSuccess   = document.getElementById('modal-form-success');
 
-  const openModal = () => {
-    modal.setAttribute('aria-hidden', 'false');
-    modal.classList.add('is-open');
-    document.body.classList.add('modal-open');
-    // Focus the close button for accessibility
-    setTimeout(() => modalClose?.focus(), 50);
-  };
-
-  const closeModal = () => {
-    modal.classList.remove('is-open');
-    document.body.classList.remove('modal-open');
-    // Restore aria-hidden after transition
-    setTimeout(() => modal.setAttribute('aria-hidden', 'true'), 300);
-    // Return focus to trigger
-    emailTrigger?.focus();
-  };
-
-  if (emailTrigger && modal) {
-    emailTrigger.addEventListener('click', openModal);
-  }
-
-  if (modalClose) {
-    modalClose.addEventListener('click', closeModal);
-  }
-
-  // Close on backdrop click (not panel)
-  if (modal) {
-    modal.addEventListener('click', (e) => {
-      if (e.target === modal) closeModal();
-    });
-  }
-
-  // Close on Escape key
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && modal?.classList.contains('is-open')) {
-      closeModal();
-    }
-  });
-
-  // Modal form submit
-  if (modalForm) {
-    modalForm.addEventListener('submit', async (e) => {
-      e.preventDefault();
-
-      if (!modalForm.checkValidity()) {
-        modalForm.reportValidity();
-        return;
-      }
-
-      modalSubmitBtn.classList.add('loading');
-      modalSubmitBtn.disabled = true;
-
-      // Reset any previous messages
-      modalSuccess.classList.remove('show', 'error');
-      modalSuccess.textContent = '';
-
-      const formData = new FormData(modalForm);
-      const dict = translations[localStorage.getItem('preferred_lang') || 'en'] || translations['en'];
-
-      try {
-        // REPLACE this string with your real Formspree endpoint URL (e.g., 'https://formspree.io/f/YOUR_FORM_ID')
-        const endpoint = 'https://formspree.io/f/YOUR_FORM_ID';
-        
-        const response = await fetch(endpoint, {
-          method: 'POST',
-          body: formData,
-          headers: {
-            'Accept': 'application/json'
-          }
-        });
-
-        if (response.ok) {
-          modalSuccess.textContent = dict['contact.form_success'] || 'Thank you! Your message has been sent successfully.';
-          modalSuccess.classList.remove('error');
-          modalSuccess.classList.add('show');
-          modalForm.reset();
-
-          setTimeout(() => {
-            modalSuccess.classList.remove('show');
-            closeModal();
-          }, 3000);
-        } else {
-          // Attempt to extract specific error message from Formspree
-          const data = await response.json();
-          if (Object.hasOwn(data, 'errors')) {
-            modalSuccess.textContent = data["errors"].map(error => error["message"]).join(", ");
-          } else {
-            modalSuccess.textContent = 'Oops! There was a problem submitting your form.';
-          }
-          modalSuccess.classList.add('error', 'show');
-        }
-      } catch (error) {
-        modalSuccess.textContent = 'Oops! There was a network problem submitting your form.';
-        modalSuccess.classList.add('error', 'show');
-      } finally {
-        modalSubmitBtn.classList.remove('loading');
-        modalSubmitBtn.disabled = false;
-      }
-    });
-  }
 });
