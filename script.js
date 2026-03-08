@@ -649,7 +649,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Modal form submit
   if (modalForm) {
-    modalForm.addEventListener('submit', (e) => {
+    modalForm.addEventListener('submit', async (e) => {
       e.preventDefault();
 
       if (!modalForm.checkValidity()) {
@@ -660,22 +660,52 @@ document.addEventListener('DOMContentLoaded', () => {
       modalSubmitBtn.classList.add('loading');
       modalSubmitBtn.disabled = true;
 
-      setTimeout(() => {
+      // Reset any previous messages
+      modalSuccess.classList.remove('show', 'error');
+      modalSuccess.textContent = '';
+
+      const formData = new FormData(modalForm);
+      const dict = translations[localStorage.getItem('preferred_lang') || 'en'] || translations['en'];
+
+      try {
+        // REPLACE this string with your real Formspree endpoint URL (e.g., 'https://formspree.io/f/YOUR_FORM_ID')
+        const endpoint = 'https://formspree.io/f/YOUR_FORM_ID';
+        
+        const response = await fetch(endpoint, {
+          method: 'POST',
+          body: formData,
+          headers: {
+            'Accept': 'application/json'
+          }
+        });
+
+        if (response.ok) {
+          modalSuccess.textContent = dict['contact.form_success'] || 'Thank you! Your message has been sent successfully.';
+          modalSuccess.classList.remove('error');
+          modalSuccess.classList.add('show');
+          modalForm.reset();
+
+          setTimeout(() => {
+            modalSuccess.classList.remove('show');
+            closeModal();
+          }, 3000);
+        } else {
+          // Attempt to extract specific error message from Formspree
+          const data = await response.json();
+          if (Object.hasOwn(data, 'errors')) {
+            modalSuccess.textContent = data["errors"].map(error => error["message"]).join(", ");
+          } else {
+            modalSuccess.textContent = 'Oops! There was a problem submitting your form.';
+          }
+          modalSuccess.classList.add('error', 'show');
+        }
+      } catch (error) {
+        modalSuccess.textContent = 'Oops! There was a network problem submitting your form.';
+        modalSuccess.classList.add('error', 'show');
+      } finally {
         modalSubmitBtn.classList.remove('loading');
         modalSubmitBtn.disabled = false;
-
-        const dict = translations[localStorage.getItem('preferred_lang') || 'en'] || translations['en'];
-        const msg  = dict['contact.form_success'] || 'Thank you! Your message has been sent successfully.';
-        modalSuccess.textContent = msg;
-        modalSuccess.classList.add('show');
-
-        modalForm.reset();
-
-        setTimeout(() => {
-          modalSuccess.classList.remove('show');
-          closeModal();
-        }, 3000);
-      }, 1500);
+      }
     });
   }
 });
