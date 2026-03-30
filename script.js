@@ -700,10 +700,11 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         
         // Ensure mobile nav menu closes on selection automatically
-        if (navLinks && navLinks.classList.contains('active')) {
-          navLinks.classList.remove('active');
-          document.getElementById('nav-toggle').classList.remove('active');
-          document.getElementById('nav-toggle').setAttribute('aria-expanded', 'false');
+        if (navLinks && navLinks.classList.contains('open')) {
+          navLinks.classList.remove('open');
+          const toggle = document.getElementById('nav-toggle');
+          toggle.classList.remove('open');
+          toggle.setAttribute('aria-expanded', 'false');
         }
       }
     });
