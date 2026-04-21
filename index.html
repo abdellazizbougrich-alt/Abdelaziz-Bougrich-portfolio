@@ -367,6 +367,11 @@
                 <circle cx="12" cy="10" r="3" />
               </svg>Morocco
             </p>
+            <div style="margin-top: 1.5rem;">
+              <button class="btn-diploma" data-diploma="assets/images/diploma-ista.jpg" aria-label="View Diploma">
+                <span class="diploma-icon">🎓</span> View Diploma
+              </button>
+            </div>
           </div>
           <div class="edu-card reveal">
             <div class="edu-icon" aria-hidden="true">
@@ -391,6 +396,11 @@
                 <circle cx="12" cy="10" r="3" />
               </svg>Morocco
             </p>
+            <div style="margin-top: 1.5rem;">
+              <button class="btn-diploma" data-diploma="assets/images/diploma-ibn-zohr.jpg" aria-label="View Diploma">
+                <span class="diploma-icon">🎓</span> View Diploma
+              </button>
+            </div>
           </div>
           <div class="edu-card reveal">
             <div class="edu-icon" aria-hidden="true">
@@ -412,6 +422,11 @@
                 <circle cx="12" cy="10" r="3" />
               </svg>Morocco
             </p>
+            <div style="margin-top: 1.5rem;">
+              <button class="btn-diploma" data-diploma="assets/images/diploma-bac.jpg" aria-label="View Diploma">
+                <span class="diploma-icon">🎓</span> View Diploma
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -635,6 +650,22 @@
     </section>
 
   </main>
+
+  <!-- ============================================================
+       DIPLOMA MODAL / LIGHTBOX
+  ============================================================ -->
+  <div id="diploma-modal" class="diploma-modal" aria-hidden="true">
+    <div class="diploma-modal-overlay"></div>
+    <div class="diploma-modal-content">
+      <button id="diploma-modal-close" class="diploma-modal-close" aria-label="Close modal">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+      <img id="diploma-modal-img" src="" alt="Diploma full view" />
+    </div>
+  </div>
 
   <!-- ============================================================
        FOOTER

@@ -698,4 +698,58 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
+  // ==========================================================
+  // 10. DIPLOMA MODAL / LIGHTBOX
+  // ==========================================================
+  const diplomaBtns = document.querySelectorAll('.btn-diploma');
+  const diplomaModal = document.getElementById('diploma-modal');
+  const diplomaImg = document.getElementById('diploma-modal-img');
+  const diplomaClose = document.getElementById('diploma-modal-close');
+
+  if (diplomaModal) {
+    const openModal = (src) => {
+      diplomaImg.src = src;
+      diplomaModal.classList.add('open');
+      diplomaModal.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden'; // Prevent background scrolling
+    };
+
+    const closeModal = () => {
+      diplomaModal.classList.remove('open');
+      diplomaModal.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+      setTimeout(() => {
+        if (!diplomaModal.classList.contains('open')) {
+          diplomaImg.src = '';
+        }
+      }, 300);
+    };
+
+    diplomaBtns.forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const src = btn.getAttribute('data-diploma');
+        if (src) {
+          openModal(src);
+        }
+      });
+    });
+
+    diplomaClose.addEventListener('click', closeModal);
+
+    // Close on click outside
+    diplomaModal.addEventListener('click', (e) => {
+      if (e.target === diplomaModal || e.target.classList.contains('diploma-modal-overlay')) {
+        closeModal();
+      }
+    });
+
+    // Close on Escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && diplomaModal.classList.contains('open')) {
+        closeModal();
+      }
+    });
+  }
+
 });
