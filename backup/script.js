@@ -138,11 +138,12 @@ document.addEventListener('DOMContentLoaded', () => {
       'skills.title': 'Skills &amp; Languages',
       'skills.hard_title': 'Hard Skills',
       'skills.soft_title': 'Soft Skills',
+      'skills.lang_section_title': 'Languages',
       'skills.cat_sales': 'Sales & Negotiation',
       'skills.cat_crm': 'CRM & Reporting',
       'skills.cat_tools': 'Office & Digital Tools',
       'skills.cat_ops': 'Operations & Logistics',
-      'skills.lang_section_title': 'Languages',
+      'skills.cat_soft': 'Leadership & People',
       'skills.crm': 'CRM Systems',
       'skills.tech_sales': 'Technical Sales',
       'skills.negotiation': 'Negotiation',
@@ -261,11 +262,12 @@ document.addEventListener('DOMContentLoaded', () => {
       'skills.title': 'Compétences &amp; Langues',
       'skills.hard_title': 'Compétences techniques',
       'skills.soft_title': 'Compétences relationnelles',
-      'skills.cat_sales': 'Vente & Négociation',
-      'skills.cat_crm': 'CRM & Reporting',
-      'skills.cat_tools': 'Bureautique & Outils Numériques',
-      'skills.cat_ops': 'Opérations & Logistique',
       'skills.lang_section_title': 'Langues',
+      'skills.cat_sales': 'Ventes & Négociation',
+      'skills.cat_crm': 'CRM & Reporting',
+      'skills.cat_tools': 'Outils Bureautiques & Numériques',
+      'skills.cat_ops': 'Opérations & Logistique',
+      'skills.cat_soft': 'Leadership & Relations',
       'skills.crm': 'Systèmes CRM',
       'skills.tech_sales': 'Vente technique',
       'skills.negotiation': 'Négociation',
@@ -384,11 +386,12 @@ document.addEventListener('DOMContentLoaded', () => {
       'skills.title': 'Competenze &amp; Lingue',
       'skills.hard_title': 'Competenze tecniche',
       'skills.soft_title': 'Competenze trasversali',
-      'skills.cat_sales': 'Vendite & Negoziazione',
-      'skills.cat_crm': 'CRM & Reporting',
-      'skills.cat_tools': 'Strumenti Digitali & Ufficio',
-      'skills.cat_ops': 'Operazioni & Logistica',
       'skills.lang_section_title': 'Lingue',
+      'skills.cat_sales': 'Vendite e Negoziazione',
+      'skills.cat_crm': 'CRM e Reporting',
+      'skills.cat_tools': 'Strumenti Ufficio e Digitali',
+      'skills.cat_ops': 'Operazioni e Logistica',
+      'skills.cat_soft': 'Leadership e Persone',
       'skills.crm': 'Sistemi CRM',
       'skills.tech_sales': 'Vendite tecniche',
       'skills.negotiation': 'Negoziazione',
@@ -438,6 +441,16 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   };
 
+  const langBtns = document.querySelectorAll('.lang-btn');
+  const langSlider = document.getElementById('lang-slider');
+
+  const updateSlider = (activeBtn) => {
+    if (!langSlider || !activeBtn) return;
+    // For robust sliding regardless of container padding, we calculate offset against the relative parent
+    langSlider.style.width = activeBtn.offsetWidth + 'px';
+    langSlider.style.transform = `translateX(${activeBtn.offsetLeft}px)`;
+  };
+
   const applyTranslation = (lang) => {
     const dict = translations[lang] || translations['en'];
 
@@ -464,71 +477,54 @@ document.addEventListener('DOMContentLoaded', () => {
   const setLanguage = (lang) => {
     localStorage.setItem('preferred_lang', lang);
 
-    // Update active dropdown option style
-    document.querySelectorAll('.lang-option').forEach(btn => {
+    // Update active button style
+    langBtns.forEach(btn => {
       const isActive = btn.getAttribute('data-lang') === lang;
       btn.classList.toggle('active', isActive);
+      btn.setAttribute('aria-checked', isActive.toString());
+      if (isActive) {
+        updateSlider(btn);
+      }
     });
-
-    // Update the button text indicator
-    const display = document.getElementById('current-lang-display');
-    if (display) {
-      display.textContent = lang;
-    }
 
     applyTranslation(lang);
   };
 
   // Initialize on load
   const savedLang = localStorage.getItem('preferred_lang') || 'en';
-  setLanguage(savedLang);
+  // Ensure layout is evaluated and slider matches correct position
+  setTimeout(() => {
+    setLanguage(savedLang);
+  }, 50);
 
-  // Robust Global Event Delegation for Dropdown
-  document.addEventListener('click', (e) => {
-    const toggleBtn = e.target.closest('#lang-toggle-btn');
-    const langOption = e.target.closest('.lang-option');
-    const menu = document.getElementById('lang-dropdown-menu');
-    
-    if (!menu) return;
+  // Re-calculate slider on window resize to keep it aligned
+  window.addEventListener('resize', () => {
+    const activeBtn = document.querySelector('.lang-btn.active');
+    if (activeBtn) updateSlider(activeBtn);
+  });
 
-    // Handle Language Option Click
-    if (langOption) {
-      e.preventDefault();
-      e.stopPropagation();
-      setLanguage(langOption.getAttribute('data-lang'));
-      menu.classList.remove('open');
-      const btn = document.getElementById('lang-toggle-btn');
-      if (btn) btn.setAttribute('aria-expanded', 'false');
-      return;
-    }
-
-    // Handle Toggle Click
-    if (toggleBtn) {
-      e.preventDefault();
-      e.stopPropagation();
-      const isOpen = menu.classList.contains('open');
-      menu.classList.toggle('open');
-      toggleBtn.setAttribute('aria-expanded', !isOpen);
-    } else if (!menu.contains(e.target)) {
-      // Clicked outside
-      menu.classList.remove('open');
-      const btn = document.getElementById('lang-toggle-btn');
-      if (btn) btn.setAttribute('aria-expanded', 'false');
-    }
+  // Listen for language option clicks
+  langBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      setLanguage(btn.getAttribute('data-lang'));
+    });
   });
 
   // ==========================================================
-  // 4 & 5. SCROLL PERFORMANCE OPTIMIZATION (Header, To-Top, Nav)
+  // 4 & 5. SCROLL PERFORMANCE OPTIMIZATION (Header, Progress, Nav)
   // ==========================================================
   const header = document.getElementById('header');
   const scrollTopBtn = document.getElementById('scroll-top');
+  const scrollProgress = document.getElementById('scroll-progress');
   const sections = document.querySelectorAll('section[id]');
+  const navLinksList = document.getElementById('nav-links');
   
   let isScrolling = false;
 
   const handleScrollEvents = () => {
     const scrollY = window.scrollY;
     const headerHeight = header ? header.offsetHeight : 80;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
 
     // 1. Header shrink
     if (header) {
@@ -539,7 +535,20 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
 
-    // 2. Scroll to top button visibility
+    // 2. Scroll Progress Bar
+    if (scrollProgress && docHeight > 0) {
+      const progress = Math.min((scrollY / docHeight) * 100, 100);
+      scrollProgress.style.width = progress + '%';
+      scrollProgress.setAttribute('aria-valuenow', Math.round(progress));
+      // Show the glowing tip only when actually scrolling
+      if (progress > 0 && progress < 100) {
+        scrollProgress.classList.add('active');
+      } else {
+        scrollProgress.classList.remove('active');
+      }
+    }
+
+    // 3. Scroll to top button visibility
     if (scrollTopBtn) {
       if (scrollY > 500) {
         scrollTopBtn.classList.add('visible');
@@ -548,19 +557,28 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
 
-    // 3. Highlight active Nav Link
+    // 4. Highlight active Nav Link
+    let activeFound = false;
     sections.forEach(section => {
-      const sectionTop = section.offsetTop - headerHeight - 100;
+      const sectionTop = section.offsetTop - headerHeight - 80;
       const sectionHeight = section.offsetHeight;
       const sectionId = section.getAttribute('id');
       const navLink = document.querySelector(`.nav-links a[href="#${sectionId}"]`);
       
       if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
-        if (navLink) navLink.classList.add('active');
+        if (navLink) {
+          navLink.classList.add('active');
+          activeFound = true;
+        }
       } else {
         if (navLink) navLink.classList.remove('active');
       }
     });
+
+    // Toggle has-active class to enable the dimming effect on siblings
+    if (navLinksList) {
+      navLinksList.classList.toggle('has-active', activeFound);
+    }
 
     isScrolling = false;
   };
@@ -572,6 +590,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }, { passive: true });
 
+  // Run once on load to set initial state
+  handleScrollEvents();
+
   if (scrollTopBtn) {
     scrollTopBtn.addEventListener('click', () => {
       window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -582,12 +603,26 @@ document.addEventListener('DOMContentLoaded', () => {
   // 6. INTERSECTION OBSERVER (Scroll Animations)
   // ==========================================================
   const revealElements = document.querySelectorAll('.reveal');
-  const skillBadges = document.querySelectorAll('.skill-badge');
   const langBars = document.querySelectorAll('.lang-bar');
 
+  // Apply stagger delays to sibling .reveal elements within the same parent
+  const revealGroups = new Map();
+  revealElements.forEach(el => {
+    const parent = el.parentElement;
+    if (!revealGroups.has(parent)) revealGroups.set(parent, []);
+    revealGroups.get(parent).push(el);
+  });
+  revealGroups.forEach(siblings => {
+    if (siblings.length > 1) {
+      siblings.forEach((el, i) => {
+        el.style.setProperty('--reveal-delay', `${i * 100}ms`);
+      });
+    }
+  });
+
   const revealOptions = {
-    threshold: 0.15,
-    rootMargin: "0px 0px -50px 0px"
+    threshold: 0.12,
+    rootMargin: "0px 0px -60px 0px"
   };
 
   const revealObserver = new IntersectionObserver((entries, observer) => {
@@ -606,36 +641,26 @@ document.addEventListener('DOMContentLoaded', () => {
 
   revealElements.forEach(el => revealObserver.observe(el));
 
-  // Staggered skill tags and circular progress animation
+  // Staggered skill tags animation (new card layout)
   const skillsObserver = new IntersectionObserver((entries, observer) => {
     entries.forEach(entry => {
       if (!entry.isIntersecting) return;
       
-      const container = entry.target;
+      const tagsContainer = entry.target;
+      const tags = tagsContainer.querySelectorAll('.skill-tag');
       
-      // Animate tags
-      const tags = container.querySelectorAll('.skill-tag');
       tags.forEach((tag, index) => {
         setTimeout(() => {
           tag.classList.add('pop');
         }, index * 80); // 80ms stagger
       });
-
-      // Animate circles
-      const circles = container.querySelectorAll('.reveal-circle');
-      circles.forEach((circle, index) => {
-        setTimeout(() => {
-          const dash = circle.getAttribute('style').match(/--target-dash:\s*([^;]+);/)[1] || '0';
-          circle.setAttribute('stroke-dasharray', `${dash}, 100`);
-        }, index * 150);
-      });
       
-      observer.unobserve(container);
+      observer.unobserve(tagsContainer);
     });
   }, { threshold: 0.1 });
 
-  const skillContainers = document.querySelectorAll('.skill-card');
-  skillContainers.forEach(container => skillsObserver.observe(container));
+  const skillTagContainers = document.querySelectorAll('.skill-cat-tags');
+  skillTagContainers.forEach(container => skillsObserver.observe(container));
 
   // ----------------------------------------------------------
   // Bullet slide-right animation for Work Experience
@@ -793,5 +818,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   }
+
+});
 
 });

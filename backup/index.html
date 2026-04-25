@@ -28,6 +28,9 @@
        HEADER / NAVIGATION
   ============================================================ -->
   <header id="header" role="banner">
+    <!-- Scroll Progress Bar -->
+    <div id="scroll-progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"
+      aria-label="Page scroll progress"></div>
     <nav class="nav-container" aria-label="Main navigation">
       <a href="#hero" class="nav-logo" aria-label="Go to top">
         <span class="logo-initials">A.bougrich</span>
@@ -74,21 +77,12 @@
 
           <div class="pill-divider"></div>
 
-          <!-- Language Dropdown -->
-          <div class="lang-dropdown-wrapper" id="lang-dropdown-wrapper" style="position: relative;">
-            <button class="unified-icon-btn lang-toggle-btn" id="lang-toggle-btn" aria-label="Select Language" aria-haspopup="true" aria-expanded="false" title="Change Language" style="width: auto; padding: 0 12px; gap: 6px; border-radius: 21px;">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="pointer-events: none;">
-                <circle cx="12" cy="12" r="10"></circle>
-                <line x1="2" y1="12" x2="22" y2="12"></line>
-                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
-              </svg>
-              <span id="current-lang-display" style="font-weight: 700; font-size: 0.8rem; text-transform: uppercase;">EN</span>
-            </button>
-            <div class="lang-dropdown-menu" id="lang-dropdown-menu" role="menu" aria-label="Language selection">
-              <button class="lang-option active" data-lang="en" role="menuitem">EN — English</button>
-              <button class="lang-option" data-lang="fr" role="menuitem">FR — Français</button>
-              <button class="lang-option" data-lang="it" role="menuitem">IT — Italiano</button>
-            </div>
+          <!-- Language Segment Control -->
+          <div class="lang-inner-wrap" id="lang-switcher" role="radiogroup" aria-label="Language selection">
+            <div class="lang-slider" id="lang-slider"></div>
+            <button class="lang-btn active" data-lang="en" role="radio" aria-checked="true">EN</button>
+            <button class="lang-btn" data-lang="fr" role="radio" aria-checked="false">FR</button>
+            <button class="lang-btn" data-lang="it" role="radio" aria-checked="false">IT</button>
           </div>
 
           <div class="pill-divider"></div>
@@ -487,200 +481,128 @@
           <span class="section-label" data-i18n="skills.label">What I Bring</span>
           <h2 id="skills-heading" class="section-title" data-i18n="skills.title">Skills &amp; Languages</h2>
         </div>
-        <div class="skills-grid-new">
+        <!-- ══ Skill Category Cards ══ -->
+        <div class="skill-categories">
+
           <!-- Sales & Negotiation -->
-          <div class="skill-card reveal">
-            <div class="skill-card-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                stroke-linejoin="round">
-                <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
-              </svg>
+          <div class="skill-cat-card reveal" data-cat="blue">
+            <div class="skill-cat-header">
+              <div class="skill-cat-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                  stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="22 7 13.5 15.5 8.5 10.5 2 17" />
+                  <polyline points="16 7 22 7 22 13" />
+                </svg>
+              </div>
+              <h3 class="skill-cat-title" data-i18n="skills.cat_sales">Sales &amp; Negotiation</h3>
             </div>
-            <h3 class="skill-card-title" data-i18n="skills.cat_sales">Sales & Negotiation</h3>
-            <div class="skill-circles-grid">
-              <div class="skill-circle-item">
-                <svg viewBox="0 0 36 36" class="circular-chart">
-                  <path class="circle-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
-                  <path class="circle reveal-circle" stroke-dasharray="0, 100" style="--target-dash: 95;" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
-                  <text x="18" y="20.35" class="circle-percentage">95%</text>
-                </svg>
-                <div class="skill-circle-title" data-i18n="skills.tech_sales">Technical Sales</div>
-              </div>
-              <div class="skill-circle-item">
-                <svg viewBox="0 0 36 36" class="circular-chart">
-                  <path class="circle-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
-                  <path class="circle reveal-circle" stroke-dasharray="0, 100" style="--target-dash: 90;" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
-                  <text x="18" y="20.35" class="circle-percentage">90%</text>
-                </svg>
-                <div class="skill-circle-title" data-i18n="skills.negotiation">Negotiation</div>
-              </div>
-              <div class="skill-circle-item">
-                <svg viewBox="0 0 36 36" class="circular-chart">
-                  <path class="circle-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
-                  <path class="circle reveal-circle" stroke-dasharray="0, 100" style="--target-dash: 85;" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
-                  <text x="18" y="20.35" class="circle-percentage">85%</text>
-                </svg>
-                <div class="skill-circle-title" data-i18n="skills.sales_mgmt">Sales Management</div>
-              </div>
-              <div class="skill-circle-item">
-                <svg viewBox="0 0 36 36" class="circular-chart">
-                  <path class="circle-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
-                  <path class="circle reveal-circle" stroke-dasharray="0, 100" style="--target-dash: 90;" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
-                  <text x="18" y="20.35" class="circle-percentage">90%</text>
-                </svg>
-                <div class="skill-circle-title" data-i18n="skills.persuasion">Persuasion</div>
-              </div>
+            <div class="skill-cat-tags">
+              <span class="skill-tag" data-i18n="skills.tech_sales">Technical Sales</span>
+              <span class="skill-tag" data-i18n="skills.negotiation">Negotiation</span>
+              <span class="skill-tag" data-i18n="skills.after_sales">After-Sales Service</span>
+              <span class="skill-tag" data-i18n="skills.order_tracking">Order Tracking</span>
+              <span class="skill-tag" data-i18n="skills.persuasion">Persuasion</span>
             </div>
           </div>
 
           <!-- CRM & Reporting -->
-          <div class="skill-card reveal">
-            <div class="skill-card-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                stroke-linejoin="round">
-                <path d="M3 3v18h18M18 9l-5 5-4-4-5 5"></path>
-              </svg>
+          <div class="skill-cat-card reveal" data-cat="violet">
+            <div class="skill-cat-header">
+              <div class="skill-cat-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                  stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <ellipse cx="12" cy="5" rx="9" ry="3" />
+                  <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3" />
+                  <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5" />
+                </svg>
+              </div>
+              <h3 class="skill-cat-title" data-i18n="skills.cat_crm">CRM &amp; Reporting</h3>
             </div>
-            <h3 class="skill-card-title" data-i18n="skills.cat_crm">CRM & Reporting</h3>
-            <div class="skill-circles-grid">
-              <div class="skill-circle-item">
-                <svg viewBox="0 0 36 36" class="circular-chart">
-                  <path class="circle-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
-                  <path class="circle reveal-circle" stroke-dasharray="0, 100" style="--target-dash: 95;" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
-                  <text x="18" y="20.35" class="circle-percentage">95%</text>
-                </svg>
-                <div class="skill-circle-title" data-i18n="skills.crm">CRM Systems</div>
-              </div>
-              <div class="skill-circle-item">
-                <svg viewBox="0 0 36 36" class="circular-chart">
-                  <path class="circle-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
-                  <path class="circle reveal-circle" stroke-dasharray="0, 100" style="--target-dash: 80;" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
-                  <text x="18" y="20.35" class="circle-percentage">80%</text>
-                </svg>
-                <div class="skill-circle-title" data-i18n="skills.accounting">Accounting & Reporting</div>
-              </div>
-              <div class="skill-circle-item">
-                <svg viewBox="0 0 36 36" class="circular-chart">
-                  <path class="circle-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
-                  <path class="circle reveal-circle" stroke-dasharray="0, 100" style="--target-dash: 90;" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
-                  <text x="18" y="20.35" class="circle-percentage">90%</text>
-                </svg>
-                <div class="skill-circle-title" data-i18n="skills.order_tracking">Order Tracking</div>
-              </div>
+            <div class="skill-cat-tags">
+              <span class="skill-tag" data-i18n="skills.crm">CRM Systems</span>
+              <span class="skill-tag" data-i18n="skills.sales_mgmt">Sales Management</span>
+              <span class="skill-tag" data-i18n="skills.accounting">Accounting &amp; Reporting</span>
             </div>
           </div>
 
           <!-- Office & Digital Tools -->
-          <div class="skill-card reveal">
-            <div class="skill-card-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                stroke-linejoin="round">
-                <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
-                <line x1="8" y1="21" x2="16" y2="21"></line>
-                <line x1="12" y1="17" x2="12" y2="21"></line>
-              </svg>
+          <div class="skill-cat-card reveal" data-cat="emerald">
+            <div class="skill-cat-header">
+              <div class="skill-cat-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                  stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="2" y="3" width="20" height="14" rx="2" />
+                  <line x1="8" y1="21" x2="16" y2="21" />
+                  <line x1="12" y1="17" x2="12" y2="21" />
+                </svg>
+              </div>
+              <h3 class="skill-cat-title" data-i18n="skills.cat_tools">Office &amp; Digital Tools</h3>
             </div>
-            <h3 class="skill-card-title" data-i18n="skills.cat_tools">Office & Digital Tools</h3>
-            <div class="skill-circles-grid">
-              <div class="skill-circle-item">
-                <svg viewBox="0 0 36 36" class="circular-chart">
-                  <path class="circle-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
-                  <path class="circle reveal-circle" stroke-dasharray="0, 100" style="--target-dash: 95;" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
-                  <text x="18" y="20.35" class="circle-percentage">95%</text>
-                </svg>
-                <div class="skill-circle-title">Microsoft Excel</div>
-              </div>
-              <div class="skill-circle-item">
-                <svg viewBox="0 0 36 36" class="circular-chart">
-                  <path class="circle-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
-                  <path class="circle reveal-circle" stroke-dasharray="0, 100" style="--target-dash: 95;" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
-                  <text x="18" y="20.35" class="circle-percentage">95%</text>
-                </svg>
-                <div class="skill-circle-title">Microsoft Word</div>
-              </div>
-              <div class="skill-circle-item">
-                <svg viewBox="0 0 36 36" class="circular-chart">
-                  <path class="circle-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
-                  <path class="circle reveal-circle" stroke-dasharray="0, 100" style="--target-dash: 90;" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
-                  <text x="18" y="20.35" class="circle-percentage">90%</text>
-                </svg>
-                <div class="skill-circle-title">PowerPoint</div>
-              </div>
+            <div class="skill-cat-tags">
+              <span class="skill-tag">Microsoft Excel</span>
+              <span class="skill-tag">Microsoft Word</span>
+              <span class="skill-tag">PowerPoint</span>
             </div>
           </div>
 
           <!-- Operations & Logistics -->
-          <div class="skill-card reveal">
-            <div class="skill-card-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                stroke-linejoin="round">
-                <rect x="1" y="3" width="15" height="13"></rect>
-                <polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon>
-                <circle cx="5.5" cy="18.5" r="2.5"></circle>
-                <circle cx="18.5" cy="18.5" r="2.5"></circle>
-              </svg>
+          <div class="skill-cat-card reveal" data-cat="amber">
+            <div class="skill-cat-header">
+              <div class="skill-cat-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                  stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <path
+                    d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" />
+                  <polyline points="3.27 6.96 12 12.01 20.73 6.96" />
+                  <line x1="12" y1="22.08" x2="12" y2="12" />
+                </svg>
+              </div>
+              <h3 class="skill-cat-title" data-i18n="skills.cat_ops">Operations &amp; Logistics</h3>
             </div>
-            <h3 class="skill-card-title" data-i18n="skills.cat_ops">Operations & Logistics</h3>
-            <div class="skill-circles-grid">
-              <div class="skill-circle-item">
-                <svg viewBox="0 0 36 36" class="circular-chart">
-                  <path class="circle-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
-                  <path class="circle reveal-circle" stroke-dasharray="0, 100" style="--target-dash: 95;" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
-                  <text x="18" y="20.35" class="circle-percentage">95%</text>
+            <div class="skill-cat-tags">
+              <span class="skill-tag" data-i18n="skills.inventory">Inventory Management</span>
+              <span class="skill-tag" data-i18n="skills.warehouse">Warehouse Management</span>
+              <span class="skill-tag" data-i18n="skills.cashier">Cashiering Operations</span>
+              <span class="skill-tag skill-tag-driving">
+                <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                  aria-hidden="true">
+                  <circle cx="12" cy="12" r="10" />
+                  <circle cx="12" cy="12" r="3" />
+                  <line x1="12" y1="2" x2="12" y2="9" />
+                  <line x1="12" y1="15" x2="12" y2="22" />
+                  <line x1="2" y1="12" x2="9" y2="12" />
+                  <line x1="15" y1="12" x2="22" y2="12" />
                 </svg>
-                <div class="skill-circle-title" data-i18n="skills.inventory">Inventory Management</div>
-              </div>
-              <div class="skill-circle-item">
-                <svg viewBox="0 0 36 36" class="circular-chart">
-                  <path class="circle-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
-                  <path class="circle reveal-circle" stroke-dasharray="0, 100" style="--target-dash: 90;" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
-                  <text x="18" y="20.35" class="circle-percentage">90%</text>
-                </svg>
-                <div class="skill-circle-title" data-i18n="skills.warehouse">Warehouse Management</div>
-              </div>
-              <div class="skill-circle-item">
-                <svg viewBox="0 0 36 36" class="circular-chart">
-                  <path class="circle-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
-                  <path class="circle reveal-circle" stroke-dasharray="0, 100" style="--target-dash: 90;" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
-                  <text x="18" y="20.35" class="circle-percentage">90%</text>
-                </svg>
-                <div class="skill-circle-title" data-i18n="skills.cashier">Cashiering Operations</div>
-              </div>
-              <div class="skill-circle-item">
-                <svg viewBox="0 0 36 36" class="circular-chart">
-                  <path class="circle-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
-                  <path class="circle reveal-circle" stroke-dasharray="0, 100" style="--target-dash: 85;" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
-                  <text x="18" y="20.35" class="circle-percentage">85%</text>
-                </svg>
-                <div class="skill-circle-title" data-i18n="skills.after_sales">After-Sales Service</div>
-              </div>
-              <div class="skill-circle-item" style="grid-column: span 2;">
-                <span class="skill-tag skill-tag-driving" data-i18n="skills.driving" style="opacity:1;transform:none;border-color:#3b82f6;color:#3b82f6;margin:0 auto;">Driving Licence B</span>
-              </div>
+                <span data-i18n="skills.driving">Driving Licence B</span>
+              </span>
             </div>
           </div>
 
           <!-- Leadership & People -->
-          <div class="skill-card reveal">
-            <div class="skill-card-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                stroke-linejoin="round">
-                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-                <circle cx="9" cy="7" r="4"></circle>
-                <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
-                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
-              </svg>
+          <div class="skill-cat-card reveal" data-cat="rose">
+            <div class="skill-cat-header">
+              <div class="skill-cat-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                  stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                  <circle cx="9" cy="7" r="4" />
+                  <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+                  <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                </svg>
+              </div>
+              <h3 class="skill-cat-title" data-i18n="skills.cat_soft">Leadership &amp; People</h3>
             </div>
-            <h3 class="skill-card-title" data-i18n="skills.cat_soft">Leadership & People</h3>
             <div class="skill-cat-tags">
               <span class="skill-tag" data-i18n="skills.leadership">Leadership</span>
               <span class="skill-tag" data-i18n="skills.teamwork">Teamwork</span>
-              <span class="skill-tag" data-i18n="skills.problem_solving">Problem Solving</span>
+              <span class="skill-tag" data-i18n="skills.customer_svc">Customer Service Excellence</span>
+              <span class="skill-tag" data-i18n="skills.problem_solving">Creative Problem Solving</span>
               <span class="skill-tag" data-i18n="skills.adaptability">Adaptability</span>
-              <span class="skill-tag" data-i18n="skills.customer_svc">Customer Service</span>
             </div>
           </div>
-        </div>
+
+        </div><!-- /skill-categories -->
 
         <!-- Languages — Redesigned Clean Cards -->
         <div class="languages-section reveal">
