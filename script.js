@@ -582,8 +582,6 @@ document.addEventListener('DOMContentLoaded', () => {
   // 6. INTERSECTION OBSERVER (Scroll Animations)
   // ==========================================================
   const revealElements = document.querySelectorAll('.reveal');
-  const skillBadges = document.querySelectorAll('.skill-badge');
-  const langBars = document.querySelectorAll('.lang-bar');
 
   const revealOptions = {
     threshold: 0.15,
@@ -670,30 +668,6 @@ document.addEventListener('DOMContentLoaded', () => {
     bulletObserver.observe(card);
   });
 
-
-
-  // Language bars animation
-  const langObserver = new IntersectionObserver((entries, observer) => {
-    entries.forEach(entry => {
-      if (!entry.isIntersecting) return;
-      
-      const barContainer = entry.target;
-      const bars = barContainer.querySelectorAll('.lang-bar');
-      
-      bars.forEach((bar, index) => {
-        setTimeout(() => {
-          bar.classList.add('animated');
-        }, index * 200); // 200ms stagger
-      });
-      
-      observer.unobserve(barContainer);
-    });
-  }, { threshold: 0.2 });
-
-  const langSection = document.querySelector('.languages-section');
-  if (langSection) {
-    langObserver.observe(langSection);
-  }
 
   // ==========================================================
   // 8. CONTACT EMAIL REDIRECT (Mobile/Desktop)
