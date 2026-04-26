@@ -710,9 +710,67 @@ document.addEventListener('DOMContentLoaded', () => {
     bulletObserver.observe(card);
   });
 
+  // ==========================================================
+  // EXPERIENCE ELEGANCE: Duration labels + Tenure progress bars
+  // ==========================================================
+  (function initExpElegance() {
+    /** Parse "YYYY-MM" → { year, month }. Falls back to today if absent. */
+    const parseDate = (str) => {
+      if (!str) { const n = new Date(); return { year: n.getFullYear(), month: n.getMonth() + 1 }; }
+      const [y, m] = str.split('-').map(Number);
+      return { year: y || new Date().getFullYear(), month: m || 1 };
+    };
+
+    /** Inclusive month count between two dates */
+    const monthsBetween = (s, e) => Math.max(1, (e.year - s.year) * 12 + (e.month - s.month) + 1);
+
+    /** "X yr Y mo" formatter */
+    const fmt = (total) => {
+      const yrs = Math.floor(total / 12), mos = total % 12;
+      if (yrs === 0) return `${mos} mo`;
+      if (mos === 0) return `${yrs} yr`;
+      return `${yrs} yr ${mos} mo`;
+    };
+
+    const blocks = Array.from(document.querySelectorAll('[data-start]'));
+    if (!blocks.length) return;
+
+    // Compute month counts for every block
+    const counts = blocks.map(block => {
+      const s = parseDate(block.dataset.start);
+      const e = parseDate(block.dataset.end);
+      return monthsBetween(s, e);
+    });
+
+    // Inject duration text & store relative % on fill elements
+    const maxMonths = Math.max(...counts);
+    blocks.forEach((block, i) => {
+      const durEl = block.querySelector('.exp-duration');
+      if (durEl) durEl.textContent = fmt(counts[i]);
+      const fill = block.querySelector('.exp-tenure-fill');
+      if (fill) fill.dataset.tenurePct = Math.round((counts[i] / maxMonths) * 100);
+    });
+
+    // Animate bars in on scroll
+    const tenureObs = new IntersectionObserver((entries, obs) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        const fill = entry.target.querySelector('.exp-tenure-fill');
+        if (fill) {
+          const pct = fill.dataset.tenurePct || 0;
+          const apply = () => { fill.style.width = pct + '%'; };
+          prefersReducedMotion ? apply() : setTimeout(apply, 350);
+        }
+        obs.unobserve(entry.target);
+      });
+    }, { threshold: 0.25 });
+
+    blocks.forEach(b => tenureObs.observe(b));
+  })();
 
   // ==========================================================
   // 8. CONTACT EMAIL REDIRECT (Mobile/Desktop)
+
   // ==========================================================
   const contactEmailLink = document.getElementById('contact-icon-email');
   if (contactEmailLink) {
