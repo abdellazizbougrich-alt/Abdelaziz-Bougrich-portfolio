@@ -1201,11 +1201,11 @@ button { cursor: pointer; font-family: inherit; border: none; background: none; 
   }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 767px) {
   @keyframes langDropIn {
     from {
       opacity: 0;
-      transform: translateY(-40px);
+      transform: translateY(-30px);
     }
     to {
       opacity: 1;
@@ -1575,28 +1575,42 @@ button { cursor: pointer; font-family: inherit; border: none; background: none; 
 .cefr-legend-dot.cefr-ar { background: #0d9488; }
 
 /* ── RESPONSIVE ── */
-@media (max-width: 900px) {
-  .sv2-bars {
-    grid-template-columns: 1fr;
-    gap: 1rem;
-  }
-  .sv2-lang-row {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 24px 16px;
-  }
+@media (max-width: 1023px) {
+  /* Tablet */
+  .sv2-bars { grid-template-columns: 1fr 1fr; gap: 2rem; }
+  .sv2-lang-row { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+  .sv2-ring-wrap { width: 110px; height: 110px; }
+  .sv2-flag { width: 44px; height: 44px; }
 }
 
-@media (max-width: 600px) {
-  .sv2-block {
-    padding: 1.5rem 1.25rem;
-  }
-  .sv2-lang-row {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px 12px;
-  }
-  .sv2-ring-wrap { width: 110px; height: 110px; }
-  .sv2-flag { width: 42px; height: 42px; }
-  .sv2-lang-card { padding: 24px 16px; gap: 8px; }
+@media (max-width: 767px) {
+  /* Mobile */
+  .sv2-bars { grid-template-columns: 1fr; gap: 16px; }
+  .sv2-block { padding: 20px; margin-bottom: 16px; }
+  .sv2-block-icon { width: 32px; height: 32px; }
+  .sv2-block-icon svg { width: 16px; height: 16px; }
+  .sv2-block-title { font-size: 1rem; }
+  
+  .sv2-bar-item { gap: 4px; }
+  .sv2-bar-label { display: flex; flex-direction: column; align-items: flex-start; }
+  .sv2-pct { margin-top: 4px; }
+  
+  /* Language rings: 2x2 grid */
+  .sv2-lang-row { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+  .sv2-lang-card { padding: 16px 12px; gap: 8px; }
+  .sv2-ring-wrap { width: 80px; height: 80px; }
+  .sv2-flag { width: 32px; height: 32px; }
+  .sv2-lang-name { font-size: 1rem; }
+  .sv2-lang-desc { font-size: 0.75rem; }
+
+  /* Soft skills */
+  .sv2-pills { gap: 8px; }
+  .sv2-pill { padding: 6px 12px; font-size: 0.8125rem; }
+
+  /* Permis de conduire badge positioning */
+  .sv2-cred-row { justify-content: center; margin-bottom: 16px; }
+  .sv2-cred-badge { padding: 6px 14px; font-size: 0.75rem; }
+  .sv2-cred-icon svg { width: 16px; height: 16px; }
 }
 
 /* ── Languages */
@@ -2760,8 +2774,8 @@ button { cursor: pointer; font-family: inherit; border: none; background: none; 
   transition: transform 0.8s cubic-bezier(0.25,1,0.5,1);
 }
 
-/* ── Responsive: tablet ── */
-@media (max-width: 1100px) {
+/* ── Responsive: Tablet (768px - 1023px) ── */
+@media (max-width: 1023px) {
   .cvt-timeline {
     margin-left: 0;
     margin-right: 0;
@@ -2771,13 +2785,13 @@ button { cursor: pointer; font-family: inherit; border: none; background: none; 
   .cvt-card--right {
     grid-template-columns: 1fr;
     min-height: unset;
+    border-radius: 20px;
+    margin-bottom: 24px;
+    border: 1px solid var(--border-subtle);
   }
   /* Image always on top */
   .cvt-image-side { order: -1; min-height: 280px; }
-  .cvt-img-fade {
-    background: linear-gradient(to bottom, transparent 60%, var(--bg-secondary) 100%);
-  }
-  .cvt-img-fade--right {
+  .cvt-img-fade, .cvt-img-fade--right {
     background: linear-gradient(to bottom, transparent 60%, var(--bg-secondary) 100%);
   }
   .cvt-img-overflow {
@@ -2790,15 +2804,109 @@ button { cursor: pointer; font-family: inherit; border: none; background: none; 
     font-size: clamp(3.5rem, 12vw, 5rem);
     right: 1rem;
   }
+  .cvt-content-side { padding: 32px; }
 }
 
-/* ── Responsive: mobile ── */
-@media (max-width: 768px) {
-  .cvt-image-side { min-height: 220px; }
-  .cvt-content-side { padding: 2rem 1.5rem; }
-  .cvt-role { font-size: clamp(1.3rem, 5vw, 1.7rem); }
-  .cvt-img-overflow { display: none; }   /* Too cramped on mobile */
-  .cvt-logo { width: 40px; height: 40px; }
+/* ── Responsive: Mobile (up to 767px) ── */
+@media (max-width: 767px) {
+  .cvt-timeline {
+    position: relative;
+    padding-left: 18px; /* Room for the vertical spine */
+  }
+  .cvt-timeline::before {
+    content: '';
+    position: absolute;
+    top: 0; bottom: 0; left: 4px;
+    width: 2px;
+    background: var(--border-subtle);
+  }
+
+  .cvt-card, .cvt-card--right {
+    display: flex;
+    flex-direction: column;
+    border-radius: 16px;
+    border: 1px solid var(--border-subtle);
+    gap: 0;
+    margin-bottom: 24px;
+    position: relative;
+    padding: 0;
+  }
+
+  .cvt-card::before {
+    content: '';
+    position: absolute;
+    top: 60px; /* Aligned roughly within the image area */
+    left: -19px; /* 18px padding + 1px half-line */
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--sk-teal);
+    z-index: 2;
+  }
+
+  .cvt-image-side {
+    height: 200px;
+    min-height: 200px;
+    width: 100%;
+    order: -1;
+    overflow: hidden;
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
+  }
+  .cvt-img-wrap, .cvt-logo-panel { height: 100%; width: 100%; inset: 0; position: relative; }
+  .cvt-img, .cvt-logo-bg { height: 100%; width: 100%; object-fit: cover; border-radius: 0; transform: none !important; }
+  .cvt-img-overflow, .cvt-img-fade { display: none; }
+
+  /* Date Badge (Pill) */
+  .cvt-date-col {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    background: var(--sk-teal);
+    padding: 4px 12px;
+    border-radius: 99px;
+    z-index: 10;
+  }
+  .cvt-date-range { color: #fff; font-size: 0.75rem; font-weight: 600; display: block; }
+  .exp-duration { display: none; }
+  .cvt-watermark { display: none; }
+
+  /* Company Logo Floating */
+  .cvt-meta { position: static; }
+  .cvt-logo {
+    position: absolute;
+    top: 176px; /* overlapping image by 24px (200 - 24) */
+    right: 20px;
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    background: var(--bg-card);
+    z-index: 10;
+    padding: 4px;
+    object-fit: contain;
+  }
+
+  /* Content */
+  .cvt-content-side {
+    padding: 24px 20px;
+    display: flex;
+    flex-direction: column;
+  }
+  .cvt-role { font-size: 1.125rem; margin-top: 8px; }
+  .cvt-company { font-size: 0.875rem; margin-bottom: 16px; }
+
+  /* Bullets */
+  .cvt-bullets { gap: 12px; }
+  .cvt-bullets li {
+    font-size: 0.8125rem;
+    line-height: 1.6;
+    padding-left: 12px;
+    border-left: 2px solid var(--sk-teal);
+  }
+  .cvt-bullets li::before { display: none; }
+  .cvt-bullets li.bullet-hidden { opacity: 1; transform: none; } 
+  .cvt-card:hover .cvt-bullets li:first-child { padding-left: 12px; border-left-color: var(--sk-teal); color: var(--text-secondary); }
 }
 
 
@@ -4233,4 +4341,38 @@ footer {
 .diploma-modal-close svg {
   width: 20px;
   height: 20px;
+}
+
+/* ============================================================
+   MOBILE OPTIMIZATIONS (GLOBAL)
+   ============================================================ */
+@media (max-width: 767px) {
+  html { font-size: 14px; }
+  body { line-height: 1.7; }
+  .section { padding: 48px 16px; }
+  .container { padding-left: 16px; padding-right: 16px; max-width: 100%; overflow-x: hidden; }
+  
+  /* Badges */
+  .badge { padding: 6px 14px; font-size: 0.75rem; }
+  .badge svg { width: 16px; height: 16px; }
+
+  /* Images global */
+  img { max-width: 100%; height: auto; }
+}
+
+@media (max-width: 359px) {
+  .badge, .sv2-cred-badge, .about-badges .badge {
+    flex-direction: column;
+    text-align: center;
+    white-space: nowrap;
+    justify-content: center;
+    padding: 8px;
+  }
+}
+
+@media (hover: none) and (pointer: coarse) {
+  /* Disable hover-only states on touch */
+  .sv2-lang-card:active {
+    transform: translateY(-4px);
+  }
 }

@@ -630,6 +630,8 @@ document.addEventListener('DOMContentLoaded', () => {
   document.body.appendChild(sv2Defs);
 
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+  const getThreshold = (desktop, mobile) => window.innerWidth <= 768 ? mobile : desktop;
   const CIRCUMFERENCE = 2 * Math.PI * 58; // r=58 → ≈ 364.42
 
   // ── Animate progress bars ──
@@ -644,12 +646,13 @@ document.addEventListener('DOMContentLoaded', () => {
           if (prefersReducedMotion) {
             fill.style.width = target + '%';
           } else {
-            setTimeout(() => { fill.style.width = target + '%'; }, i * 80);
+            const stagger = isTouch ? i * 55 : i * 80;
+            setTimeout(() => { fill.style.width = target + '%'; }, stagger);
           }
         });
         obs.unobserve(entry.target);
       });
-    }, { threshold: 0.15 });
+    }, { threshold: getThreshold(0.15, 0.1) });
     barsObserver.observe(barsContainer);
   }
 
@@ -681,7 +684,8 @@ document.addEventListener('DOMContentLoaded', () => {
             animate();
           } else {
             // Delay ring fill to sync roughly with drop-in landing
-            setTimeout(animate, i * 150 + 400);
+            const stagger = isTouch ? (i * 105 + 280) : (i * 150 + 400);
+            setTimeout(animate, stagger);
           }
         });
 
@@ -692,13 +696,14 @@ document.addEventListener('DOMContentLoaded', () => {
           if (prefersReducedMotion) {
             animate();
           } else {
-            setTimeout(animate, i * 150 + 500);
+            const stagger = isTouch ? (i * 105 + 350) : (i * 150 + 500);
+            setTimeout(animate, stagger);
           }
         });
 
         obs.unobserve(entry.target);
       });
-    }, { threshold: 0.3 });
+    }, { threshold: getThreshold(0.3, 0.2) });
 
     langObserver.observe(langBlock);
   }
@@ -713,14 +718,15 @@ document.addEventListener('DOMContentLoaded', () => {
       // CVT bullets + legacy selectors (kept for safety)
       const bullets = card.querySelectorAll('.cvt-bullets li, .exp-cinema-bullets li, .exp-card-bullets li');
       bullets.forEach((li, i) => {
-        setTimeout(() => {
-          li.classList.remove('bullet-hidden');
-          li.classList.add('bullet-visible');
-        }, i * 140 + 50);
+          const stagger = isTouch ? (i * 100 + 35) : (i * 140 + 50);
+          setTimeout(() => {
+            li.classList.remove('bullet-hidden');
+            li.classList.add('bullet-visible');
+          }, stagger);
       });
       observer.unobserve(card);
     });
-  }, { threshold: 0.15 });
+  }, { threshold: getThreshold(0.15, 0.1) });
 
   // Target CVT cards + any legacy cards still in DOM
   const expBlocks = document.querySelectorAll('.cvt-card, .exp-cinema, .exp-card');
@@ -733,7 +739,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // ----------------------------------------------------------
   // CVT Parallax — shift .cvt-img on scroll for depth effect
   // ----------------------------------------------------------
-  if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  if (!isTouch && !prefersReducedMotion) {
     const cvtImgs = document.querySelectorAll('.cvt-img');
     if (cvtImgs.length) {
       let rafPending = false;
@@ -819,7 +825,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         obs.unobserve(entry.target);
       });
-    }, { threshold: 0.25 });
+    }, { threshold: getThreshold(0.25, 0.15) });
 
     blocks.forEach(b => tenureObs.observe(b));
   })();
