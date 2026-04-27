@@ -524,6 +524,11 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
 
+    // Close on orientation change / resize
+    window.addEventListener('resize', () => {
+      if (langDropdownMenu.classList.contains('open')) { closeLangMenu(); }
+    });
+
     // Close on Escape key
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && langDropdownMenu.classList.contains('open')) {
@@ -836,7 +841,8 @@ document.addEventListener('DOMContentLoaded', () => {
   // ==========================================================
   const contactEmailLink = document.getElementById('contact-icon-email');
   if (contactEmailLink) {
-    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth <= 768;
+    // Use touch capability + small viewport for reliable mobile detection
+  const isMobile = ('ontouchstart' in window) || navigator.maxTouchPoints > 0 || /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
     if (isMobile) {
       // Changing the link to mailto: which triggers the default native mail app (e.g. Gmail) on mobile devices
       contactEmailLink.href = 'mailto:abdelaziz.bougrich@gmail.com';
@@ -920,6 +926,11 @@ document.addEventListener('DOMContentLoaded', () => {
       if (e.target === diplomaModal || e.target.classList.contains('diploma-modal-overlay')) {
         closeModal();
       }
+    });
+
+    // Close on orientation change / resize
+    window.addEventListener('resize', () => {
+      if (langDropdownMenu.classList.contains('open')) { closeLangMenu(); }
     });
 
     // Close on Escape key

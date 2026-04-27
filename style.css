@@ -150,11 +150,10 @@ button { cursor: pointer; font-family: inherit; border: none; background: none; 
 .section-header {
   display: flex;
   flex-direction: column;
-  margin-bottom: 3rem; /* Adjusted to 48px baseline */
+  margin-bottom: 4rem;
   align-items: center;
   justify-content: center;
   text-align: center;
-  margin-bottom: 4rem;
 }
 
 .section-label {
@@ -303,12 +302,13 @@ button { cursor: pointer; font-family: inherit; border: none; background: none; 
 .nav-container {
   max-width: var(--max-width);
   margin: 0 auto;
-  padding: 0 clamp(1.5rem, 5vw, 3rem);
+  padding: 0 clamp(0.75rem, 4vw, 3rem);
   height: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: var(--space-md);
+  gap: 0.5rem;
+  overflow: visible; /* keep dropdowns accessible */
 }
 
 .nav-logo {
@@ -1048,6 +1048,8 @@ button { cursor: pointer; font-family: inherit; border: none; background: none; 
   display: flex;
   flex-direction: column;
   gap: 3rem;
+  min-width: 0;
+  max-width: 100%;
 }
 
 /* ── Each block (bars / pills / rings) ── */
@@ -1592,8 +1594,8 @@ button { cursor: pointer; font-family: inherit; border: none; background: none; 
   .sv2-block-title { font-size: 1rem; }
   
   .sv2-bar-item { gap: 4px; }
-  .sv2-bar-label { display: flex; flex-direction: column; align-items: flex-start; }
-  .sv2-pct { margin-top: 4px; }
+  .sv2-bar-label { display: flex; flex-direction: row; justify-content: space-between; align-items: center; flex-wrap: nowrap; }
+  .sv2-pct { margin-top: 0; }
   
   /* Language rings: 2x2 grid */
   .sv2-lang-row { grid-template-columns: repeat(2, 1fr); gap: 16px; }
@@ -2186,12 +2188,8 @@ button { cursor: pointer; font-family: inherit; border: none; background: none; 
   }
   /* Reduce mask fade on mobile so face is fully visible */
   .hero-img-wrapper {
-    -webkit-mask-image:
-      linear-gradient(to bottom, transparent 0%, black 5%, black 80%, transparent 100%),
-      linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%);
-    mask-image:
-      linear-gradient(to bottom, transparent 0%, black 5%, black 80%, transparent 100%),
-      linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 70%, rgba(0,0,0,0) 100%);
+    mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 70%, rgba(0,0,0,0) 100%);
   }
 
   /* Hide the scroll indicator on mobile to free vertical space */
@@ -2889,6 +2887,8 @@ button { cursor: pointer; font-family: inherit; border: none; background: none; 
 
   /* Content */
   .cvt-content-side {
+    position: static;
+    overflow: visible;
     padding: 24px 20px;
     display: flex;
     flex-direction: column;
@@ -3404,7 +3404,7 @@ button { cursor: pointer; font-family: inherit; border: none; background: none; 
 
   .hero-text {
     max-width: 100%;
-    margin-left: 0;
+    margin-left: 0 !important;
   }
 
   .hero-greeting {
@@ -4222,126 +4222,6 @@ footer {
   width: 20px;
   height: 20px;
 }
-  top: 0; left: 0; right: 0; bottom: 0;
-  background: linear-gradient(135deg, rgba(255,255,255,0.25), rgba(255,255,255,0));
-  z-index: -1;
-  opacity: 0;
-  transition: opacity 0.4s ease;
-}
-
-.btn-diploma:hover {
-  transform: translateY(-3px) scale(1.02);
-  box-shadow: 0 10px 25px rgba(59, 130, 246, 0.4);
-}
-
-.btn-diploma:hover::before {
-  opacity: 1;
-}
-
-[data-theme="light"] .btn-diploma {
-  color: #ffffff;
-  box-shadow: 0 4px 15px rgba(37, 99, 235, 0.25);
-}
-
-[data-theme="light"] .btn-diploma:hover {
-  box-shadow: 0 8px 25px rgba(37, 99, 235, 0.4);
-}
-
-.diploma-icon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-
-.btn-diploma:hover .diploma-icon {
-  transform: scale(1.1);
-}
-
-.diploma-modal {
-  position: fixed;
-  inset: 0;
-  z-index: 9999;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  visibility: hidden;
-  opacity: 0;
-  transition: opacity 0.3s ease, visibility 0.3s ease;
-}
-
-.diploma-modal.open {
-  visibility: visible;
-  opacity: 1;
-}
-
-.diploma-modal-overlay {
-  position: absolute;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.8);
-  backdrop-filter: blur(5px);
-  -webkit-backdrop-filter: blur(5px);
-}
-
-.diploma-modal-content {
-  position: relative;
-  z-index: 10000;
-  max-width: 90vw;
-  max-height: 90vh;
-  padding: 1rem;
-  border-radius: var(--radius-md);
-  transform: scale(0.95);
-  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.diploma-modal.open .diploma-modal-content {
-  transform: scale(1);
-}
-
-.diploma-modal-content img {
-  display: block;
-  max-width: 100%;
-  max-height: calc(90vh - 2rem);
-  object-fit: contain;
-  border-radius: var(--radius-sm);
-  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
-}
-
-.diploma-modal-close {
-  position: absolute;
-  top: -10px;
-  right: -10px;
-  width: 40px;
-  height: 40px;
-  background: var(--bg-card);
-  color: var(--text-primary);
-  border: 1px solid var(--border);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  box-shadow: var(--shadow-sm);
-  transition: all 0.2s ease;
-  z-index: 10001;
-}
-
-[data-theme="light"] .diploma-modal-close {
-  background: #fff;
-  border-color: var(--border-subtle);
-}
-
-.diploma-modal-close:hover {
-  background: var(--accent);
-  color: #fff;
-  transform: scale(1.1) rotate(90deg);
-  border-color: var(--accent);
-}
-
-.diploma-modal-close svg {
-  width: 20px;
-  height: 20px;
-}
 
 /* ============================================================
    MOBILE OPTIMIZATIONS (GLOBAL)
@@ -4368,6 +4248,34 @@ footer {
     justify-content: center;
     padding: 8px;
   }
+
+  /* Language rings: drop to 1 column on tiny screens */
+  .sv2-lang-row {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+  .sv2-lang-card { padding: 12px 8px; gap: 6px; }
+  .sv2-ring-wrap { width: 64px; height: 64px; }
+  .sv2-flag { width: 26px; height: 26px; }
+  .sv2-lang-name { font-size: 0.85rem; }
+  .sv2-lang-desc { font-size: 0.68rem; }
+  .sv2-micro-bar-wrap { width: 56px; }
+
+  /* Education cards */
+  .edu-card { padding: 1rem 0.75rem; }
+
+  /* Contact pills: shrink to fit */
+  .contact-icon-pill { padding: 0.7rem 0.9rem 0.7rem 0.7rem; }
+  .contact-circle-frame { width: 40px; height: 40px; }
+  .contact-circle-frame svg { width: 18px; height: 18px; }
+  .contact-pill-value { font-size: 0.78rem; max-width: calc(100vw - 90px); }
+  .contact-pill-label { font-size: 0.62rem; }
+
+  /* Nav container: squeeze more on ultra-narrow */
+  .nav-container { padding: 0 0.5rem; gap: 0.25rem; }
+  .unified-icon-btn { width: 28px; height: 28px; }
+  .unified-icon-btn svg { width: 12px; height: 12px; }
+  .pill-divider { display: none; }
 }
 
 @media (hover: none) and (pointer: coarse) {
