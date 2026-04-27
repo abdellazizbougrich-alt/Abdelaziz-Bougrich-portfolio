@@ -105,6 +105,17 @@ body {
   line-height: 1.7;
   transition: background-color var(--t-slow), color var(--t-slow);
   overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+main {
+  flex: 1 0 auto;
+}
+
+footer {
+  flex-shrink: 0;
 }
 
 img { max-width: 100%; height: auto; display: block; }
