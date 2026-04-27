@@ -91,12 +91,18 @@
    ============================================================ */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
 html {
   scroll-behavior: smooth;
   font-size: 16px;
-  overflow-x: hidden;
   width: 100%;
-  background-color: var(--bg-secondary);
+  background-color: var(--bg-primary); /* Match body to prevent color voids */
+  overflow-x: hidden;
 }
 
 body {
@@ -105,11 +111,12 @@ body {
   color: var(--text-primary);
   line-height: 1.7;
   transition: background-color var(--t-slow), color var(--t-slow);
-  overflow-x: hidden;
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
   min-height: 100dvh;
+  width: 100%;
+  overflow-x: hidden;
+  height: auto;
 }
 
 main {
@@ -1945,35 +1952,27 @@ button { cursor: pointer; font-family: inherit; border: none; background: none; 
   border-top: 1px solid var(--border-subtle);
   padding: 2.5rem 0 1.5rem;
   position: relative;
-  margin-top: auto;
-}
-
-/* Bulletproof fix for bottom-of-page gap: physically paints the void */
-#footer::after {
-  content: '';
-  position: absolute;
-  top: 100%;
-  left: 0;
-  right: 0;
-  height: 200vh;
-  background: var(--bg-secondary);
-  pointer-events: none;
-  z-index: -1;
+  margin-top: auto; /* Essential for sticky footer in flex container */
+  flex-shrink: 0;
 }
 
 .footer-container {
   max-width: var(--max-width);
   margin: 0 auto;
   padding: 0 clamp(1.5rem, 5vw, 3rem);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2.5rem; /* Consistent vertical spacing for the stack */
 }
 
 .footer-top {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: space-between;
-  margin-bottom: 1.5rem;
-  flex-wrap: wrap;
-  gap: 1rem;
+  justify-content: center;
+  margin-bottom: 0;
+  gap: 1.25rem;
 }
 
 .footer-logo { opacity: 0.8; transition: opacity var(--t-fast); }
@@ -1981,6 +1980,8 @@ button { cursor: pointer; font-family: inherit; border: none; background: none; 
 
 .footer-nav {
   display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: var(--space-md);
 }
 
@@ -1993,8 +1994,8 @@ button { cursor: pointer; font-family: inherit; border: none; background: none; 
 .footer-nav a:hover { color: var(--accent); }
 
 .footer-bottom {
-  border-top: 1px solid var(--border-subtle);
-  padding-top: 1.5rem;
+  border-top: none; /* Remove line to allow clean top-down stack */
+  padding-top: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -4310,4 +4311,43 @@ footer {
   .sv2-lang-card:active {
     transform: translateY(-4px);
   }
+}
+
+/* Responsive Mobile Optimization & Polishing */
+@media (max-width: 767px) {
+  .about-badges, .about-info {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+/* Footer Enhancements */
+.footer-social-links {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-top: 1rem;
+}
+.footer-social-links a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  color: var(--text-secondary);
+  background: var(--bg-card);
+  transition: all 0.3s ease;
+}
+.footer-social-links a:hover {
+  color: var(--accent);
+  background: var(--accent-glow);
+  transform: translateY(-2px);
+}
+
+/* Increase touch targets */
+.footer-nav a {
+  min-height: 44px;
+  display: flex;
+  align-items: center;
 }
