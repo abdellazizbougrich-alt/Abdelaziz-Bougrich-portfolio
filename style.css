@@ -1947,14 +1947,14 @@ button { cursor: pointer; font-family: inherit; border: none; background: none; 
 /* ============================================================
    14. FOOTER
    ============================================================ */
-/*#footer {
+#footer {
   background: var(--bg-secondary);
   border-top: 1px solid var(--border-subtle);
-  padding: 2.5rem 0 1.5rem;
+  padding: 3rem 0 2rem;
   position: relative;
   margin-top: auto; /* Essential for sticky footer in flex container */
   flex-shrink: 0;
-}*/
+}
 
 .footer-container {
   max-width: var(--max-width);
@@ -2053,37 +2053,40 @@ button { cursor: pointer; font-family: inherit; border: none; background: none; 
   color: var(--text-muted);
 }
 
-/* Scroll to top */
+/* Scroll to top button in footer */
 .scroll-top-btn {
-  position: absolute;
-  right: 2rem;
-  bottom: 1.2rem;
-  width: 38px;
-  height: 38px;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
   background: var(--gradient-accent);
-  color: var(--bg-primary);
-  font-size: 1.1rem;
-  font-weight: 700;
+  color: #fff;
   display: flex;
   align-items: center;
   justify-content: center;
   transition: all var(--t-base);
-  opacity: 0;
-  pointer-events: none;
-  transform: translateY(10px);
+  border: none;
+  cursor: pointer;
+  margin-top: 1rem;
+  box-shadow: var(--shadow-md);
 }
 
-.scroll-top-btn.visible {
-  opacity: 1;
-  pointer-events: auto;
-  transform: translateY(0);
+.scroll-top-btn svg {
+  width: 20px;
+  height: 20px;
+  stroke: currentColor;
 }
 
 .scroll-top-btn:hover {
-  transform: translateY(-3px);
+  transform: translateY(-5px);
   box-shadow: var(--shadow-glow);
+  background: var(--accent);
 }
+
+.scroll-top-btn:active {
+  transform: translateY(0) scale(0.95);
+}
+
+
 
 /* ============================================================
    15. RESPONSIVE — TABLET (max 1024px)
@@ -2298,7 +2301,7 @@ button { cursor: pointer; font-family: inherit; border: none; background: none; 
     gap: 0.75rem 1rem;
   }
   .footer-bottom { flex-direction: column; text-align: center; }
-  .scroll-top-btn { right: 1rem; }
+
 }
 
 /* ============================================================

@@ -570,15 +570,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     lastScrollY = scrollY;
 
-    // 2. Scroll to top button visibility
-    if (scrollTopBtn) {
-      if (scrollY > 500) {
-        scrollTopBtn.classList.add('visible');
-      } else {
-        scrollTopBtn.classList.remove('visible');
-      }
-    }
-
+    // 2. Scroll to top button visibility - REMOVED (now always in footer)
     isScrolling = false;
   };
 
