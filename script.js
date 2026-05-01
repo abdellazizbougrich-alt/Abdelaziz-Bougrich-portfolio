@@ -896,7 +896,7 @@ document.addEventListener('DOMContentLoaded', () => {
       document.body.style.overflow = '';
       setTimeout(() => {
         if (!diplomaModal.classList.contains('open')) {
-          diplomaImg.src = '';
+          diplomaImg.src = 'data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs='; // Prevents local file frame error
         }
       }, 300);
     };

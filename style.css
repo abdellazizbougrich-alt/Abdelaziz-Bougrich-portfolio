@@ -2651,16 +2651,18 @@ button { cursor: pointer; font-family: inherit; border: none; background: none; 
 }
 
 .cvt-logo-bg {
-  width: clamp(80px, 18%, 130px);
+  width: clamp(140px, 28%, 240px); /* Made bigger to emphasize logo fonts */
   height: auto;
   object-fit: contain;
-  opacity: 0.08;
-  filter: grayscale(1);
-  transition: opacity 0.4s ease;
+  opacity: 0.12; /* More obvious but still an elegant reflection */
+  filter: grayscale(1) contrast(1.15); /* Slightly boosted contrast */
+  transition: all 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+  transform-origin: center;
 }
 
 .cvt-card:hover .cvt-logo-bg {
-  opacity: 0.13;
+  opacity: 0.20;
+  transform: scale(1.05); /* Elegant subtle zoom */
 }
 
 /* ── Content side ── */
@@ -2872,7 +2874,8 @@ button { cursor: pointer; font-family: inherit; border: none; background: none; 
     border-top-right-radius: 16px;
   }
   .cvt-img-wrap, .cvt-logo-panel { height: 100%; width: 100%; inset: 0; position: relative; }
-  .cvt-img, .cvt-logo-bg { height: 100%; width: 100%; object-fit: cover; border-radius: 0; transform: none !important; }
+  .cvt-img { height: 100%; width: 100%; object-fit: cover; border-radius: 0; transform: none !important; }
+  .cvt-logo-bg { width: clamp(120px, 45%, 200px); height: auto; object-fit: contain; border-radius: 0; transform: none !important; }
   .cvt-img-overflow, .cvt-img-fade { display: none; }
 
   /* Date Label (Subtle text) */
