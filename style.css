@@ -1967,7 +1967,7 @@ button { cursor: pointer; font-family: inherit; border: none; background: none; 
 #footer {
   background: var(--bg-secondary);
   border-top: 1px solid var(--border-subtle);
-  padding: 3rem 0 2rem;
+  padding: 3rem 0 1.5rem;
   position: relative;
   margin-top: auto;
   flex-shrink: 0;
@@ -2083,7 +2083,7 @@ button { cursor: pointer; font-family: inherit; border: none; background: none; 
   transition: all var(--t-base);
   border: none;
   cursor: pointer;
-  margin-top: 1rem;
+  margin-top: 0;
   box-shadow: var(--shadow-md);
 }
 
