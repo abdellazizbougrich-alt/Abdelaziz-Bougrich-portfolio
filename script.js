@@ -996,4 +996,114 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // ==========================================================
+  // 11. EXPERIENCE IMAGE GALLERY — 3D Tilt + Cross-Fade Engine
+  // ==========================================================
+  const expGalleries = document.querySelectorAll('.exp-image-gallery');
+
+  if (expGalleries.length) {
+
+    // ── Preload secondary (popup) images for seamless cross-fade ──
+    expGalleries.forEach(gallery => {
+      const popupImg = gallery.querySelector('.exp-img-popup img');
+      if (popupImg && popupImg.src && !popupImg.complete) {
+        const preloader = new Image();
+        preloader.src = popupImg.src;
+      }
+    });
+
+    // ── 3D Tilt effect (desktop/pointer only) ──
+    if (!isTouch && !prefersReducedMotion) {
+      const TILT_AMOUNT = 7;   // max degrees of rotation
+      const EASE_MS     = 80;  // ms for live tracking (fast, feels physical)
+
+      expGalleries.forEach(gallery => {
+        let rafId = null;
+        let isHovering = false;
+
+        // Cache rect on enter (avoids repeated getBoundingClientRect in mousemove)
+        let rect = null;
+
+        gallery.addEventListener('mouseenter', () => {
+          isHovering = true;
+          rect = gallery.getBoundingClientRect();
+          gallery.classList.add('tilt-active');
+        });
+
+        gallery.addEventListener('mousemove', (e) => {
+          if (!isHovering || !rect) return;
+
+          // Cancel pending frame
+          if (rafId) cancelAnimationFrame(rafId);
+
+          rafId = requestAnimationFrame(() => {
+            // Normalised offsets: -1 (left/top) to +1 (right/bottom)
+            const dx = ((e.clientX - rect.left)  / rect.width  - 0.5) * 2;
+            const dy = ((e.clientY - rect.top)   / rect.height - 0.5) * 2;
+
+            // Tilt: rotateX is inverted (mouse up → top tilts toward viewer)
+            const tiltX = -(dy * TILT_AMOUNT).toFixed(2);
+            const tiltY =  (dx * TILT_AMOUNT).toFixed(2);
+
+            // Mouse position as percentage (for glare radial-gradient)
+            const pctX = ((e.clientX - rect.left) / rect.width  * 100).toFixed(1);
+            const pctY = ((e.clientY - rect.top)  / rect.height * 100).toFixed(1);
+
+            gallery.style.setProperty('--tilt-x', `${tiltX}deg`);
+            gallery.style.setProperty('--tilt-y', `${tiltY}deg`);
+            gallery.style.setProperty('--mouse-x', `${pctX}%`);
+            gallery.style.setProperty('--mouse-y', `${pctY}%`);
+          });
+        });
+
+        gallery.addEventListener('mouseleave', () => {
+          isHovering = false;
+          if (rafId) { cancelAnimationFrame(rafId); rafId = null; }
+
+          // Animate back to flat using CSS transition (set in .tilt-active → removed)
+          gallery.classList.remove('tilt-active');
+          gallery.style.setProperty('--tilt-x', '0deg');
+          gallery.style.setProperty('--tilt-y', '0deg');
+          gallery.style.setProperty('--mouse-x', '50%');
+          gallery.style.setProperty('--mouse-y', '50%');
+        });
+
+        // Re-measure rect on scroll/resize (debounced)
+        window.addEventListener('resize', () => {
+          if (isHovering) rect = gallery.getBoundingClientRect();
+        }, { passive: true });
+      });
+    }
+  }
+
+  // ==========================================================
+  // 12. ACTIVE NAV LINK — Intersection Observer highlight
+  // ==========================================================
+  const navLinkEls = document.querySelectorAll('.nav-link[href^="#"]');
+  const sectionEls = document.querySelectorAll('section[id]');
+
+  if (navLinkEls.length && sectionEls.length) {
+    const activeLinkMap = new Map(
+      Array.from(navLinkEls).map(link => [
+        link.getAttribute('href').substring(1),
+        link
+      ])
+    );
+
+    const navHighlightObserver = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          navLinkEls.forEach(l => l.classList.remove('active'));
+          const active = activeLinkMap.get(entry.target.id);
+          if (active) active.classList.add('active');
+        }
+      });
+    }, {
+      rootMargin: '-40% 0px -55% 0px',
+      threshold: 0
+    });
+
+    sectionEls.forEach(sec => navHighlightObserver.observe(sec));
+  }
+
 });

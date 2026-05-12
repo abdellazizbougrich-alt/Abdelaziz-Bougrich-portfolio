@@ -5107,3 +5107,282 @@ footer::-webkit-scrollbar { display: none; }
   display: flex;
   align-items: center;
 }
+
+/* ============================================================
+   EXPERIENCE SECTION — ELEGANT IMAGE ANIMATION SYSTEM
+   Cross-fade · 3D Tilt · Shimmer · Enhanced Glassmorphism
+   ============================================================ */
+
+/* ── Gallery wrapper: stacks primary + secondary images ── */
+.exp-image-gallery {
+  position: relative;
+  width: 100%;
+  border-radius: 16px;
+  overflow: hidden;
+  /* CSS custom properties for tilt & cursor glare */
+  --tilt-x:  0deg;
+  --tilt-y:  0deg;
+  --mouse-x: 50%;
+  --mouse-y: 50%;
+  /* Smooth return transition (overridden during mousemove by JS) */
+  transition:
+    transform 0.55s cubic-bezier(0.25, 1, 0.5, 1),
+    box-shadow 0.55s ease;
+  will-change: transform;
+  /* Perspective is set on the element directly so child preserve-3d works */
+  transform: perspective(900px) rotateX(0deg) rotateY(0deg) translateZ(0);
+}
+
+/* ── Tilt state (class toggled by JS on hover) ── */
+.exp-image-gallery.tilt-active {
+  transform:
+    perspective(900px)
+    rotateX(var(--tilt-x))
+    rotateY(var(--tilt-y))
+    translateZ(8px);
+  box-shadow:
+    0 24px 64px rgba(59, 130, 246, 0.22),
+    0 10px 28px rgba(0, 0, 0, 0.45);
+  transition:
+    transform 0.08s linear,
+    box-shadow 0.3s ease;
+}
+
+/* ── Cursor-following glare overlay ── */
+.exp-image-gallery::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle at var(--mouse-x) var(--mouse-y),
+    rgba(255, 255, 255, 0.13) 0%,
+    transparent 62%
+  );
+  opacity: 0;
+  pointer-events: none;
+  z-index: 5;
+  border-radius: inherit;
+  transition: opacity 0.35s ease;
+}
+
+.exp-image-gallery:hover::before {
+  opacity: 1;
+}
+
+/* ── Primary image panel: z-index baseline ── */
+.exp-image-gallery .exp-image-panel {
+  position: relative;
+  z-index: 1;
+  border-radius: 16px;
+  /* Upgrade scroll-reveal slide distances */
+}
+
+/* ── Secondary image popup — cross-fades in on hover ── */
+.exp-img-popup {
+  position: absolute;
+  inset: 0;
+  border-radius: 16px;
+  overflow: hidden;
+  opacity: 0;
+  transform: scale(1.04) translateZ(0);
+  pointer-events: none;
+  z-index: 3;
+  transition:
+    opacity  0.65s cubic-bezier(0.25, 1, 0.5, 1),
+    transform 0.65s cubic-bezier(0.25, 1, 0.5, 1);
+  /* Subtle teal accent tint over the revealed image */
+  background: linear-gradient(
+    135deg,
+    rgba(59, 130, 246, 0.04) 0%,
+    transparent 50%,
+    rgba(6, 182, 212, 0.05) 100%
+  );
+}
+
+.exp-img-popup img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  filter: brightness(0.88) saturate(1.18) contrast(1.04);
+  transform: scale(1.06);
+  transition:
+    filter    0.6s ease,
+    transform 0.7s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* ── Trigger: hover the whole gallery ── */
+.exp-image-gallery:hover .exp-img-popup {
+  opacity: 1;
+  transform: scale(1) translateZ(0);
+  pointer-events: auto;
+}
+
+.exp-image-gallery:hover .exp-img-popup img {
+  filter: brightness(1) saturate(1.22) contrast(1.05);
+  transform: scale(1);
+}
+
+/* ── Bottom gradient overlay on popup image ── */
+.exp-img-popup::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(8, 14, 35, 0.55) 0%,
+    rgba(8, 14, 35, 0.08) 45%,
+    transparent 100%
+  );
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* ── Sweep shimmer on primary image reveal ── */
+.exp-image-panel::before {
+  content: '';
+  position: absolute;
+  top: -100%;
+  left: -60%;
+  width: 55%;
+  height: 220%;
+  background: linear-gradient(
+    105deg,
+    transparent 15%,
+    rgba(255, 255, 255, 0.09) 50%,
+    transparent 85%
+  );
+  transform: skewX(-14deg);
+  pointer-events: none;
+  z-index: 4;
+  border-radius: inherit;
+  opacity: 0;
+}
+
+.exp-image-panel.img-visible:hover::before {
+  animation: exp-shimmer-sweep 0.75s ease forwards;
+}
+
+@keyframes exp-shimmer-sweep {
+  0%   { left: -60%; opacity: 0; }
+  15%  { opacity: 1; }
+  100% { left: 120%; opacity: 0; }
+}
+
+/* ── Enhanced VTL card hover (upgraded from translateY -5px) ── */
+.vtl-card:hover {
+  transform: translateY(-10px);
+  box-shadow:
+    0 20px 56px rgba(59, 130, 246, 0.22),
+    0 8px 24px rgba(0, 0, 0, 0.32);
+  border-color: rgba(59, 130, 246, 0.42);
+}
+
+[data-theme="light"] .vtl-card:hover {
+  box-shadow:
+    0 20px 56px rgba(59, 130, 246, 0.16),
+    0 8px 24px rgba(0, 0, 0, 0.08);
+}
+
+/* ── Glassmorphism depth upgrade on VTL cards ── */
+.vtl-card {
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border-radius: 20px;
+}
+
+/* ── Refined image panel hover glow ── */
+.exp-image-panel:hover {
+  box-shadow:
+    0 20px 56px rgba(59, 130, 246, 0.22),
+    0 8px 28px rgba(0, 0, 0, 0.48);
+}
+
+/* ── VTL side: add depth on wide layout ── */
+@media (min-width: 901px) {
+  .vtl-entry--left .vtl-side {
+    padding-left: 0.75rem;
+  }
+  .vtl-entry--right .vtl-side {
+    padding-right: 0.75rem;
+  }
+}
+
+/* ── Disable tilt + glare on touch / reduced-motion ── */
+@media (hover: none), (pointer: coarse) {
+  .exp-image-gallery.tilt-active {
+    transform: none;
+  }
+  .exp-image-gallery::before {
+    display: none;
+  }
+  /* Still allow cross-fade via CSS :active on touch */
+  .exp-image-gallery:active .exp-img-popup {
+    opacity: 1;
+    transform: scale(1) translateZ(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .exp-image-gallery,
+  .exp-image-gallery.tilt-active {
+    transform: none !important;
+    transition: box-shadow 0.3s ease !important;
+  }
+  .exp-img-popup {
+    transition: opacity 0.4s ease !important;
+  }
+  .exp-image-panel::before {
+    display: none;
+  }
+}
+
+/* ── Light theme gallery adjustments ── */
+[data-theme="light"] .exp-image-gallery.tilt-active {
+  box-shadow:
+    0 20px 56px rgba(59, 130, 246, 0.18),
+    0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+[data-theme="light"] .exp-img-popup {
+  background: linear-gradient(
+    135deg,
+    rgba(37, 99, 235, 0.04) 0%,
+    transparent 50%,
+    rgba(13, 148, 136, 0.04) 100%
+  );
+}
+
+/* ── Tag & label sit above popup (z-index guards) ── */
+.exp-image-tag,
+.exp-image-label {
+  z-index: 6;
+}
+
+/* ── Global micro-polish: smoother section transitions ── */
+.section,
+.section-alt {
+  transition: background-color var(--t-slow);
+}
+
+/* ── Stat cards: slightly more dynamic on hover ── */
+.stat-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 32px rgba(59, 130, 246, 0.14), 0 4px 16px rgba(0,0,0,0.18);
+}
+
+/* ── Edu card: more depth on hover ── */
+.edu-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 16px 40px rgba(59, 130, 246, 0.14), 0 6px 18px rgba(0,0,0,0.15);
+}
+
+/* ── Social link refined hover ── */
+.social-link:hover {
+  transform: translateY(-4px) scale(1.08);
+}
+
+/* ── Scroll dot animation smoothness ── */
+.scroll-dot::before {
+  animation: scroll-bounce 1.8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
