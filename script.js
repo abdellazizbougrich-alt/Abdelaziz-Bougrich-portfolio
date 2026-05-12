@@ -638,8 +638,8 @@ document.addEventListener('DOMContentLoaded', () => {
   sv2Defs.setAttribute('aria-hidden', 'true');
   sv2Defs.innerHTML = `<defs>
     <linearGradient id="sv2-ring-grad" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" stop-color="#0d9488"/>
-      <stop offset="100%" stop-color="#06b6d4"/>
+      <stop offset="0%" stop-color="#2563eb"/>
+      <stop offset="100%" stop-color="#3b82f6"/>
     </linearGradient>
   </defs>`;
   document.body.appendChild(sv2Defs);

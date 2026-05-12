@@ -1064,20 +1064,20 @@ button { cursor: pointer; font-family: inherit; border: none; background: none; 
    10. SKILLS SECTION v2
    ============================================================ */
 
-/* ── Custom teal/cyan tokens for skills (matching EGLO palette) ── */
+/* ── Blue accent tokens for skills (aligned with project theme) ── */
 :root {
-  --sk-teal:        #0d9488;
-  --sk-cyan:        #06b6d4;
-  --sk-gradient:    linear-gradient(90deg, #0d9488, #06b6d4);
-  --sk-glow:        rgba(6, 182, 212, 0.25);
+  --sk-teal:        #2563eb;
+  --sk-cyan:        #3b82f6;
+  --sk-gradient:    linear-gradient(90deg, #2563eb, #3b82f6);
+  --sk-glow:        rgba(59, 130, 246, 0.25);
   --sk-card-bg:     rgba(15, 23, 42, 0.6);
-  --sk-border:      rgba(6, 182, 212, 0.18);
-  --sk-border-pill: rgba(6, 182, 212, 0.45);
+  --sk-border:      rgba(59, 130, 246, 0.18);
+  --sk-border-pill: rgba(59, 130, 246, 0.45);
 }
 [data-theme="light"] {
   --sk-card-bg:  rgba(255, 255, 255, 0.85);
-  --sk-border:   rgba(13, 148, 136, 0.2);
-  --sk-border-pill: rgba(13, 148, 136, 0.5);
+  --sk-border:   rgba(37, 99, 235, 0.2);
+  --sk-border-pill: rgba(37, 99, 235, 0.5);
 }
 
 /* ── Wrapper ── */
@@ -1267,15 +1267,15 @@ button { cursor: pointer; font-family: inherit; border: none; background: none; 
   align-items: center;
   gap: 10px;
   text-align: center;
-  /* White card with teal tint at top */
+  /* White card with blue tint at top */
   background: linear-gradient(
     to bottom,
-    rgba(20,184,166,0.07) 0%,
+    rgba(59,130,246,0.06) 0%,
     #ffffff 20%
   );
   border-radius: 20px;
   padding: 32px 24px;
-  border: 1px solid rgba(20,184,166,0.15);
+  border: 1px solid rgba(59,130,246,0.14);
   box-shadow: 0 4px 20px rgba(0,0,0,0.06);
   transition: transform 0.35s cubic-bezier(0.25,1,0.5,1),
               box-shadow 0.35s ease;
@@ -1289,10 +1289,10 @@ button { cursor: pointer; font-family: inherit; border: none; background: none; 
 [data-theme="dark"] .sv2-lang-card {
   background: linear-gradient(
     to bottom,
-    rgba(20,184,166,0.10) 0%,
+    rgba(59,130,246,0.09) 0%,
     var(--bg-card) 20%
   );
-  border-color: rgba(20,184,166,0.18);
+  border-color: rgba(59,130,246,0.18);
   box-shadow: 0 4px 24px rgba(0,0,0,0.25);
 }
 
@@ -1318,7 +1318,7 @@ button { cursor: pointer; font-family: inherit; border: none; background: none; 
 /* Hover: lift + shadow intensify + ring glow */
 .sv2-lang-card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 12px 36px rgba(20,184,166,0.20),
+  box-shadow: 0 12px 36px rgba(59,130,246,0.20),
               0 4px 14px rgba(0,0,0,0.08);
 }
 
@@ -1360,7 +1360,7 @@ button { cursor: pointer; font-family: inherit; border: none; background: none; 
   stroke-width: 7;
   stroke-linecap: round;
   /* stroke set via inline attr; start at 0 */
-  filter: drop-shadow(0 0 6px rgba(20,184,166,0.4));
+  filter: drop-shadow(0 0 6px rgba(59,130,246,0.45));
   transition: stroke-dasharray 1.4s cubic-bezier(0.22,1,0.36,1);
 }
 
@@ -1370,7 +1370,7 @@ button { cursor: pointer; font-family: inherit; border: none; background: none; 
 
 /* Glow intensifies on card hover */
 .sv2-lang-card:hover .sv2-ring-fill {
-  filter: drop-shadow(0 0 10px rgba(20,184,166,0.65));
+  filter: drop-shadow(0 0 10px rgba(59,130,246,0.70));
 }
 
 /* Flag — centered inside ring */
@@ -1454,21 +1454,21 @@ button { cursor: pointer; font-family: inherit; border: none; background: none; 
 /* Pill badge itself */
 .sv2-pill-cefr {
   display: inline-block;
-  background: #f0fdfa;
-  border: 1px solid #99f6e4;
+  background: rgba(59, 130, 246, 0.08);
+  border: 1px solid rgba(59, 130, 246, 0.3);
   border-radius: 9999px;
   padding: 4px 14px;
   font-size: 0.75rem;
   font-weight: 700;
-  color: #0f766e;
+  color: #1d4ed8;
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
 
 [data-theme="dark"] .sv2-pill-cefr {
-  background: rgba(20,184,166,0.12);
-  border-color: rgba(20,184,166,0.35);
-  color: #5eead4;
+  background: rgba(59,130,246,0.14);
+  border-color: rgba(59,130,246,0.35);
+  color: #93c5fd;
 }
 
 /* Micro progress bar (80px wide, 4px height) */
@@ -1492,8 +1492,8 @@ button { cursor: pointer; font-family: inherit; border: none; background: none; 
   height: 100%;
   width: 0%;
   border-radius: 99px;
-  background: linear-gradient(90deg, #14b8a6 0%, #22d3ee 100%);
-  box-shadow: 0 0 6px rgba(20,184,166,0.4);
+  background: linear-gradient(90deg, #2563eb 0%, #3b82f6 100%);
+  box-shadow: 0 0 6px rgba(59,130,246,0.4);
   transition: width 1.2s cubic-bezier(0.22,1,0.36,1);
 }
 
@@ -1503,7 +1503,7 @@ button { cursor: pointer; font-family: inherit; border: none; background: none; 
 
 /* Focus states for keyboard navigation */
 .sv2-lang-card:focus-within {
-  outline: 2px solid #14b8a6;
+  outline: 2px solid var(--accent);
   outline-offset: 3px;
 }
 
@@ -1511,7 +1511,7 @@ button { cursor: pointer; font-family: inherit; border: none; background: none; 
 .sv2-cefr-legend {
   margin-top: 2.5rem;
   padding-top: 1.5rem;
-  border-top: 1px solid rgba(20,184,166,0.15);
+  border-top: 1px solid rgba(59,130,246,0.15);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -1530,7 +1530,7 @@ button { cursor: pointer; font-family: inherit; border: none; background: none; 
 }
 
 [data-theme="dark"] .sv2-cefr-legend {
-  border-color: rgba(20,184,166,0.2);
+  border-color: rgba(59,130,246,0.22);
 }
 
 .cefr-legend-title {
@@ -1608,10 +1608,10 @@ button { cursor: pointer; font-family: inherit; border: none; background: none; 
   transform: scale(1.3);
 }
 
-.cefr-legend-dot.cefr-it { background: #22d3ee; }
-.cefr-legend-dot.cefr-fr { background: #0ea5e9; }
-.cefr-legend-dot.cefr-en { background: #14b8a6; }
-.cefr-legend-dot.cefr-ar { background: #0d9488; }
+.cefr-legend-dot.cefr-it { background: #93c5fd; }
+.cefr-legend-dot.cefr-fr { background: #60a5fa; }
+.cefr-legend-dot.cefr-en { background: #3b82f6; }
+.cefr-legend-dot.cefr-ar { background: #2563eb; }
 
 /* ── RESPONSIVE ── */
 @media (max-width: 1023px) {
