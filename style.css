@@ -2897,7 +2897,7 @@ button { cursor: pointer; font-family: inherit; border: none; background: none; 
     -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3' y='4' width='18' height='18' rx='2' ry='2'%3E%3C/rect%3E%3Cline x1='16' y1='2' x2='16' y2='6'%3E%3C/line%3E%3Cline x1='8' y1='2' x2='8' y2='6'%3E%3C/line%3E%3Cline x1='3' y1='10' x2='21' y2='10'%3E%3C/line%3E%3C/svg%3E") no-repeat center / contain;
     mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3' y='4' width='18' height='18' rx='2' ry='2'%3E%3C/rect%3E%3Cline x1='16' y1='2' x2='16' y2='6'%3E%3C/line%3E%3Cline x1='8' y1='2' x2='8' y2='6'%3E%3C/line%3E%3Cline x1='3' y1='10' x2='21' y2='10'%3E%3C/line%3E%3C/svg%3E") no-repeat center / contain;
   }
-  .exp-duration { display: none; }
+  .cvt-card .exp-duration { display: none; }
   .cvt-watermark { display: none; }
 
   /* Company Logo Floating */
@@ -2940,6 +2940,751 @@ button { cursor: pointer; font-family: inherit; border: none; background: none; 
   .cvt-card:hover .cvt-bullets li:first-child { padding-left: 12px; border-left-color: var(--sk-teal); color: var(--text-secondary); }
 }
 
+/* ============================================================
+   21. VERTICAL TIMELINE (VTL) — Premium Center-Spine Layout
+   ============================================================ */
+
+/* ── Wrapper ── */
+.vtl-timeline {
+  position: relative;
+  padding: 3rem 0 2rem;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+/* Vertical spine — gradient from accent to transparent */
+.vtl-timeline::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 2px;
+  background: linear-gradient(
+    to bottom,
+    var(--accent) 0%,
+    rgba(59, 130, 246, 0.4) 60%,
+    transparent 100%
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── Each timeline entry (3-column grid: card | node | side) ── */
+.vtl-entry {
+  display: grid;
+  grid-template-columns: 1fr 56px 1fr;
+  align-items: start;
+  margin-bottom: 3.5rem;
+  position: relative;
+}
+
+/* Empty spacer column */
+.vtl-side { flex: 1; }
+
+/* ── Node column (center spine) ── */
+.vtl-node-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  position: relative;
+  z-index: 2;
+  padding-top: 28px;
+}
+
+/* The glowing pulsing circle node */
+.vtl-node {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow:
+    0 0 0 4px rgba(59, 130, 246, 0.2),
+    0 0 20px rgba(59, 130, 246, 0.5);
+  animation: vtl-node-pulse 2.4s ease-in-out infinite;
+  position: relative;
+  flex-shrink: 0;
+}
+
+@keyframes vtl-node-pulse {
+  0%, 100% {
+    box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.2), 0 0 16px rgba(59, 130, 246, 0.45);
+  }
+  50% {
+    box-shadow: 0 0 0 8px rgba(59, 130, 246, 0.08), 0 0 30px rgba(59, 130, 246, 0.7);
+  }
+}
+
+/* Horizontal connector: extends from node to card */
+.vtl-node {
+  position: relative;
+}
+
+/* LEFT entry: connector extends LEFT from node */
+.vtl-entry--left .vtl-node::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 100%;
+  width: 32px;
+  height: 2px;
+  background: linear-gradient(to left, var(--accent), rgba(59, 130, 246, 0));
+}
+
+/* RIGHT entry: connector extends RIGHT from node */
+.vtl-entry--right .vtl-node::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 100%;
+  width: 32px;
+  height: 2px;
+  background: linear-gradient(to right, var(--accent), rgba(59, 130, 246, 0));
+}
+
+/* ── Year stamp ── */
+.vtl-year-stamp {
+  font-size: 0.65rem;
+  font-weight: 800;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  white-space: nowrap;
+  background: var(--accent-glow);
+  padding: 2px 7px;
+  border-radius: 20px;
+  border: 1px solid rgba(59, 130, 246, 0.25);
+}
+
+/* ── Card positioning ── */
+/* Left entry: card is column 1, node is column 2, spacer is column 3 */
+.vtl-entry--left .vtl-card { padding-right: 1.5rem; }
+/* Right entry: spacer is column 1, node is column 2, card is column 3 */
+.vtl-entry--right .vtl-card { padding-left: 1.5rem; }
+
+/* ── Glassmorphism Card ── */
+.vtl-card {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.35s cubic-bezier(0.25, 1, 0.5, 1),
+              box-shadow 0.35s ease,
+              border-color 0.35s ease;
+}
+
+[data-theme="light"] .vtl-card {
+  background: rgba(255, 255, 255, 0.8);
+  border-color: rgba(0, 0, 0, 0.07);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+}
+
+/* Full-time accent border (left) */
+.vtl-card--ft {
+  border-left: 3px solid var(--accent);
+}
+
+/* Internship: muted accent */
+.vtl-card--intern {
+  border-left: 3px solid rgba(59, 130, 246, 0.4);
+}
+
+/* Right-side cards: border on the RIGHT */
+.vtl-entry--right .vtl-card--ft { border-left: none; border-right: 3px solid var(--accent); }
+.vtl-entry--right .vtl-card--intern { border-left: none; border-right: 3px solid rgba(59, 130, 246, 0.4); }
+
+/* Hover: lift + gradient border glow */
+.vtl-card:hover {
+  transform: translateY(-5px);
+  box-shadow:
+    0 12px 40px rgba(59, 130, 246, 0.18),
+    0 4px 16px rgba(0, 0, 0, 0.2);
+  border-color: rgba(59, 130, 246, 0.35);
+}
+
+[data-theme="light"] .vtl-card:hover {
+  box-shadow:
+    0 12px 40px rgba(59, 130, 246, 0.15),
+    0 4px 16px rgba(0, 0, 0, 0.07);
+}
+
+/* Hover gradient overlay via ::after */
+.vtl-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(
+    135deg,
+    rgba(59, 130, 246, 0.06) 0%,
+    transparent 60%
+  );
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  pointer-events: none;
+}
+
+.vtl-card:hover::after { opacity: 1; }
+
+/* ── Card inner padding ── */
+.vtl-card-inner {
+  padding: 1.75rem 1.75rem 1.5rem;
+}
+
+/* ── Card header: logo + meta ── */
+.vtl-card-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+/* ── HD Logo box ── */
+.vtl-logo-box {
+  width: 64px;
+  height: 64px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  flex-shrink: 0;
+  transition: transform 0.28s ease, box-shadow 0.28s ease;
+}
+
+[data-theme="light"] .vtl-logo-box {
+  background: rgba(255, 255, 255, 0.9);
+  border-color: rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
+}
+
+.vtl-logo-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.vtl-card:hover .vtl-logo-box {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 28px rgba(59, 130, 246, 0.25), 0 4px 12px rgba(0, 0, 0, 0.25);
+}
+
+/* ── Header meta (role, company, date) ── */
+.vtl-header-meta {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.vtl-role {
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+}
+
+.vtl-company {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.vtl-date-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 4px;
+}
+
+/* ── Date pill ── */
+.vtl-date-pill {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--accent);
+  background: rgba(59, 130, 246, 0.12);
+  border: 1px solid rgba(59, 130, 246, 0.25);
+  padding: 0.2rem 0.75rem;
+  border-radius: 999px;
+  letter-spacing: 0.03em;
+  white-space: nowrap;
+}
+
+[data-theme="light"] .vtl-date-pill {
+  background: rgba(37, 99, 235, 0.08);
+  border-color: rgba(37, 99, 235, 0.2);
+  color: var(--accent);
+}
+
+/* exp-duration inside VTL cards */
+.vtl-card .exp-duration {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+/* ── Tenure progress bar (scoped to VTL cards) ── */
+.vtl-card .exp-tenure-bar {
+  height: 3px;
+  border-radius: 99px;
+  background: rgba(255, 255, 255, 0.06);
+  margin: 0.75rem 0 1rem;
+  overflow: hidden;
+  width: 100%;
+}
+
+[data-theme="light"] .vtl-card .exp-tenure-bar {
+  background: rgba(0, 0, 0, 0.07);
+}
+
+.vtl-card .exp-tenure-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, var(--accent), var(--accent-secondary));
+  border-radius: 99px;
+  transition: width 1.4s cubic-bezier(0.22, 1, 0.36, 1);
+  box-shadow: 0 0 8px rgba(59, 130, 246, 0.4);
+}
+
+/* ── Bullet list ── */
+.vtl-bullets {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+/* Each bullet item */
+.vtl-bullets li {
+  position: relative;
+  padding-left: 1.5rem;
+  font-size: 0.88rem;
+  line-height: 1.65;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: transform 0.25s ease, color 0.25s ease;
+  /* Custom symbol prefix via ::before */
+}
+
+.vtl-bullets li::before {
+  content: '▸';
+  position: absolute;
+  left: 0;
+  top: 0;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  line-height: 1.65;
+  transition: color 0.25s ease;
+}
+
+/* Underline via ::after */
+.vtl-bullets li::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 1.5rem;
+  right: 0;
+  height: 1px;
+  background: var(--accent);
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+/* Hover: slide right + accent symbol + faint underline */
+.vtl-bullets li:hover {
+  transform: translateX(8px);
+  color: var(--text-primary);
+}
+
+.vtl-bullets li:hover::before {
+  color: var(--accent);
+}
+
+.vtl-bullets li:hover::after {
+  opacity: 0.35;
+}
+
+/* Touch fallback */
+.vtl-bullets li:active {
+  transform: translateX(6px);
+  color: var(--text-primary);
+}
+.vtl-bullets li:active::before { color: var(--accent); }
+
+/* Bullet animation states (JS-driven) */
+.vtl-bullets li.bullet-hidden {
+  opacity: 0;
+  transform: translateX(-12px);
+}
+.vtl-bullets li.bullet-visible {
+  opacity: 1;
+  transform: translateX(0);
+  transition: opacity 0.45s ease, transform 0.45s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* ── Light theme card ── */
+[data-theme="light"] .vtl-card {
+  background: rgba(255, 255, 255, 0.85);
+}
+
+/* ── RESPONSIVE: Tablet (≤ 900px) ── */
+@media (max-width: 900px) {
+  .vtl-timeline::before { left: 24px; }
+
+  .vtl-entry {
+    grid-template-columns: 1fr;
+    margin-bottom: 2rem;
+  }
+
+  /* Force card to fill width, node to left */
+  .vtl-entry--left .vtl-card,
+  .vtl-entry--right .vtl-card {
+    padding-left: 0;
+    padding-right: 0;
+    grid-column: 1;
+    grid-row: 2;
+  }
+
+  .vtl-node-wrap {
+    grid-column: 1;
+    grid-row: 1;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    padding-top: 0;
+    padding-left: 0;
+    justify-content: flex-start;
+    margin-bottom: 0.75rem;
+    padding-left: 4px;
+  }
+
+  .vtl-side { display: none; }
+
+  .vtl-entry--left .vtl-node::before,
+  .vtl-entry--right .vtl-node::before { display: none; }
+
+  .vtl-entry--right .vtl-card--ft { border-left: 3px solid var(--accent); border-right: none; }
+  .vtl-entry--right .vtl-card--intern { border-left: 3px solid rgba(59, 130, 246, 0.4); border-right: none; }
+}
+
+/* ── RESPONSIVE: Mobile (≤ 600px) ── */
+@media (max-width: 600px) {
+  .vtl-timeline { padding: 1.5rem 0; }
+
+  .vtl-card-inner { padding: 1.25rem; }
+
+  .vtl-card-header { gap: 0.75rem; }
+
+  .vtl-logo-box {
+    width: 52px;
+    height: 52px;
+    border-radius: 12px;
+    padding: 8px;
+  }
+
+  .vtl-role { font-size: 1rem; }
+  .vtl-company { font-size: 0.78rem; }
+  .vtl-date-pill { font-size: 0.7rem; padding: 0.18rem 0.6rem; }
+
+  .vtl-bullets li { font-size: 0.82rem; }
+  .vtl-bullets li:hover { transform: translateX(4px); }
+}
+
+/* ── Ghost year watermarks ──────────────────────────────────── */
+
+/* Section overflow clipping so giant numbers don't spill */
+#experience { overflow-x: hidden; }
+
+/* Card must be overflow:visible so ghost can bleed outside */
+.vtl-card { overflow: visible; }
+
+/* Base ghost year */
+.vtl-ghost-year {
+  position: absolute;
+  font-size: clamp(80px, 15vw, 160px);
+  font-weight: 900;
+  color: transparent;
+  -webkit-text-stroke: 1.5px rgba(96, 165, 250, 0.12);
+  text-stroke: 1.5px rgba(96, 165, 250, 0.12);
+  letter-spacing: -4px;
+  line-height: 1;
+  user-select: none;
+  pointer-events: none;
+  z-index: 0;
+  top: -10px;
+  /* Default (LEFT card): bleeds outside the right edge */
+  right: -20px;
+  left: auto;
+  /* Fade right edge to transparent, number emerges from card */
+  -webkit-mask-image: linear-gradient(to left, transparent 0%, black 40%);
+  mask-image: linear-gradient(to left, transparent 0%, black 40%);
+  /* Smooth parallax movement via JS transform */
+  will-change: transform;
+  transition: -webkit-text-stroke-color 0.4s ease, text-stroke-color 0.4s ease;
+}
+
+/* RIGHT-side cards: ghost bleeds outside the LEFT edge */
+.vtl-entry--right .vtl-ghost-year {
+  right: auto;
+  left: -20px;
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 40%);
+  mask-image: linear-gradient(to right, transparent 0%, black 40%);
+}
+
+/* Card content sits above the ghost year */
+.vtl-card-header,
+.exp-tenure-bar,
+.vtl-bullets {
+  position: relative;
+  z-index: 1;
+}
+
+/* Hover: ghost year stroke brightens */
+.vtl-card:hover .vtl-ghost-year {
+  -webkit-text-stroke: 1.5px rgba(96, 165, 250, 0.35);
+  text-stroke: 1.5px rgba(96, 165, 250, 0.35);
+}
+
+/* Light mode: slightly darker stroke so it shows against white bg */
+[data-theme="light"] .vtl-ghost-year {
+  -webkit-text-stroke: 1.5px rgba(37, 99, 235, 0.1);
+  text-stroke: 1.5px rgba(37, 99, 235, 0.1);
+}
+
+[data-theme="light"] .vtl-card:hover .vtl-ghost-year {
+  -webkit-text-stroke: 1.5px rgba(37, 99, 235, 0.28);
+  text-stroke: 1.5px rgba(37, 99, 235, 0.28);
+}
+
+/* Tablet: shift ghost inward so it doesn't clip under spine */
+@media (max-width: 900px) {
+  .vtl-ghost-year {
+    font-size: clamp(70px, 18vw, 120px);
+    right: -10px;
+    left: auto;
+    -webkit-mask-image: linear-gradient(to left, transparent 0%, black 50%);
+    mask-image: linear-gradient(to left, transparent 0%, black 50%);
+  }
+  /* Right-side entries also reset to right on tablet (single col) */
+  .vtl-entry--right .vtl-ghost-year {
+    right: -10px;
+    left: auto;
+    -webkit-mask-image: linear-gradient(to left, transparent 0%, black 50%);
+    mask-image: linear-gradient(to left, transparent 0%, black 50%);
+  }
+}
+
+/* Mobile: smaller, lower opacity, no parallax (JS skips it) */
+@media (max-width: 600px) {
+  .vtl-ghost-year {
+    font-size: clamp(60px, 20vw, 90px);
+    -webkit-text-stroke: 1px rgba(96, 165, 250, 0.08);
+    text-stroke: 1px rgba(96, 165, 250, 0.08);
+    top: 0;
+    right: 0;
+    -webkit-mask-image: linear-gradient(to left, transparent 0%, black 60%);
+    mask-image: linear-gradient(to left, transparent 0%, black 60%);
+  }
+  .vtl-card:hover .vtl-ghost-year {
+    -webkit-text-stroke: 1px rgba(96, 165, 250, 0.16);
+    text-stroke: 1px rgba(96, 165, 250, 0.16);
+  }
+}
+
+/* ── Experience Image Panels ───────────────────────────────── */
+
+/* vtl-side must align its content */
+.vtl-side {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem 0;
+}
+
+/* The image panel container */
+.exp-image-panel {
+  position: relative;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  aspect-ratio: 4 / 3;
+  width: 100%;
+  z-index: 1;
+  /* Skeleton loading background */
+  background: rgba(255, 255, 255, 0.05);
+  /* Scroll-reveal: initial hidden state — slides from outside */
+  opacity: 0;
+  transition: opacity 0.7s ease,
+              transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              box-shadow 0.5s ease;
+  will-change: transform, opacity;
+}
+
+/* LEFT entries: image is on the right → slides in from right */
+.vtl-entry--left .exp-image-panel {
+  transform: translateX(50px);
+}
+
+/* RIGHT entries: image is on the left → slides in from left */
+.vtl-entry--right .exp-image-panel {
+  transform: translateX(-50px);
+}
+
+/* Stagger delays — card animates first, image 0.15s after */
+.vtl-entry:nth-child(1) .exp-image-panel { transition-delay: 0.15s; }
+.vtl-entry:nth-child(2) .exp-image-panel { transition-delay: 0.15s; }
+.vtl-entry:nth-child(3) .exp-image-panel { transition-delay: 0.15s; }
+.vtl-entry:nth-child(4) .exp-image-panel { transition-delay: 0.15s; }
+
+/* Visible state — set by JS IntersectionObserver */
+.exp-image-panel.img-visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Image itself */
+.exp-image-panel img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  filter: grayscale(15%) brightness(0.88) saturate(1.1);
+  transition: filter 0.5s ease, transform 0.5s ease;
+}
+
+/* Hover: zoom in + full color */
+.exp-image-panel:hover img {
+  filter: grayscale(0%) brightness(1) saturate(1.2);
+  transform: scale(1.04);
+}
+
+/* Hover: elevate shadow */
+.exp-image-panel:hover {
+  box-shadow: 0 16px 48px rgba(59, 130, 246, 0.18), 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+/* Bottom gradient overlay */
+.exp-image-panel::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(8, 14, 35, 0.65) 0%,
+    rgba(8, 14, 35, 0.1) 50%,
+    transparent 100%
+  );
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Role label (bottom-left inside image) */
+.exp-image-label {
+  position: absolute;
+  bottom: 14px;
+  left: 16px;
+  z-index: 2;
+  font-size: 12px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.85);
+  letter-spacing: 0.5px;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+  font-family: var(--font-main);
+}
+
+/* Accent tag (top-left corner) */
+.exp-image-tag {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  z-index: 2;
+  font-size: 10px;
+  font-weight: 600;
+  background: rgba(55, 138, 221, 0.85);
+  color: #fff;
+  border-radius: 20px;
+  padding: 3px 10px;
+  letter-spacing: 0.5px;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  font-family: var(--font-main);
+}
+
+/* Light mode adjustments */
+[data-theme="light"] .exp-image-panel {
+  border-color: rgba(0, 0, 0, 0.1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+  background: rgba(0, 0, 0, 0.04);
+}
+
+[data-theme="light"] .exp-image-panel:hover {
+  box-shadow: 0 16px 48px rgba(59, 130, 246, 0.2), 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+/* ── Responsive: Tablet (≤ 900px) — image below card ── */
+@media (max-width: 900px) {
+  .vtl-side {
+    grid-column: 1;
+    grid-row: 3;
+    padding: 0;
+  }
+
+  .exp-image-panel {
+    aspect-ratio: 16 / 7;
+    margin-top: 0.75rem;
+    border-radius: 12px;
+  }
+
+  /* Both directions become top-to-bottom slide on tablet */
+  .vtl-entry--left .exp-image-panel,
+  .vtl-entry--right .exp-image-panel {
+    transform: translateY(30px);
+  }
+
+  .exp-image-panel.img-visible {
+    transform: translateY(0);
+  }
+}
+
+/* ── Responsive: Mobile (≤ 600px) ── */
+@media (max-width: 600px) {
+  .exp-image-panel {
+    aspect-ratio: 16 / 7;
+    margin-top: 0.5rem;
+  }
+
+  .exp-image-label { font-size: 11px; bottom: 10px; left: 12px; }
+  .exp-image-tag { font-size: 9px; top: 8px; left: 8px; padding: 2px 8px; }
+}
+
+/* Reduced motion: skip animations, show immediately */
+@media (prefers-reduced-motion: reduce) {
+  .exp-image-panel {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}
 
 .experience-showcase {
   display: flex;
@@ -3269,8 +4014,9 @@ button { cursor: pointer; font-family: inherit; border: none; background: none; 
   box-shadow: 0 0 4px var(--accent);
 }
 
-/* ══ 1. Duration badge ══ */
-.exp-duration {
+/* ══ 1. Duration badge (legacy cinema/card blocks only) ══ */
+.exp-cinema .exp-duration,
+.exp-card .exp-duration {
   display: inline-block;
   font-size: 0.72rem;
   font-weight: 600;

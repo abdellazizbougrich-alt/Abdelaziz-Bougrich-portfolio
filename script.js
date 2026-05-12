@@ -724,16 +724,16 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ----------------------------------------------------------
-  // Bullet slide-right animation for Work Experience
+  // Bullet slide-in animation for Work Experience (VTL + legacy)
   // ----------------------------------------------------------
   const bulletObserver = new IntersectionObserver((entries, observer) => {
     entries.forEach(entry => {
       if (!entry.isIntersecting) return;
       const card = entry.target;
-      // CVT bullets + legacy selectors (kept for safety)
-      const bullets = card.querySelectorAll('.cvt-bullets li, .exp-cinema-bullets li, .exp-card-bullets li');
+      // VTL bullets + legacy CVT selectors
+      const bullets = card.querySelectorAll('.vtl-bullets li, .cvt-bullets li, .exp-cinema-bullets li, .exp-card-bullets li');
       bullets.forEach((li, i) => {
-          const stagger = isTouch ? (i * 100 + 35) : (i * 140 + 50);
+          const stagger = isTouch ? (i * 90 + 30) : (i * 120 + 50);
           setTimeout(() => {
             li.classList.remove('bullet-hidden');
             li.classList.add('bullet-visible');
@@ -741,12 +741,12 @@ document.addEventListener('DOMContentLoaded', () => {
       });
       observer.unobserve(card);
     });
-  }, { threshold: getThreshold(0.15, 0.1) });
+  }, { threshold: getThreshold(0.12, 0.08) });
 
-  // Target CVT cards + any legacy cards still in DOM
-  const expBlocks = document.querySelectorAll('.cvt-card, .exp-cinema, .exp-card');
+  // Target VTL cards + legacy CVT cards
+  const expBlocks = document.querySelectorAll('.vtl-card, .cvt-card, .exp-cinema, .exp-card');
   expBlocks.forEach(card => {
-    const bullets = card.querySelectorAll('.cvt-bullets li, .exp-cinema-bullets li, .exp-card-bullets li');
+    const bullets = card.querySelectorAll('.vtl-bullets li, .cvt-bullets li, .exp-cinema-bullets li, .exp-card-bullets li');
     bullets.forEach(li => li.classList.add('bullet-hidden'));
     bulletObserver.observe(card);
   });
@@ -785,6 +785,51 @@ document.addEventListener('DOMContentLoaded', () => {
       // Initial call so images are positioned correctly on load
       updateParallax();
     }
+  }
+
+  // ----------------------------------------------------------
+  // Ghost Year Parallax — shift .vtl-ghost-year at 0.3x scroll
+  // Disabled on touch devices and prefers-reduced-motion
+  // ----------------------------------------------------------
+  if (!isTouch && !prefersReducedMotion) {
+    const ghostYears = document.querySelectorAll('.vtl-ghost-year');
+    if (ghostYears.length) {
+      let ghostRafPending = false;
+      const updateGhostParallax = () => {
+        const vh = window.innerHeight;
+        ghostYears.forEach(ghost => {
+          const card = ghost.closest('.vtl-card');
+          if (!card) return;
+          const rect = card.getBoundingClientRect();
+          if (rect.bottom < -100 || rect.top > vh + 100) return;
+          // Progress relative to viewport center; 0.3x speed = 60px max drift
+          const progress = (rect.top + rect.height / 2 - vh / 2) / vh;
+          ghost.style.transform = `translateY(${progress * 60}px)`;
+        });
+        ghostRafPending = false;
+      };
+      window.addEventListener('scroll', () => {
+        if (!ghostRafPending) {
+          ghostRafPending = true;
+          requestAnimationFrame(updateGhostParallax);
+        }
+      }, { passive: true });
+      updateGhostParallax();
+    }
+  }
+  // ----------------------------------------------------------
+  // Image Panel Scroll Reveal — .exp-image-panel
+  // ----------------------------------------------------------
+  const imagePanels = document.querySelectorAll('.exp-image-panel');
+  if (imagePanels.length) {
+    const imageObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add('img-visible');
+        observer.unobserve(entry.target);
+      });
+    }, { threshold: 0.15 });
+    imagePanels.forEach(panel => imageObserver.observe(panel));
   }
 
   // ==========================================================
