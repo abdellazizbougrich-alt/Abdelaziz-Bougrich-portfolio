@@ -1106,4 +1106,84 @@ document.addEventListener('DOMContentLoaded', () => {
     sectionEls.forEach(sec => navHighlightObserver.observe(sec));
   }
 
+  // ==========================================================
+  // 13. EDUCATION TIMELINE ANIMATIONS
+  // ==========================================================
+  const eduSection = document.getElementById('education');
+  if (eduSection) {
+    // Split text for title
+    const eduTitle = document.querySelector('.edu-split-text');
+    if (eduTitle) {
+      // Don't duplicate if already split
+      if (!eduTitle.querySelector('.edu-char')) {
+        const text = eduTitle.textContent;
+        eduTitle.textContent = '';
+        [...text].forEach((char, i) => {
+          const span = document.createElement('span');
+          span.textContent = char === ' ' ? '\u00A0' : char;
+          span.className = 'edu-char';
+          span.style.transitionDelay = `${i * 0.05}s`;
+          eduTitle.appendChild(span);
+        });
+        
+        const titleObserver = new IntersectionObserver((entries) => {
+          if (entries[0].isIntersecting) {
+            document.querySelectorAll('.edu-char').forEach(c => c.classList.add('is-visible'));
+            titleObserver.disconnect();
+          }
+        }, { threshold: 0.5 });
+        titleObserver.observe(eduTitle);
+      }
+    }
+
+    // Mousemove tilt effect on grid cards
+    if (!isTouch && !prefersReducedMotion) {
+      const gridCards = document.querySelectorAll('.edu-grid-card');
+      gridCards.forEach(card => {
+        card.addEventListener('mousemove', (e) => {
+          const rect = card.getBoundingClientRect();
+          const dx = e.clientX - rect.left - rect.width / 2;
+          const dy = e.clientY - rect.top - rect.height / 2;
+          
+          const maxTilt = 6;
+          const tiltX = (dy / (rect.height / 2)) * -maxTilt;
+          const tiltY = (dx / (rect.width / 2)) * maxTilt;
+          
+          card.style.transform = `translateY(-4px) rotateX(${tiltX}deg) rotateY(${tiltY}deg)`;
+        });
+        
+        card.addEventListener('mouseleave', () => {
+          card.style.transform = `translateY(0px) rotateX(0deg) rotateY(0deg)`;
+        });
+      });
+    }
+
+    // Stat bar countUp
+    const statTiles = document.querySelectorAll('.edu-stat-num');
+    const statsObserver = new IntersectionObserver((entries, obs) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const el = entry.target;
+          const target = parseInt(el.getAttribute('data-stat'), 10);
+          let current = 0;
+          const duration = 2000;
+          const stepTime = Math.abs(Math.floor(duration / target));
+          
+          const timer = setInterval(() => {
+            current++;
+            el.textContent = current;
+            if (current >= target) {
+              clearInterval(timer);
+              el.textContent = target;
+            }
+          }, stepTime);
+          
+          obs.unobserve(el);
+        }
+      });
+    }, { threshold: 0.5 });
+    
+    statTiles.forEach(tile => statsObserver.observe(tile));
+  }
+
 });
