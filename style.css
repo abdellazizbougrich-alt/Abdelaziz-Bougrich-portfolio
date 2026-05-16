@@ -6118,28 +6118,75 @@ html[data-theme="dark"] .nh-section {
 }
 
 .nh-name {
-  color: var(--nh-text-dark);
-  font-size: clamp(2.25rem, 3.6vw, 3.375rem);
-  white-space: nowrap;
-  line-height: 1.1;
+  font-family: 'Playfair Display', 'Cormorant Garamond', Georgia, serif;
+  font-size: clamp(1.8rem, 4.5vw, 3.15rem);
   font-weight: 800;
+  font-style: normal;
+  line-height: 1.12;
+  letter-spacing: -0.01em;
   margin: 0;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  max-width: 100%;
   animation-delay: 0.1s;
+
+  /* Elegant gradient — accent blue → bright white */
+  background: linear-gradient(
+    135deg,
+    var(--nh-text-dark) 0%,
+    var(--nh-accent)    45%,
+    var(--nh-text-dark) 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  /* Subtle shimmer sweep on load */
+  animation: nh-slideUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) both,
+             nh-name-shimmer 4s 1s ease-in-out forwards;
+}
+
+@keyframes nh-name-shimmer {
+  0%   { background-position: 200% center; }
+  100% { background-position:   0% center; }
+}
+
+/* Dark mode: brighter gradient so it pops on dark bg */
+html[data-theme="dark"] .nh-name,
+html.dark .nh-name {
+  background: linear-gradient(
+    135deg,
+    #f1f5f9  0%,
+    var(--nh-accent) 45%,
+    #ffffff  100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: nh-slideUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) both,
+             nh-name-shimmer 4s 1s ease-in-out forwards;
 }
 
 .nh-subtitle {
-  font-size: clamp(1.25rem, 2vw, 1.5rem);
+  font-size: clamp(1rem, 2.5vw, 1.4rem);
   font-weight: 600;
   color: var(--nh-text-dark);
   margin-top: 0.5rem;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  max-width: 100%;
   animation-delay: 0.13s;
 }
 
 .nh-desc {
   color: var(--nh-text-muted);
-  font-size: 1.125rem;
+  font-size: clamp(0.875rem, 2vw, 1rem);
   line-height: 1.6;
   max-width: 500px;
+  word-break: break-word;
+  overflow-wrap: break-word;
   animation-delay: 0.17s;
 }
 
@@ -6431,7 +6478,7 @@ html[data-theme="dark"] .nh-section {
     padding-top: 60px;
   }
   .nh-name {
-    font-size: clamp(1.4rem, 6.5vw, 2rem);
+    font-size: clamp(1.26rem, 5.85vw, 1.8rem);
   }
   #nav-links {
     display: none !important;
@@ -6440,5 +6487,50 @@ html[data-theme="dark"] .nh-section {
   .nh-ring-2 { width: 380px; height: 380px; margin-top: -190px; margin-left: -190px; }
   .nh-ring-3 { width: 460px; height: 460px; margin-top: -230px; margin-left: -230px; }
   .nh-radar { width: 200px; height: 200px; margin-top: -100px; margin-left: -100px; }
+
+  /* ── Hide scroll indicator — overlaps socials in single-column layout ── */
+  .nh-scroll {
+    display: none;
+  }
+
+  /* ── Issue 1: Stack CTA buttons vertically on small phones ── */
+  .nh-actions {
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+  }
+  .nh-btn {
+    width: 100%;
+    max-width: 280px;
+    box-sizing: border-box;
+  }
+
+  /* ── Issue 1: Center & wrap social icons ── */
+  .nh-socials {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 16px;
+  }
+
+  /* ── Issue 2: Stat pills wrap & center ── */
+  .nh-stats {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+  }
+}
+
+/* ── Hero: Extra-small phones (≤ 480px) — tightest sizing tweaks ── */
+@media (max-width: 480px) {
+  .nh-name {
+    font-size: clamp(1.44rem, 7.2vw, 1.8rem);
+  }
+  .nh-section {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
 }
 

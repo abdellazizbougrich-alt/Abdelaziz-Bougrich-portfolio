@@ -1,4 +1,4 @@
-/**
+﻿/**
  * PORTFOLIO — script.js
  * Author: Abdelaziz BOUGRICH Portfolio
  */
@@ -78,9 +78,15 @@ document.addEventListener('DOMContentLoaded', () => {
       // HERO
       'hero.greeting': "Hello, I'm",
       'hero.role': 'Technical Sales Professional',
+      'hero.subtitle': 'Driving revenue through relationships &amp; CRM excellence',
+      'hero.desc': '5+ years of experience in B2B technical sales, negotiation, and client relationship management — based in Bologna, Italy, open to opportunities across Europe.',
       'hero.tagline': '5+ years driving revenue through client relationships,<br />negotiation mastery &amp; CRM excellence.',
-      'hero.cta_work': 'View My Work',
-      'hero.cta_cv': 'Download CV',
+      'hero.cta_work': 'View My Work \u2192',
+      'hero.cta_cv': '\u2193 Download CV',
+      'hero.stat_exp': 'Years Exp.',
+      'hero.stat_lang': 'Languages',
+      'hero.stat_countries': 'Countries',
+      'hero.stat_commit': 'Committed',
       // ABOUT
       'about.label': 'Who I Am',
       'about.title': 'About Me',
@@ -207,9 +213,15 @@ document.addEventListener('DOMContentLoaded', () => {
       // HERO
       'hero.greeting': 'Bonjour, je suis',
       'hero.role': 'Commercial Technique',
+      'hero.subtitle': 'Générer du chiffre d\'affaires par les relations clients &amp; l\'excellence CRM',
+      'hero.desc': 'Plus de 5 ans d\'expérience en vente technique B2B, négociation et gestion de la relation client — basé à Bologne, Italie, ouvert aux opportunités en Europe.',
       'hero.tagline': '5+ ans à générer du chiffre d\'affaires grâce aux relations clients,<br />à la maîtrise de la négociation &amp; à l\'excellence CRM.',
-      'hero.cta_work': 'Voir mes réalisations',
-      'hero.cta_cv': 'Télécharger le CV',
+      'hero.cta_work': 'Voir mes r\u00e9alisations \u2192',
+      'hero.cta_cv': '\u2193 T\u00e9l\u00e9charger le CV',
+      'hero.stat_exp': 'Ans d\'exp.',
+      'hero.stat_lang': 'Langues',
+      'hero.stat_countries': 'Pays',
+      'hero.stat_commit': 'Engagé',
       // ABOUT
       'about.label': 'Qui je suis',
       'about.title': 'À propos de moi',
@@ -336,9 +348,15 @@ document.addEventListener('DOMContentLoaded', () => {
       // HERO
       'hero.greeting': 'Ciao, sono',
       'hero.role': 'Tecnico Commerciale',
+      'hero.subtitle': 'Generare fatturato attraverso le relazioni con i clienti &amp; l\'eccellenza CRM',
+      'hero.desc': 'Oltre 5 anni di esperienza nelle vendite tecniche B2B, negoziazione e gestione delle relazioni con i clienti — con sede a Bologna, Italia, aperto alle opportunità in Europa.',
       'hero.tagline': 'Oltre 5 anni a generare fatturato grazie alle relazioni con i clienti,<br />alla padronanza della negoziazione &amp; all\'eccellenza CRM.',
-      'hero.cta_work': 'Vedi i miei lavori',
-      'hero.cta_cv': 'Scarica il CV',
+      'hero.cta_work': 'Vedi i miei lavori \u2192',
+      'hero.cta_cv': '\u2193 Scarica il CV',
+      'hero.stat_exp': 'Anni esp.',
+      'hero.stat_lang': 'Lingue',
+      'hero.stat_countries': 'Paesi',
+      'hero.stat_commit': 'Impegno',
       // ABOUT
       'about.label': 'Chi sono',
       'about.title': 'Su di me',

@@ -16,8 +16,13 @@
   <title>Abdelaziz BOUGRICH — Portfolio</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <!-- Playfair Display: loaded synchronously — critical for hero name rendering -->
   <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Dancing+Script:wght@700&family=Space+Mono:wght@400;700&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&display=block"
+    rel="stylesheet" />
+  <!-- Remaining fonts: lazy-loaded for performance -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Cormorant+Garamond:ital,wght@0,600;1,600;1,700&family=Dancing+Script:wght@700&family=Space+Mono:wght@400;700&display=swap"
     rel="stylesheet" media="print" onload="this.media='all'" />
   <link rel="preload" as="image" href="assets/images/profile-transparent.png" />
   <script type="application/ld+json">
@@ -144,22 +149,22 @@
       <div class="container nh-container">
         <!-- Left Column -->
         <div class="nh-left">
-          <div class="nh-label">─── Technical Sales Professional</div>
-          <div class="nh-greeting">Hello, I'm</div>
+          <div class="nh-label" data-i18n="hero.role">─── Technical Sales Professional</div>
+          <div class="nh-greeting" data-i18n="hero.greeting">Hello, I'm</div>
           <h1 class="nh-name">Abdelaziz Bougrich</h1>
-          <p class="nh-subtitle">Driving revenue through relationships &amp; CRM excellence</p>
-          <p class="nh-desc">5+ years of experience in B2B technical sales, negotiation, and client relationship management — based in Bologna, Italy, open to opportunities across Europe.</p>
+          <p class="nh-subtitle" data-i18n="hero.subtitle">Driving revenue through relationships &amp; CRM excellence</p>
+          <p class="nh-desc" data-i18n="hero.desc">5+ years of experience in B2B technical sales, negotiation, and client relationship management — based in Bologna, Italy, open to opportunities across Europe.</p>
           
           <div class="nh-stats">
-            <div class="nh-stat-pill"><span class="nh-stat-num">5+</span> <span class="nh-stat-label">Years Exp.</span></div>
-            <div class="nh-stat-pill"><span class="nh-stat-num">4</span> <span class="nh-stat-label">Languages</span></div>
-            <div class="nh-stat-pill"><span class="nh-stat-num">3</span> <span class="nh-stat-label">Countries</span></div>
-            <div class="nh-stat-pill"><span class="nh-stat-num">100%</span> <span class="nh-stat-label">Committed</span></div>
+            <div class="nh-stat-pill"><span class="nh-stat-num">5+</span> <span class="nh-stat-label" data-i18n="hero.stat_exp">Years Exp.</span></div>
+            <div class="nh-stat-pill"><span class="nh-stat-num">4</span> <span class="nh-stat-label" data-i18n="hero.stat_lang">Languages</span></div>
+            <div class="nh-stat-pill"><span class="nh-stat-num">3</span> <span class="nh-stat-label" data-i18n="hero.stat_countries">Countries</span></div>
+            <div class="nh-stat-pill"><span class="nh-stat-num">100%</span> <span class="nh-stat-label" data-i18n="hero.stat_commit">Committed</span></div>
           </div>
           
           <div class="nh-actions">
-            <a href="#experience" class="nh-btn nh-btn-primary">View My Work &rarr;</a>
-            <a href="https://abdellazizbougrich-alt.github.io/Bougrich-abdelaziz-CV/" target="_blank" class="nh-btn nh-btn-outline">&darr; Download CV</a>
+            <a href="#experience" class="nh-btn nh-btn-primary" data-i18n="hero.cta_work">View My Work &rarr;</a>
+            <a href="https://abdellazizbougrich-alt.github.io/Bougrich-abdelaziz-CV/" target="_blank" class="nh-btn nh-btn-outline" data-i18n="hero.cta_cv">&darr; Download CV</a>
           </div>
           
           <div class="nh-socials">
