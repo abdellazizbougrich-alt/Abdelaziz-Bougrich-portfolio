@@ -1,4 +1,4 @@
-﻿/**
+/**
  * PORTFOLIO — script.js
  * Author: Abdelaziz BOUGRICH Portfolio
  */
@@ -580,34 +580,47 @@ document.addEventListener('DOMContentLoaded', () => {
   const header = document.getElementById('header');
   const scrollTopBtn = document.getElementById('scroll-top');
   const sections = document.querySelectorAll('section[id]');
-  
-  let isScrolling = false;
-  let lastScrollY = window.scrollY;
+
+  let isScrolling   = false;
+  let lastScrollY   = window.scrollY;
+  let scrollTicking = false;
+
+  // Helper: close mobile nav cleanly
+  const closeMobileNav = () => {
+    if (navLinks && navLinks.classList.contains('open')) {
+      navLinks.classList.remove('open');
+      navToggle.classList.remove('open');
+      navToggle.setAttribute('aria-expanded', 'false');
+    }
+  };
 
   const handleScrollEvents = () => {
     const scrollY = window.scrollY;
-    const headerHeight = header ? header.offsetHeight : 80;
 
-    // 1. Header shrink & Hide logic
+    // 1. Header hide/show on scroll direction
     if (header) {
-      // Hide/Show on scroll direction
-      if (scrollY > lastScrollY && scrollY > 200) {
+      const scrollingDown = scrollY > lastScrollY && scrollY > 200;
+
+      if (scrollingDown) {
         header.classList.add('header--hidden');
+        // Auto-close the mobile nav when header hides
+        closeMobileNav();
       } else {
         header.classList.remove('header--hidden');
       }
 
       // Shrink effect
-      if (scrollY > 50) {
-        header.classList.add('scrolled');
-      } else {
-        header.classList.remove('scrolled');
-      }
+      header.classList.toggle('scrolled', scrollY > 50);
     }
-    lastScrollY = scrollY;
 
-    // 2. Scroll to top button visibility - REMOVED (now always in footer)
-    isScrolling = false;
+    // 2. Auto-close mobile nav on ANY scroll (UX: prevents lost menu)
+    if (Math.abs(scrollY - lastScrollY) > 8) {
+      closeMobileNav();
+    }
+
+    lastScrollY   = scrollY;
+    isScrolling   = false;
+    scrollTicking = false;
   };
 
   window.addEventListener('scroll', () => {
