@@ -1,4 +1,4 @@
-﻿/* ============================================================
+/* ============================================================
    PORTFOLIO — style.css
    Author: Abdelaziz BOUGRICH Portfolio
    ============================================================ */
@@ -6580,6 +6580,83 @@ html.dark .nh-name {
 }
 .nh-image-container:hover .nh-portrait {
   transform: scale(1.04);
+}
+
+/* ══════════════════════════════════════════════════════
+   PORTRAIT BOTTOM ACCENT LINE
+   A glowing gradient bar positioned exactly at the lower
+   visible limit of the portrait. Pulses between the
+   project's accent colours (purple → blue → cyan) and
+   fades transparent at both tips so it blends naturally.
+══════════════════════════════════════════════════════ */
+.nh-accent-line {
+  position: absolute;
+  bottom: 0%;            /* costume lower limit — fine-tuned */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 75%;
+  height: 3px;
+  border-radius: 9999px;
+  z-index: 4;            /* above portrait (z:2) and floor gradient (z:3) */
+  pointer-events: none;
+
+  /* Base gradient: transparent tips, theme colours in centre */
+  background: linear-gradient(
+    90deg,
+    transparent          0%,
+    #7c3aed             20%,   /* violet */
+    #3b82f6             50%,   /* blue   */
+    #06b6d4             80%,   /* cyan   */
+    transparent        100%
+  );
+
+  box-shadow:
+    0 0 10px rgba(59, 130, 246, 0.7),
+    0 0 22px rgba(99,  102, 241, 0.45),
+    0 0 40px rgba(6,  182, 212, 0.25);
+
+  animation: nh-line-pulse 3s ease-in-out infinite alternate;
+}
+
+@keyframes nh-line-pulse {
+  0% {
+    width: 60%;
+    opacity: 0.70;
+    background: linear-gradient(
+      90deg,
+      transparent 0%, #7c3aed 22%, #3b82f6 55%, #06b6d4 82%, transparent 100%
+    );
+    box-shadow:
+      0 0  8px rgba(59, 130, 246, 0.50),
+      0 0 18px rgba(99, 102, 241, 0.30);
+  }
+  100% {
+    width: 85%;
+    opacity: 1;
+    background: linear-gradient(
+      90deg,
+      transparent 0%, #06b6d4 20%, #3b82f6 52%, #7c3aed 78%, transparent 100%
+    );
+    box-shadow:
+      0 0 16px rgba(59, 130, 246, 0.90),
+      0 0 35px rgba(99, 102, 241, 0.65),
+      0 0 60px rgba(6,  182, 212, 0.40);
+  }
+}
+
+/* Light mode: same line, slightly dimmer glow to suit the bright bg */
+html[data-theme="light"] .nh-accent-line {
+  opacity: 0.75;
+  box-shadow:
+    0 0  8px rgba(37,  99, 235, 0.45),
+    0 0 18px rgba(99, 102, 241, 0.28);
+}
+html[data-theme="light"] .nh-accent-line {
+  animation: nh-line-pulse-light 3s ease-in-out infinite alternate;
+}
+@keyframes nh-line-pulse-light {
+  0%   { width: 60%; opacity: 0.55; }
+  100% { width: 82%; opacity: 0.80; }
 }
 
 /* Scroll Indicator */
