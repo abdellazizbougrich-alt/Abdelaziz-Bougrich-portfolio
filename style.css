@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400&family=Outfit:wght@800&display=swap');
+
 /* ============================================================
    PORTFOLIO — style.css
    Author: Abdelaziz BOUGRICH Portfolio
@@ -696,21 +698,7 @@ button { cursor: pointer; font-family: inherit; border: none; background: none; 
   background: var(--accent);
 }
 
-.hero-name {
-  /* Reduced size */
-  font-size: clamp(2.4rem, 4.5vw, 3.5rem);
-  font-family: var(--font-main);
-  font-weight: 700; /* Standard bold instead of extra 'gras' */
-  line-height: 1.05;
-  color: #ffffff; /* White in dark mode (night effect) */
-  margin-bottom: var(--space-xs);
-  letter-spacing: -0.02em;
-  white-space: nowrap; /* Forces one line */
-}
-
-[data-theme="light"] .hero-name {
-  color: #000000; /* Solid black in light mode */
-}
+/* old hero-name rules removed */
 
 .accent-text {
   color: var(--accent);
@@ -6299,70 +6287,61 @@ html[data-theme="dark"] .nh-section {
   animation-delay: 0.06s;
 }
 
-.nh-name {
+.hero-name {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  align-items: baseline;
+  flex-wrap: wrap;
+  line-height: 1;
+  gap: 0.4em;
   margin: 0;
   word-break: break-word;
   overflow-wrap: break-word;
   width: fit-content;
   animation-delay: 0.1s;
   animation: nh-slideUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+  position: relative;
+  padding-bottom: 0.3em;
 }
 
-.nh-name-first {
-  font-family: 'Cormorant Garamond', Georgia, serif;
-  font-size: clamp(2rem, 4vw, 3rem);
-  font-weight: 600;
-  font-style: italic;
-  line-height: 1;
+.hero-name::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  border-radius: 9999px;
+  background: linear-gradient(90deg, #7c3aed, #3b82f6, #06b6d4);
+  box-shadow: 0 0 20px rgba(99, 102, 241, 0.6), 0 0 40px rgba(59, 130, 246, 0.3);
+  animation: name-accent-bar-pulse 3s ease-in-out infinite alternate;
+}
+
+@keyframes name-accent-bar-pulse {
+  0%   { opacity: 0.7; width: 80%; box-shadow: 0 0 15px rgba(99, 102, 241, 0.5); }
+  100% { opacity: 1;   width: 100%; box-shadow: 0 0 30px rgba(99, 102, 241, 0.8), 0 0 50px rgba(59,130,246,0.4); }
+}
+
+.name-first {
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  font-size: clamp(1.4rem, 3vw, 2rem);
   letter-spacing: 0.05em;
-  padding-left: 0.1em;
-  color: var(--nh-text-dark);
-}
-
-.nh-name-last {
-  font-family: 'Playfair Display', Georgia, serif;
-  font-size: clamp(2.2rem, 5vw, 3.8rem);
-  font-weight: 800;
+  color: var(--text-secondary, #6b7280);
   font-style: normal;
-  line-height: 1.05;
+}
+
+.name-last {
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: clamp(1.5rem, 3.2vw, 2.2rem);
+  letter-spacing: 0.1em;
+  color: var(--text-primary, #0f172a);
   text-transform: uppercase;
-  letter-spacing: -0.02em;
-
-  /* Elegant gradient — deep ink → accent blue */
-  background: linear-gradient(
-    135deg,
-    var(--nh-text-dark) 0%,
-    var(--nh-accent)    50%,
-    var(--nh-text-dark) 100%
-  );
-  background-size: 200% auto;
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-
-  animation: nh-name-shimmer 4s 1s ease-in-out forwards;
 }
 
-@keyframes nh-name-shimmer {
-  0%   { background-position: 200% center; }
-  100% { background-position:   0% center; }
-}
-
-/* Dark mode: pearl white → accent blue → pure white */
-html[data-theme="dark"] .nh-name-last,
-html.dark .nh-name-last {
-  background: linear-gradient(
-    135deg,
-    #f1f5f9          0%,
-    var(--nh-accent) 45%,
-    #ffffff          100%
-  );
-  background-size: 200% auto;
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
+.name-divider {
+  display: none;
 }
 
 .nh-subtitle {
