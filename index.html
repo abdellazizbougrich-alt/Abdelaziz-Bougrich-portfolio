@@ -18,10 +18,15 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <!-- Playfair Display: loaded synchronously — critical for hero name rendering -->
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&display=block" rel="stylesheet" />
+  <!-- Clash Display + Bebas Neue + Outfit: hero typography -->
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet" />
   <!-- Remaining fonts: lazy-loaded for performance -->
   <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Cormorant+Garamond:ital,wght@0,600;1,600;1,700&family=Dancing+Script:wght@700&family=Space+Mono:wght@400;700&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Cormorant+Garamond:ital,wght@0,600;1,600;1,700&family=Dancing+Script:wght@700&family=Space+Mono:wght@400;700&family=Outfit:wght@300;400;500;600&display=swap"
     rel="stylesheet" media="print" onload="this.media='all'" />
+  <!-- Clash Display via CDN -->
+  <link href="https://api.fontshare.com/v2/css?f[]=clash-display@400,500,600,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.11.0/tabler-icons.min.css" />
   <link rel="preload" as="image" href="assets/images/profile-transparent.png" />
   <script type="application/ld+json">
     {
@@ -139,89 +144,111 @@
     <!-- ============================================================
          HERO SECTION
     ============================================================ -->
-    <section id="hero" class="nh-section" aria-label="Introduction">
-      <div class="nh-bg-dots"></div>
-      <div class="nh-glow blob-1"></div>
-      <div class="nh-glow blob-2"></div>
+    <section id="hero" class="v5-hero" aria-label="Introduction">
 
-      <div class="container nh-container">
-        <!-- Left Column -->
-        <div class="nh-left">
-          <div class="nh-label" data-i18n="hero.role">─── Technical Sales Professional</div>
-          <div class="nh-greeting" data-i18n="hero.greeting">Hello, I'm</div>
-          <h1 class="hero-name">
-            <span class="name-first">Abdelaziz</span>
-            <span class="name-divider"></span>
-            <span class="name-last">BOUGRICH</span>
-          </h1>
-          <p class="nh-subtitle" data-i18n="hero.subtitle">Driving revenue through relationships &amp; CRM excellence
-          </p>
-          <p class="nh-desc" data-i18n="hero.desc">5+ years of experience in B2B technical sales, negotiation, and
-            client relationship management — based in Bologna, Italy, open to opportunities across Europe.</p>
+      <!-- Shimmer accent stripe at top -->
+      <div class="v5-top-stripe" aria-hidden="true"></div>
 
-          <div class="nh-stats">
-            <div class="nh-stat-pill"><span class="nh-stat-num">5+</span> <span class="nh-stat-label"
-                data-i18n="hero.stat_exp">Years Exp.</span></div>
-            <div class="nh-stat-pill"><span class="nh-stat-num">4</span> <span class="nh-stat-label"
-                data-i18n="hero.stat_lang">Languages</span></div>
-            <div class="nh-stat-pill"><span class="nh-stat-num">3</span> <span class="nh-stat-label"
-                data-i18n="hero.stat_countries">Countries</span></div>
-            <div class="nh-stat-pill"><span class="nh-stat-num">100%</span> <span class="nh-stat-label"
-                data-i18n="hero.stat_commit">Committed</span></div>
-          </div>
-
-          <div class="nh-actions">
-            <a href="#experience" class="nh-btn nh-btn-primary" data-i18n="hero.cta_work">View My Work &rarr;</a>
-            <a href="https://abdellazizbougrich-alt.github.io/Bougrich-abdelaziz-CV/" target="_blank"
-              class="nh-btn nh-btn-outline" data-i18n="hero.cta_cv">&darr; Download CV</a>
-          </div>
-
-          <div class="nh-socials">
-            <a href="https://www.linkedin.com/in/abdelaziz-bougrich-a13671155/" target="_blank" class="nh-social-icon"
-              aria-label="LinkedIn">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                <path
-                  d="M20 0H4C1.8 0 0 1.8 0 4v16c0 2.2 1.8 4 4 4h16c2.2 0 4-1.8 4-4V4c0-2.2-1.8-4-4-4zM8 19H5V8h3v11zM6.5 6.7c-1 0-1.7-.8-1.7-1.7S5.5 3.3 6.5 3.3s1.7.8 1.7 1.7-.7 1.7-1.7 1.7zM20 19h-3v-5.6c0-3.4-4-3.1-4 0V19h-3V8h3v1.8C14.5 7.3 20 7.1 20 12.3V19z" />
-              </svg>
-            </a>
-            <a href="https://github.com/abdellazizbougrich-alt" target="_blank" class="nh-social-icon"
-              aria-label="GitHub">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                <path
-                  d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.2 11.4.6.1.8-.3.8-.6v-2c-3.34.72-4.04-1.6-4.04-1.6-.54-1.38-1.32-1.75-1.32-1.75-1.08-.74.08-.72.08-.72 1.2.08 1.82 1.22 1.82 1.22 1.06 1.82 2.78 1.3 3.46 1 .1-.77.42-1.3.76-1.6-2.67-.3-5.47-1.33-5.47-5.93 0-1.3.47-2.38 1.23-3.22-.12-.3-.53-1.52.12-3.18 0 0 1-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.28-1.55 3.28-1.23 3.28-1.23.65 1.66.24 2.88.12 3.18.77.84 1.23 1.92 1.23 3.22 0 4.6-2.8 5.63-5.48 5.92.43.37.82 1.1.82 2.22v3.3c0 .3.2.7.8.6A12 12 0 0 0 24 12C24 5.37 18.63 0 12 0z" />
-              </svg>
-            </a>
-            <a href="mailto:abdelaziz.bougrich@gmail.com" class="nh-social-icon" aria-label="Email">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                <path
-                  d="M20 4H4C2.9 4 2 4.9 2 6v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
-              </svg>
-            </a>
-          </div>
-        </div>
-
-        <!-- Right Column -->
-        <div class="nh-right">
-          <div class="nh-image-container">
-            <div class="nh-radar nh-radar-1"></div>
-            <div class="nh-radar nh-radar-2"></div>
-            <div class="nh-radar nh-radar-3"></div>
-            <div class="nh-ring nh-ring-1"></div>
-            <div class="nh-ring nh-ring-2"></div>
-            <div class="nh-ring nh-ring-3"></div>
-            <img src="assets/images/profile-transparent.png" alt="Abdelaziz Bougrich Portrait" class="nh-portrait">
-            <!-- Animated accent line at the bottom limit of the portrait -->
-            <div class="nh-accent-line" aria-hidden="true"></div>
-          </div>
-        </div>
+      <!-- Subtle grid-line background -->
+      <div class="v5-grid-lines" aria-hidden="true">
+        <div class="v5-gl v5-gl-h" style="top:110px"></div>
+        <div class="v5-gl v5-gl-h" style="top:380px"></div>
+        <div class="v5-gl v5-gl-v" style="left:130px"></div>
+        <div class="v5-gl v5-gl-v" style="right:220px"></div>
       </div>
 
-      <div class="nh-scroll">
-        <div class="nh-scroll-mouse">
-          <div class="nh-scroll-wheel"></div>
+      <!-- 55 / 45 split grid -->
+      <div class="v5-hero-grid">
+
+        <!-- ─── LEFT COLUMN ─── -->
+        <div class="v5-hl">
+          <div class="v5-idx" aria-hidden="true">01</div>
+
+          <div>
+            <div class="v5-tag-row">
+              <div class="v5-tag-pill">B2B · CRM · Sales</div>
+              <div class="v5-tag-line"></div>
+            </div>
+
+            <div class="v5-big-name">
+              <h1>
+                <div class="v5-bn-first">Abdelaziz</div>
+                <div class="v5-bn-last">BOUGRICH</div>
+              </h1>
+              <div class="v5-bn-accent-bar" aria-hidden="true"></div>
+            </div>
+
+            <div class="v5-role-block">
+              <div class="v5-role-ico" aria-hidden="true"><i class="ti ti-target-arrow"></i></div>
+              <div class="v5-role-txt">
+                <div class="v5-role-title" data-i18n="hero.role">Technical Sales Professional</div>
+                <div class="v5-role-sub">Revenue growth · Client relationships · Europe-wide</div>
+              </div>
+            </div>
+
+            <p class="v5-bio" data-i18n="hero.desc">5+ years driving B2B revenue through deep client relationships, strategic negotiation, and CRM excellence — based in Bologna, Italy.</p>
+
+            <div class="v5-stats" role="list">
+              <div class="v5-st" role="listitem"><span class="v5-st-n">5+</span><span class="v5-st-l" data-i18n="hero.stat_exp">Years</span></div>
+              <div class="v5-st" role="listitem"><span class="v5-st-n">4</span><span class="v5-st-l" data-i18n="hero.stat_lang">Languages</span></div>
+              <div class="v5-st" role="listitem"><span class="v5-st-n">3</span><span class="v5-st-l" data-i18n="hero.stat_countries">Countries</span></div>
+              <div class="v5-st" role="listitem"><span class="v5-st-n">100%</span><span class="v5-st-l" data-i18n="hero.stat_commit">Committed</span></div>
+            </div>
+          </div>
+
+          <div class="v5-cta">
+            <a href="#experience" class="v5-btn1" data-i18n="hero.cta_work"><i class="ti ti-briefcase" aria-hidden="true"></i> View My Work</a>
+            <a href="https://abdellazizbougrich-alt.github.io/Bougrich-abdelaziz-CV/" target="_blank" rel="noopener" class="v5-btn2" data-i18n="hero.cta_cv"><i class="ti ti-download" aria-hidden="true"></i> Download CV</a>
+            <div class="v5-socs">
+              <a class="v5-soc" href="https://www.linkedin.com/in/abdelaziz-bougrich-a13671155/" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="ti ti-brand-linkedin"></i></a>
+              <a class="v5-soc" href="https://github.com/abdellazizbougrich-alt" target="_blank" rel="noopener" aria-label="GitHub"><i class="ti ti-brand-github"></i></a>
+              <a class="v5-soc" href="mailto:abdelaziz.bougrich@gmail.com" aria-label="Email"><i class="ti ti-mail"></i></a>
+            </div>
+          </div>
         </div>
-        <div class="nh-scroll-label">SCROLL</div>
+
+        <!-- ─── RIGHT COLUMN ─── -->
+        <div class="v5-hr" id="v5-hr">
+          <div class="v5-diag" id="v5-diag" aria-hidden="true"></div>
+          <div class="v5-corner-ac" aria-hidden="true"></div>
+
+          <div class="v5-photo-zone">
+            <div class="v5-photo-wrap">
+              <div class="v5-ph-ring" aria-hidden="true"></div>
+              <div class="v5-ph-frame">
+                <img src="assets/images/profile-transparent.png" alt="Abdelaziz Bougrich Portrait" loading="eager">
+                <div class="v5-ph-scan" aria-hidden="true"></div>
+                <div class="v5-ph-bot" id="v5-phbot" aria-hidden="true"></div>
+              </div>
+              <div class="v5-info-tl" aria-label="Open to work">Open to work</div>
+              <div class="v5-info-br" aria-label="Available"><div class="v5-gr-dot" aria-hidden="true"></div>Available</div>
+            </div>
+          </div>
+
+          <div class="v5-bottom-panel">
+            <div class="v5-loc-strip">
+              <div class="v5-loc-l"><div class="v5-loc-dot" aria-hidden="true"></div> Bologna, Italy · Europe-wide</div>
+              <div class="v5-loc-r">UTC+2</div>
+            </div>
+            <div class="v5-lang-grid" role="list" aria-label="Languages">
+              <div class="v5-lang-item" role="listitem"><span class="v5-lang-flag" aria-hidden="true">🇲🇦</span><span class="v5-lang-name">Arabic</span><div class="v5-lang-bar-wrap"><div class="v5-lang-bar" style="width:100%"></div></div><span class="v5-lang-lv">C2</span></div>
+              <div class="v5-lang-item" role="listitem"><span class="v5-lang-flag" aria-hidden="true">🇬🇧</span><span class="v5-lang-name">English</span><div class="v5-lang-bar-wrap"><div class="v5-lang-bar" style="width:85%"></div></div><span class="v5-lang-lv">C1</span></div>
+              <div class="v5-lang-item" role="listitem"><span class="v5-lang-flag" aria-hidden="true">🇫🇷</span><span class="v5-lang-name">French</span><div class="v5-lang-bar-wrap"><div class="v5-lang-bar" style="width:70%"></div></div><span class="v5-lang-lv">B2</span></div>
+              <div class="v5-lang-item" role="listitem"><span class="v5-lang-flag" aria-hidden="true">🇮🇹</span><span class="v5-lang-name">Italian</span><div class="v5-lang-bar-wrap"><div class="v5-lang-bar" style="width:55%"></div></div><span class="v5-lang-lv">B1</span></div>
+            </div>
+          </div>
+
+
+        </div>
+
+      </div><!-- /v5-hero-grid -->
+
+      <!-- Scroll indicator -->
+      <div class="v5-scroll" aria-hidden="true">
+        <div class="v5-scroll-mouse"><div class="v5-scroll-wheel"></div></div>
+        <div class="v5-scroll-label">SCROLL</div>
       </div>
+
     </section>
 
     <!-- ============================================================
