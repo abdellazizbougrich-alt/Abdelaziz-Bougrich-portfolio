@@ -49,25 +49,51 @@
        HEADER / NAVIGATION
   ============================================================ -->
   <header id="header" role="banner">
+    <!-- Top accent stripe -->
+    <div class="v5-top-stripe" aria-hidden="true"></div>
+
     <nav class="nav-container" aria-label="Main navigation">
-      <a href="#hero" class="nav-logo" aria-label="Go to top">
-        <span class="logo-initials">A.bougrich</span>
-        <span class="logo-dot"></span>
-      </a>
+      <!-- Left Column (55% width on desktop) -->
+      <div class="nav-col-left">
+        <div class="nav-logo-wrapper">
+          <a href="#hero" class="nav-logo" aria-label="Go to top">
+            <span class="logo-initials">BOUGRICH</span>
+            <span class="logo-dot"></span>
+          </a>
+        </div>
+        
+        <div class="nav-links-wrapper">
+          <ul class="nav-links" id="nav-links" role="list">
+            <li><a href="#about" class="nav-link" data-i18n="nav.about">About</a></li>
+            <li><a href="#experience" class="nav-link" data-i18n="nav.experience">Work</a></li>
+            <li><a href="#skills" class="nav-link" data-i18n="nav.skills">Skills</a></li>
+            <li><a href="#contact" class="nav-link" data-i18n="nav.contact">Contact</a></li>
+          </ul>
+        </div>
+      </div>
 
-      <ul class="nav-links" id="nav-links" role="list">
-        <li><a href="#about" class="nav-link" data-i18n="nav.about">About</a></li>
-        <li><a href="#experience" class="nav-link" data-i18n="nav.experience">Experience</a></li>
-        <li><a href="#education" class="nav-link" data-i18n="nav.education">Education</a></li>
-        <li><a href="#skills" class="nav-link" data-i18n="nav.skills">Skills</a></li>
-        <li><a href="#contact" class="nav-link" data-i18n="nav.contact">Contact</a></li>
-      </ul>
+      <div class="nav-col-right">
+        <!-- Language Switcher in Header -->
+        <div class="lang-dropdown-wrapper" id="lang-dropdown-wrapper">
+          <button class="lang-toggle-btn" id="lang-toggle-btn" aria-label="Select Language"
+            aria-haspopup="true" aria-expanded="false" title="Change Language">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round" class="lang-icon">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="2" y1="12" x2="22" y2="12"></line>
+              <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+            </svg>
+            <span id="current-lang-display">EN</span>
+          </button>
+          <div class="lang-dropdown-menu" id="lang-dropdown-menu" role="menu" aria-label="Language selection">
+            <button class="lang-option active" data-lang="en" role="menuitem">EN — English</button>
+            <button class="lang-option" data-lang="fr" role="menuitem">FR — Français</button>
+            <button class="lang-option" data-lang="it" role="menuitem">IT — Italiano</button>
+          </div>
+        </div>
 
-      <div class="nav-actions">
-        <!-- UNIFIED ACTION PILL -->
-        <div class="lang-pill-switcher unified-action-pill">
-          <!-- Theme Toggle inside Pill -->
-          <button id="theme-toggle" class="unified-icon-btn" aria-label="Toggle color theme" title="Toggle Theme">
+        <button id="theme-toggle" class="theme-mode-btn" aria-label="Toggle color theme" title="Toggle Theme">
+          <span class="theme-icon-slot">
             <svg class="theme-icon sun" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="5"
               stroke-linecap="round">
               <circle cx="50" cy="50" r="18" />
@@ -79,58 +105,14 @@
               <line x1="50" y1="22" x2="50" y2="6" transform="rotate(225 50 50)" />
               <line x1="50" y1="22" x2="50" y2="6" transform="rotate(270 50 50)" />
               <line x1="50" y1="22" x2="50" y2="6" transform="rotate(315 50 50)" />
-              <line x1="50" y1="24" x2="50" y2="12" transform="rotate(22.5 50 50)" />
-              <line x1="50" y1="24" x2="50" y2="12" transform="rotate(67.5 50 50)" />
-              <line x1="50" y1="24" x2="50" y2="12" transform="rotate(112.5 50 50)" />
-              <line x1="50" y1="24" x2="50" y2="12" transform="rotate(157.5 50 50)" />
-              <line x1="50" y1="24" x2="50" y2="12" transform="rotate(202.5 50 50)" />
-              <line x1="50" y1="24" x2="50" y2="12" transform="rotate(247.5 50 50)" />
-              <line x1="50" y1="24" x2="50" y2="12" transform="rotate(292.5 50 50)" />
-              <line x1="50" y1="24" x2="50" y2="12" transform="rotate(337.5 50 50)" />
             </svg>
             <svg class="theme-icon moon" viewBox="0 0 100 100" fill="currentColor">
               <path d="M50 15 A35 35 0 1 0 85 50 A25 25 0 0 1 50 15 Z" />
             </svg>
-          </button>
-
-          <div class="pill-divider"></div>
-
-          <!-- Language Dropdown -->
-          <div class="lang-dropdown-wrapper" id="lang-dropdown-wrapper" style="position: relative;">
-            <button class="unified-icon-btn lang-toggle-btn" id="lang-toggle-btn" aria-label="Select Language"
-              aria-haspopup="true" aria-expanded="false" title="Change Language" style="border-radius: 21px;">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                stroke-linejoin="round" style="pointer-events: none;">
-                <circle cx="12" cy="12" r="10"></circle>
-                <line x1="2" y1="12" x2="22" y2="12"></line>
-                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z">
-                </path>
-              </svg>
-              <span id="current-lang-display"
-                style="font-weight: 700; font-size: 0.8rem; text-transform: uppercase;">EN</span>
-            </button>
-            <div class="lang-dropdown-menu" id="lang-dropdown-menu" role="menu" aria-label="Language selection">
-              <button class="lang-option active" data-lang="en" role="menuitem">EN — English</button>
-              <button class="lang-option" data-lang="fr" role="menuitem">FR — Français</button>
-              <button class="lang-option" data-lang="it" role="menuitem">IT — Italiano</button>
-            </div>
-          </div>
-
-          <div class="pill-divider"></div>
-
-          <!-- CV Button inside Pill -->
-          <a href="https://abdellazizbougrich-alt.github.io/Bougrich-abdelaziz-CV/" target="_blank" rel="noopener"
-            class="unified-icon-btn" id="nav-cv-btn" aria-label="View CV" title="View CV">
-            <svg class="cv-nav-icon" viewBox="0 0 100 100" fill="currentColor">
-              <rect x="25" y="15" width="50" height="30" />
-              <line x1="35" y1="25" x2="65" y2="25" stroke="var(--bg-primary)" stroke-width="4"
-                stroke-linecap="round" />
-              <line x1="35" y1="35" x2="65" y2="35" stroke="var(--bg-primary)" stroke-width="4"
-                stroke-linecap="round" />
-              <rect x="15" y="48" width="70" height="35" rx="8" />
-            </svg>
-          </a>
-        </div>
+          </span>
+          <span class="theme-btn-text">Day mode</span>
+        </button>
+        
         <button id="nav-toggle" class="hamburger" aria-label="Toggle mobile menu" aria-expanded="false"
           aria-controls="nav-links">
           <span></span><span></span><span></span>
@@ -145,9 +127,6 @@
          HERO SECTION
     ============================================================ -->
     <section id="hero" class="v5-hero" aria-label="Introduction">
-
-      <!-- Shimmer accent stripe at top -->
-      <div class="v5-top-stripe" aria-hidden="true"></div>
 
       <!-- Subtle grid-line background -->
       <div class="v5-grid-lines" aria-hidden="true">
@@ -179,7 +158,15 @@
             </div>
 
             <div class="v5-role-block">
-              <div class="v5-role-ico" aria-hidden="true"><i class="ti ti-target-arrow"></i></div>
+              <div class="v5-role-ico" aria-hidden="true">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="pointer-events: none;">
+                  <circle cx="12" cy="12" r="10"/>
+                  <circle cx="12" cy="12" r="6"/>
+                  <circle cx="12" cy="12" r="2"/>
+                  <path d="m22 2-7.5 7.5"/>
+                  <path d="M22 6V2h-4"/>
+                </svg>
+              </div>
               <div class="v5-role-txt">
                 <div class="v5-role-title" data-i18n="hero.role">Technical Sales Professional</div>
                 <div class="v5-role-sub">Revenue growth · Client relationships · Europe-wide</div>
@@ -197,12 +184,36 @@
           </div>
 
           <div class="v5-cta">
-            <a href="#experience" class="v5-btn1" data-i18n="hero.cta_work"><i class="ti ti-briefcase" aria-hidden="true"></i> View My Work</a>
-            <a href="https://abdellazizbougrich-alt.github.io/Bougrich-abdelaziz-CV/" target="_blank" rel="noopener" class="v5-btn2" data-i18n="hero.cta_cv"><i class="ti ti-download" aria-hidden="true"></i> Download CV</a>
+            <a href="#experience" class="v5-btn1">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="pointer-events: none; margin-right: 6px; display: inline-block; vertical-align: middle;">
+                <rect x="2" y="7" width="20" height="14" rx="2" ry="2"/>
+                <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
+              </svg><span data-i18n="hero.cta_work">View My Work</span>
+            </a>
+            <a href="https://abdellazizbougrich-alt.github.io/Bougrich-abdelaziz-CV/" target="_blank" rel="noopener" class="v5-btn2">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="pointer-events: none; margin-right: 6px; display: inline-block; vertical-align: middle;">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                <polyline points="7 10 12 15 17 10"/>
+                <line x1="12" y1="15" x2="12" y2="3"/>
+              </svg><span data-i18n="hero.cta_cv">Download CV</span>
+            </a>
             <div class="v5-socs">
-              <a class="v5-soc" href="https://www.linkedin.com/in/abdelaziz-bougrich-a13671155/" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="ti ti-brand-linkedin"></i></a>
-              <a class="v5-soc" href="https://github.com/abdellazizbougrich-alt" target="_blank" rel="noopener" aria-label="GitHub"><i class="ti ti-brand-github"></i></a>
-              <a class="v5-soc" href="mailto:abdelaziz.bougrich@gmail.com" aria-label="Email"><i class="ti ti-mail"></i></a>
+              <a class="v5-soc" href="https://www.linkedin.com/in/abdelaziz-bougrich-a13671155/" target="_blank" rel="noopener" aria-label="LinkedIn">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="pointer-events: none;">
+                  <path d="M20 0H4C1.8 0 0 1.8 0 4v16c0 2.2 1.8 4 4 4h16c2.2 0 4-1.8 4-4V4c0-2.2-1.8-4-4-4zM8 19H5V8h3v11zM6.5 6.7c-1 0-1.7-.8-1.7-1.7S5.5 3.3 6.5 3.3s1.7.8 1.7 1.7-.7 1.7-1.7 1.7zM20 19h-3v-5.6c0-3.4-4-3.1-4 0V19h-3V8h3v1.8C14.5 7.3 20 7.1 20 12.3V19z"/>
+                </svg>
+              </a>
+              <a class="v5-soc" href="https://github.com/abdellazizbougrich-alt" target="_blank" rel="noopener" aria-label="GitHub">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="pointer-events: none;">
+                  <path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.2 11.4.6.1.8-.3.8-.6v-2c-3.34.72-4.04-1.6-4.04-1.6-.54-1.38-1.32-1.75-1.32-1.75-1.08-.74.08-.72.08-.72 1.2.08 1.82 1.22 1.82 1.22 1.06 1.82 2.78 1.3 3.46 1 .1-.77.42-1.3.76-1.6-2.67-.3-5.47-1.33-5.47-5.93 0-1.3.47-2.38 1.23-3.22-.12-.3-.53-1.52.12-3.18 0 0 1-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.28-1.55 3.28-1.23 3.28-1.23.65 1.66.24 2.88.12 3.18.77.84 1.23 1.92 1.23 3.22 0 4.6-2.8 5.63-5.48 5.92.43.37.82 1.1.82 2.22v3.3c0 .3.2.7.8.6A12 12 0 0 0 24 12C24 5.37 18.63 0 12 0z"/>
+                </svg>
+              </a>
+              <a class="v5-soc" href="mailto:abdelaziz.bougrich@gmail.com" aria-label="Email">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="pointer-events: none;">
+                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                  <polyline points="22,6 12,13 2,6"/>
+                </svg>
+              </a>
             </div>
           </div>
         </div>
@@ -1140,7 +1151,7 @@
     <div class="footer-container">
       <div class="footer-top">
         <a href="#hero" class="nav-logo footer-logo" aria-label="Back to top">
-          <span class="logo-initials">A.bougrich</span>
+          <span class="logo-initials">BOUGRICH</span>
           <span class="logo-dot"></span>
         </a>
         <nav class="footer-nav" aria-label="Footer navigation">

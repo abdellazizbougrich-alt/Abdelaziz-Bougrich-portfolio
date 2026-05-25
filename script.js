@@ -10,6 +10,23 @@ document.addEventListener('DOMContentLoaded', () => {
   const themeToggle = document.getElementById('theme-toggle');
   const htmlElement = document.documentElement;
   
+  // Theme Toggle Button Text updater (depends on language & theme)
+  const updateThemeToggleText = () => {
+    const currentTheme = htmlElement.getAttribute('data-theme') || 'dark';
+    const currentLang = localStorage.getItem('preferred_lang') || 'en';
+    const textEl = document.querySelector('.theme-btn-text');
+    if (!textEl) return;
+    
+    const themeTexts = {
+      en: { day: 'Day mode', night: 'Night mode' },
+      fr: { day: 'Mode Jour', night: 'Mode Nuit' },
+      it: { day: 'Modo Giorno', night: 'Modo Notte' }
+    };
+    
+    const langTexts = themeTexts[currentLang] || themeTexts['en'];
+    textEl.textContent = currentTheme === 'light' ? langTexts.night : langTexts.day;
+  };
+
   // Check for saved theme in localStorage
   const savedTheme = localStorage.getItem('theme');
   if (savedTheme) {
@@ -21,6 +38,9 @@ document.addEventListener('DOMContentLoaded', () => {
       htmlElement.setAttribute('data-theme', 'light');
     }
   }
+  
+  // Initial call to set text correctly on load
+  updateThemeToggleText();
 
   themeToggle.addEventListener('click', () => {
     const currentTheme = htmlElement.getAttribute('data-theme');
@@ -28,6 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     htmlElement.setAttribute('data-theme', newTheme);
     localStorage.setItem('theme', newTheme);
+    updateThemeToggleText();
   });
 
   // ==========================================================
@@ -71,7 +92,7 @@ document.addEventListener('DOMContentLoaded', () => {
     en: {
       // NAV
       'nav.about': 'About',
-      'nav.experience': 'Experience',
+      'nav.experience': 'Work',
       'nav.education': 'Education',
       'nav.skills': 'Skills',
       'nav.contact': 'Contact',
@@ -495,6 +516,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Update <html lang=""> attribute
     document.documentElement.setAttribute('lang', lang);
+
+    // Also update theme toggle button text for language change
+    updateThemeToggleText();
   };
 
   const setLanguage = (lang) => {
