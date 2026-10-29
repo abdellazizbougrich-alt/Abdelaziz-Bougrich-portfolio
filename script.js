@@ -181,7 +181,7 @@ document.addEventListener('DOMContentLoaded', () => {
       'skills.order_tracking': 'Order Tracking',
       'skills.after_sales': 'After-Sales Service',
       'skills.ms_office': 'Microsoft Office Suite',
-      'skills.driving': 'Driving Licence B',
+      'skills.driving': 'Driving Licences: B, C, D, EB, EC, ED',
       'skills.sales_mgmt': 'Sales Management',
       'skills.customer_svc': 'Customer Service Excellence',
       'skills.leadership': 'Leadership',
@@ -316,7 +316,7 @@ document.addEventListener('DOMContentLoaded', () => {
       'skills.order_tracking': 'Suivi des commandes',
       'skills.after_sales': 'Service après-vente',
       'skills.ms_office': 'Suite Microsoft Office',
-      'skills.driving': 'Permis de conduire B',
+      'skills.driving': 'Permis de conduire : B, C, D, EB, EC, ED',
       'skills.sales_mgmt': 'Management commercial',
       'skills.customer_svc': 'Excellence du service client',
       'skills.leadership': 'Leadership',
@@ -451,7 +451,7 @@ document.addEventListener('DOMContentLoaded', () => {
       'skills.order_tracking': 'Monitoraggio ordini',
       'skills.after_sales': 'Servizio post-vendita',
       'skills.ms_office': 'Suite Microsoft Office',
-      'skills.driving': 'Patente di guida B',
+      'skills.driving': 'Patente di guida: B, C, D, EB, EC, ED',
       'skills.sales_mgmt': 'Gestione commerciale',
       'skills.customer_svc': 'Eccellenza nel servizio clienti',
       'skills.leadership': 'Leadership',
@@ -498,11 +498,32 @@ document.addEventListener('DOMContentLoaded', () => {
   const applyTranslation = (lang) => {
     const dict = translations[lang] || translations['en'];
 
-    // Translate all [data-i18n] elements
+    // Translate all [data-i18n] elements safely preserving SVG icons
     document.querySelectorAll('[data-i18n]').forEach(el => {
       const key = el.getAttribute('data-i18n');
       if (dict[key] !== undefined) {
-        el.innerHTML = dict[key];
+        const svgs = el.querySelectorAll('svg');
+        if (svgs.length > 0) {
+          const textSpan = el.querySelector('.badge-text, .pill-text, [data-i18n-text]');
+          if (textSpan) {
+            textSpan.innerHTML = dict[key];
+          } else {
+            // Find child text node to replace safely without blowing away SVGs
+            let replaced = false;
+            for (let node of el.childNodes) {
+              if (node.nodeType === Node.TEXT_NODE && node.nodeValue.trim().length > 0) {
+                node.nodeValue = ' ' + dict[key].replace(/&amp;/g, '&') + ' ';
+                replaced = true;
+                break;
+              }
+            }
+            if (!replaced) {
+              el.innerHTML = dict[key];
+            }
+          }
+        } else {
+          el.innerHTML = dict[key];
+        }
       }
     });
 
@@ -1040,7 +1061,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Close on orientation change / resize
     window.addEventListener('resize', () => {
-      if (langDropdownMenu.classList.contains('open')) { closeLangMenu(); }
+      if (diplomaModal.classList.contains('open')) { closeModal(); }
     });
 
     // Close on Escape key
