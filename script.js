@@ -3,6 +3,9 @@
  * Author: Abdelaziz BOUGRICH Portfolio
  */
 
+// Flag that JS is running, so CSS only hides reveal-animated content when it can be revealed again
+document.documentElement.classList.add('js');
+
 document.addEventListener('DOMContentLoaded', () => {
   // ==========================================================
   // 1. THEME TOGGLE (Dark / Light Mode)
@@ -691,17 +694,20 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   const handleScrollEvents = () => {
-    const scrollY = window.scrollY;
+    // Clamp: iOS/Android rubber-banding reports negative values at the edges
+    const scrollY = Math.max(0, window.scrollY);
+    const delta   = scrollY - lastScrollY;
 
-    // 1. Header hide/show on scroll direction
+    // 1. Header hide/show on scroll direction (ignores jitter < 6px so touch
+    //    momentum scrolling doesn't make the bar flicker)
     if (header) {
-      const scrollingDown = scrollY > lastScrollY && scrollY > 200;
-
-      if (scrollingDown) {
+      if (scrollY <= 120) {
+        header.classList.remove('header--hidden');
+      } else if (delta > 6) {
         header.classList.add('header--hidden');
-        // Auto-close the mobile nav when header hides
+        // Auto-close the mobile nav & language menu when header hides
         closeMobileNav();
-      } else {
+      } else if (delta < -6) {
         header.classList.remove('header--hidden');
       }
 
@@ -709,15 +715,26 @@ document.addEventListener('DOMContentLoaded', () => {
       header.classList.toggle('scrolled', scrollY > 50);
     }
 
-    // 2. Auto-close mobile nav on ANY scroll (UX: prevents lost menu)
-    if (Math.abs(scrollY - lastScrollY) > 8) {
+    // 2. Back-to-top button: only show once the user has scrolled a screen or so
+    if (scrollTopBtn) {
+      scrollTopBtn.classList.toggle('visible', scrollY > Math.min(600, window.innerHeight * 0.8));
+    }
+
+    // 3. Auto-close mobile nav on a real scroll gesture (UX: prevents lost menu)
+    if (Math.abs(delta) > 8) {
       closeMobileNav();
     }
 
-    lastScrollY   = scrollY;
+    // Only remember the position when it moved enough, so slow scrolls still accumulate
+    if (Math.abs(delta) > 6 || scrollY <= 120) {
+      lastScrollY = scrollY;
+    }
     isScrolling   = false;
     scrollTicking = false;
   };
+
+  // Initial state (page may load already scrolled, e.g. on refresh)
+  handleScrollEvents();
 
   window.addEventListener('scroll', () => {
     if (!isScrolling) {
@@ -728,7 +745,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (scrollTopBtn) {
     scrollTopBtn.addEventListener('click', () => {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      window.scrollTo({
+        top: 0,
+        behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth'
+      });
     });
   }
 
@@ -738,8 +758,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const revealElements = document.querySelectorAll('.reveal');
 
   const revealOptions = {
-    threshold: 0.15,
-    rootMargin: "0px 0px -50px 0px"
+    // Low threshold + positive bottom margin so elements reveal smoothly right as they enter the screen
+    threshold: 0.01,
+    rootMargin: "0px 0px 50px 0px"
   };
 
   const revealObserver = new IntersectionObserver((entries, observer) => {
@@ -794,7 +815,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         obs.unobserve(entry.target);
       });
-    }, { threshold: getThreshold(0.15, 0.1) });
+    }, { threshold: 0.02, rootMargin: "0px 0px 50px 0px" });
     barsObserver.observe(barsContainer);
   }
 
@@ -845,7 +866,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         obs.unobserve(entry.target);
       });
-    }, { threshold: getThreshold(0.3, 0.2) });
+    }, { threshold: 0.02, rootMargin: "0px 0px 50px 0px" });
 
     langObserver.observe(langBlock);
   }
@@ -955,7 +976,7 @@ document.addEventListener('DOMContentLoaded', () => {
         entry.target.classList.add('img-visible');
         observer.unobserve(entry.target);
       });
-    }, { threshold: 0.15 });
+    }, { threshold: 0.02, rootMargin: "0px 0px 50px 0px" });
     imagePanels.forEach(panel => imageObserver.observe(panel));
   }
 
@@ -1012,7 +1033,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         obs.unobserve(entry.target);
       });
-    }, { threshold: getThreshold(0.25, 0.15) });
+    }, { threshold: 0.02, rootMargin: "0px 0px 50px 0px" });
 
     blocks.forEach(b => tenureObs.observe(b));
   })();
@@ -1048,8 +1069,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const headerOffset = header ? header.offsetHeight : 80;
         const targetPos = targetEl.getBoundingClientRect().top + window.scrollY - headerOffset;
         window.scrollTo({
-          top: targetPos,
-          behavior: 'smooth'
+          top: Math.max(0, targetPos),
+          behavior: prefersReducedMotion ? 'auto' : 'smooth'
         });
         
         // Ensure mobile nav menu closes on selection automatically

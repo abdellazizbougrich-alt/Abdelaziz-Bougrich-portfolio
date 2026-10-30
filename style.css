@@ -1,5 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800&family=Outfit:wght@100;200;300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
-
 /* ═══════════════════════════════════════════════════════════════════════════
    ABDELAZIZ BOUGRICH — PORTFOLIO STYLESHEET
    Aesthetic: Cold Architectural & Editorial Minimalist
@@ -60,7 +58,7 @@
   /* Typography Families */
   --font-display: 'Montserrat', 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
   --font-sans: 'Inter', 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
-  --font-mono: 'JetBrains Mono', 'Space Mono', monospace;
+  --font-mono: 'Space Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
   --font-script: 'Dancing Script', cursive;
 
   /* Layout & Spacing */
@@ -129,6 +127,8 @@ html {
   scroll-behavior: smooth;
   scroll-padding-top: var(--header-height);
   font-size: 16px;
+  max-width: 100%;
+  overflow-x: clip;
   -webkit-text-size-adjust: 100%;
 }
 
@@ -137,7 +137,8 @@ body {
   background-color: var(--bg-primary);
   color: var(--text-primary);
   line-height: 1.65;
-  overflow-x: hidden;
+  max-width: 100%;
+  overflow-x: clip;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   transition: background-color 0.35s ease, color 0.35s ease;
@@ -269,17 +270,25 @@ button {
   line-height: 1.7;
 }
 
-/* Scroll Reveal Animations */
-.reveal {
+/* Scroll Reveal Animations (only hidden when JS is running to reveal them again) */
+.js .reveal {
   opacity: 0;
   transform: translateY(24px);
   transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1), transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.reveal.is-visible,
-.reveal.visible {
+.js .reveal.reveal-left {
+  transform: translateX(-32px);
+}
+
+.js .reveal.reveal-right {
+  transform: translateX(32px);
+}
+
+.js .reveal.is-visible,
+.js .reveal.visible {
   opacity: 1;
-  transform: translateY(0);
+  transform: none;
 }
 
 .sv2-ring-defs {
@@ -373,9 +382,14 @@ button {
 }
 
 .logo-dot {
-  color: var(--cold-teal);
-  font-weight: 700;
-  margin-left: 1px;
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  margin-left: 5px;
+  border-radius: 50%;
+  background: var(--cold-teal);
+  box-shadow: 0 0 10px rgba(45, 212, 191, 0.65);
+  flex-shrink: 0;
 }
 
 .nav-links-wrapper {
@@ -755,19 +769,14 @@ button {
   object-position: center center;
   display: block;
   margin: 0 auto;
-  filter:
-    drop-shadow(0 20px 40px rgba(0, 0, 0, 0.8))
-    drop-shadow(0 0 32px rgba(20, 184, 166, 0.13))
-    contrast(1.03);
-  -webkit-mask-image: linear-gradient(180deg, #000000 78%, rgba(0, 0, 0, 0.6) 90%, transparent 100%);
-  mask-image: linear-gradient(180deg, #000000 78%, rgba(0, 0, 0, 0.6) 90%, transparent 100%);
+  filter: contrast(1.03);
+  -webkit-mask-image: radial-gradient(ellipse 62% 80% at 52% 38%, #000000 56%, rgba(0, 0, 0, 0.6) 73%, transparent 93%);
+  mask-image: radial-gradient(ellipse 62% 80% at 52% 38%, #000000 56%, rgba(0, 0, 0, 0.6) 73%, transparent 93%);
   transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), filter 0.5s ease;
 }
 
 [data-theme="light"] .exec-portrait-card img {
-  filter:
-    drop-shadow(0 16px 32px rgba(15, 23, 42, 0.22))
-    contrast(1.02);
+  filter: contrast(1.02);
 }
 
 .exec-portrait-wrapper:hover .exec-portrait-card img {
@@ -1177,13 +1186,7 @@ button {
   display: flex;
   flex-direction: column;
   gap: 0.2rem;
-  padding-bottom: 0.65rem;
-  border-bottom: 1px solid var(--border-subtle);
-}
-
-.info-item:nth-last-child(-n+2) {
-  border-bottom: none;
-  padding-bottom: 0;
+  min-width: 0;
 }
 
 .info-label {
@@ -1199,7 +1202,7 @@ button {
   font-size: 0.9rem;
   font-weight: 500;
   color: var(--text-primary);
-  word-break: break-word;
+  overflow-wrap: anywhere;
 }
 
 .info-link {
@@ -1603,9 +1606,12 @@ button {
   border: 1px solid rgba(45, 212, 191, 0.26);
   background: var(--bg-card-solid);
   box-shadow: var(--shadow-md);
+  transition: opacity 0.55s ease, transform 0.55s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+}
+
+.js .exp-image-panel {
   opacity: 0;
   transform: translateY(16px);
-  transition: opacity 0.55s ease, transform 0.55s ease, border-color 0.35s ease, box-shadow 0.35s ease;
 }
 
 /* Cold top accent line on experience showcase image */
@@ -1621,6 +1627,7 @@ button {
   opacity: 0.85;
 }
 
+.js .exp-image-panel.img-visible,
 .exp-image-panel.img-visible {
   opacity: 1;
   transform: translateY(0);
@@ -1761,7 +1768,9 @@ button {
   height: 100%;
   min-height: 290px;
   border-radius: var(--radius-md);
-  background-color: var(--bg-card-solid);
+  /* Cards stay deep midnight in BOTH themes: their text is always light */
+  background-color: #0d1424;
+  background-image: linear-gradient(160deg, #16213a 0%, #0d1424 70%);
   background-size: cover;
   background-position: center;
   border: 1px solid var(--border-subtle);
@@ -1788,21 +1797,12 @@ button {
   inset: 0;
   background: linear-gradient(
     180deg,
-    rgba(9, 13, 20, 0.72) 0%,
-    rgba(9, 13, 20, 0.92) 65%,
-    rgba(9, 13, 20, 0.98) 100%
+    rgba(9, 13, 20, 0.2) 0%,
+    rgba(9, 13, 20, 0.55) 55%,
+    rgba(9, 13, 20, 0.85) 100%
   );
   z-index: 1;
   transition: background 0.35s ease;
-}
-
-[data-theme="light"] .edu-card-overlay {
-  background: linear-gradient(
-    180deg,
-    rgba(15, 23, 42, 0.62) 0%,
-    rgba(15, 23, 42, 0.86) 65%,
-    rgba(15, 23, 42, 0.94) 100%
-  );
 }
 
 .edu-grid-card:hover {
@@ -1826,11 +1826,11 @@ button {
   font-size: 0.75rem;
   font-weight: 500;
   letter-spacing: 0.14em;
-  color: var(--cold-teal);
+  color: #5eead4;
   padding: 0.25rem 0.75rem;
   border-radius: var(--radius-pill);
-  background: rgba(45, 212, 191, 0.12);
-  border: 1px solid rgba(45, 212, 191, 0.28);
+  background: rgba(45, 212, 191, 0.14);
+  border: 1px solid rgba(45, 212, 191, 0.4);
 }
 
 .edu-degree,
@@ -2320,7 +2320,7 @@ button {
 
 .sv2-ring-fill {
   fill: none;
-  stroke: var(--cold-teal) !important;
+  /* stroke colour comes from the inline url(#sv2-rg-*) cold gradient on each ring */
   stroke-width: 6;
   stroke-linecap: round;
   transition: stroke-dasharray 1.3s cubic-bezier(0.16, 1, 0.3, 1);
@@ -2482,13 +2482,22 @@ button {
   pointer-events: none;
 }
 
+.contact-container {
+  position: relative;
+  z-index: 2;
+}
+
 .contact-icons-row {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 1.25rem;
 }
 
 .contact-icon-pill {
+  flex: 1 1 200px;
+  max-width: 280px;
+  min-width: 0;
   background: var(--bg-card);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-md);
@@ -2511,6 +2520,7 @@ button {
 .contact-circle-frame {
   width: 54px;
   height: 54px;
+  flex-shrink: 0;
   border-radius: 50%;
   background: rgba(45, 212, 191, 0.08);
   border: 1px solid rgba(45, 212, 191, 0.28);
@@ -2519,6 +2529,11 @@ button {
   align-items: center;
   justify-content: center;
   transition: all 0.25s ease;
+}
+
+.contact-circle-frame svg {
+  width: 24px;
+  height: 24px;
 }
 
 .contact-icon-pill:hover .contact-circle-frame {
@@ -2542,10 +2557,10 @@ button {
 }
 
 .contact-pill-value {
-  font-size: 0.86rem;
+  font-size: 0.84rem;
   font-weight: 500;
   color: var(--text-primary);
-  word-break: break-all;
+  overflow-wrap: anywhere;
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
@@ -2782,19 +2797,19 @@ button {
   }
 
   .hero-exec-container {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
     align-items: center;
     justify-items: center;
     text-align: center;
-    padding-top: 1.5rem;
-    padding-bottom: 1.5rem;
-    gap: 1.5rem;
+    padding: 1.25rem 1.15rem 1.5rem;
+    gap: 1.35rem;
   }
 
   .hero-exec-visual {
     order: 1 !important;
     width: 100%;
-    max-width: 340px;
+    max-width: 320px;
+    min-width: 0;
     margin: 0 auto;
     display: flex;
     align-items: center;
@@ -2802,18 +2817,21 @@ button {
   }
 
   .exec-portrait-wrapper {
-    max-width: 320px;
+    max-width: 300px;
     margin: 0 auto;
   }
 
   .exec-portrait-card img {
-    max-width: 300px;
-    max-height: 44vh;
+    max-width: 280px;
+    max-height: 40vh;
     margin: 0 auto;
   }
 
   .hero-exec-content {
     order: 2 !important;
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
     align-items: center;
     justify-self: center;
     text-align: center;
@@ -2845,7 +2863,7 @@ button {
   }
 
   .vtl-entry {
-    grid-template-columns: 40px 1fr;
+    grid-template-columns: 40px minmax(0, 1fr);
     gap: 1.25rem 1rem;
   }
 
@@ -2947,7 +2965,12 @@ button {
   }
 
   .exp-image-panel {
-    min-height: 220px;
+    min-height: 250px;
+  }
+
+  .exp-image-label {
+    padding-right: 46%;
+    line-height: 1.3;
   }
 
   .exp-img-popup {
@@ -2977,5 +3000,532 @@ button {
   .btn-hero-primary,
   .btn-hero-secondary {
     width: 100%;
+  }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   12. REFINEMENTS — ACCESSIBILITY, SCROLL BEHAVIOUR, DEVICE POLISH
+   (Placed last so these deliberately win over the base rules above.)
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* ─── Base polish ─── */
+html {
+  -webkit-tap-highlight-color: transparent;
+}
+
+a,
+button {
+  touch-action: manipulation;
+}
+
+main {
+  display: block;
+}
+
+#main-content:focus {
+  outline: none;
+}
+
+/* Modern viewport units: avoids the mobile browser URL-bar jump on the hero
+   (desktop/tablet-landscape only — the stacked mobile hero sizes to its content) */
+@media (min-width: 901px) {
+  .hero-exec {
+    min-height: 100vh;
+    min-height: 100svh;
+  }
+}
+
+/* Keyboard users: skip link + clear focus ring */
+.skip-link {
+  position: fixed;
+  top: -64px;
+  left: 1rem;
+  z-index: 3000;
+  padding: 0.65rem 1.2rem;
+  border-radius: var(--radius-pill);
+  background: var(--cold-teal);
+  color: #090d14;
+  font-family: var(--font-display);
+  font-size: 0.74rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  transition: top 0.2s ease;
+}
+
+.skip-link:focus {
+  top: 1rem;
+}
+
+:focus-visible {
+  outline: 2px solid var(--cold-teal);
+  outline-offset: 3px;
+}
+
+/* ─── Header: smooth hide / reveal while scrolling (class set by script.js) ─── */
+#header {
+  transition: transform 0.38s cubic-bezier(0.16, 1, 0.3, 1),
+              background-color 0.3s ease,
+              box-shadow 0.3s ease,
+              border-color 0.3s ease;
+  will-change: transform;
+}
+
+#header.header--hidden {
+  transform: translateY(-100%);
+  box-shadow: none;
+}
+
+/* ─── Back-to-top: respect notches / home indicators ─── */
+.scroll-top-btn {
+  bottom: max(1.75rem, env(safe-area-inset-bottom));
+  right: max(1.75rem, env(safe-area-inset-right));
+}
+
+/* ─── Skills: keep every block's header first (header uses order 1 in a flex column) ─── */
+.sv2-block > .sv2-bars,
+.sv2-block > .sv2-lang-row {
+  order: 2;
+}
+
+.sv2-block > .sv2-cefr-legend {
+  order: 3;
+}
+
+/* The EGLO photo is a logo on white: show it whole instead of cropping it */
+.exp-image-panel img[src*="images-eglo-1"] {
+  object-fit: contain;
+  background: #ffffff;
+}
+
+/* ─── Education: 3 cards on one row, title letters rise in ─── */
+.edu-cards-grid {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.edu-card-col {
+  display: flex;
+  min-width: 0;
+}
+
+.edu-card-col > .edu-grid-card {
+  flex: 1;
+  height: auto;
+}
+
+.js .edu-char {
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.js .edu-char.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+.diploma-icon {
+  display: inline-flex;
+  align-items: center;
+}
+
+/* ─── Experience: secondary photo entrance animation ─── */
+@keyframes popIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.96);
+  }
+}
+
+.js .exp-image-panel.img-visible ~ .exp-img-popup {
+  animation: popIn 0.55s cubic-bezier(0.16, 1, 0.3, 1) backwards;
+}
+
+/* ─── Skills: language cards drop in once visible ─── */
+@keyframes dropIn {
+  from {
+    opacity: 0;
+    transform: translateY(-14px) scale(0.98);
+  }
+}
+
+.js .lang-drop-in.lang-animated {
+  animation: dropIn 0.55s cubic-bezier(0.16, 1, 0.3, 1) var(--drop-delay, 0s) backwards;
+}
+
+.sv2-pill-cefr {
+  letter-spacing: 0.06em;
+}
+
+/* Language colour per CEFR marker (cold spectrum) */
+.cefr-legend-item.active .cefr-legend-dot.cefr-it {
+  border-color: #2dd4bf;
+  background: #2dd4bf;
+  box-shadow: 0 0 10px rgba(45, 212, 191, 0.55);
+}
+
+.cefr-legend-item.active .cefr-legend-dot.cefr-fr {
+  border-color: #3b82f6;
+  background: #3b82f6;
+  box-shadow: 0 0 10px rgba(59, 130, 246, 0.55);
+}
+
+.cefr-legend-item.active .cefr-legend-dot.cefr-en {
+  border-color: #38bdf8;
+  background: #38bdf8;
+  box-shadow: 0 0 10px rgba(56, 189, 248, 0.55);
+}
+
+.cefr-legend-item.active .cefr-legend-dot.cefr-ar {
+  border-color: #818cf8;
+  background: #818cf8;
+  box-shadow: 0 0 10px rgba(129, 140, 248, 0.55);
+}
+
+.driving-badge-row {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.badge svg {
+  flex-shrink: 0;
+}
+
+/* ─── Tablet: third education card spans the row instead of sitting alone ─── */
+@media (min-width: 901px) and (max-width: 1100px) {
+  .edu-cards-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .edu-card-col:last-child {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 900px) {
+  .edu-cards-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Year stamps would overflow the narrow timeline rail; the card already shows the year */
+  .vtl-year-stamp {
+    display: none;
+  }
+
+  /* SCROLL PERFORMANCE: live blur on dozens of cards janks on phones → solid surfaces */
+  .about-info,
+  .stat-card,
+  .vtl-card,
+  .sv2-block,
+  .edu-stats-bar,
+  .contact-icon-pill {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    background: var(--bg-card-solid);
+  }
+}
+
+/* ─── Mobile navigation: roomy, tappable full-width menu ─── */
+@media (max-width: 768px) {
+  .nav-links {
+    gap: 0;
+    padding: 0.35rem 1.25rem 1rem;
+    max-height: calc(100vh - var(--header-height));
+    max-height: calc(100dvh - var(--header-height));
+    overflow-y: auto;
+  }
+
+  .nav-links li {
+    width: 100%;
+    border-bottom: 1px solid var(--border-subtle);
+  }
+
+  .nav-links li:last-child {
+    border-bottom: none;
+  }
+
+  .nav-link {
+    display: block;
+    padding: 0.95rem 0;
+    font-size: 0.8rem;
+  }
+
+  .nav-link::after {
+    display: none;
+  }
+
+  .nav-link.active {
+    color: var(--cold-teal);
+  }
+}
+
+/* ─── Phones ─── */
+@media (max-width: 540px) {
+  :root {
+    --header-height: 64px;
+  }
+
+  .nav-container {
+    gap: 0.6rem;
+    padding: 0 1rem;
+  }
+
+  .nav-col-left {
+    min-width: 0;
+  }
+
+  .nav-logo {
+    font-size: 1.05rem;
+    letter-spacing: 0.1em;
+  }
+
+  .nav-col-right {
+    gap: 0.45rem;
+  }
+
+  .lang-toggle-btn,
+  .theme-mode-btn {
+    height: 34px;
+    padding: 0 0.7rem;
+  }
+
+  .hamburger {
+    width: 36px;
+    height: 36px;
+  }
+
+  .section {
+    padding: 4rem 0;
+  }
+
+  .section-header {
+    margin-bottom: 2.5rem;
+  }
+
+  .section-title {
+    font-size: clamp(1.55rem, 7.4vw, 2rem);
+    letter-spacing: 0.06em;
+  }
+
+  /* Hero */
+  .hero-exec-title {
+    font-size: clamp(1.85rem, 9vw, 2.5rem);
+    letter-spacing: 0.06em;
+  }
+
+  .hero-role-title {
+    font-size: 0.74rem;
+    letter-spacing: 0.13em;
+  }
+
+  .hero-role-subtitle {
+    font-size: 0.66rem;
+    letter-spacing: 0.07em;
+  }
+
+  .hero-status-pill {
+    font-size: 0.64rem;
+    letter-spacing: 0.14em;
+    justify-content: center;
+  }
+
+  .hero-buttons-row {
+    width: 100%;
+  }
+
+  .hero-metrics-grid {
+    gap: 1rem;
+  }
+
+  /* About */
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.85rem;
+  }
+
+  .stat-card {
+    padding: 1.35rem 1rem;
+  }
+
+  .stat-number {
+    font-size: 2rem;
+  }
+
+  .stat-label {
+    font-size: 0.66rem;
+  }
+
+  .info-item:nth-last-child(2) {
+    padding-bottom: 0.65rem;
+    border-bottom: 1px solid var(--border-subtle);
+  }
+
+  /* Experience */
+  .vtl-card-inner {
+    padding: 1.25rem;
+  }
+
+  .vtl-ghost-year {
+    font-size: 2.6rem;
+  }
+
+  /* Education: 2×2 stat tiles */
+  .edu-stats-bar {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem 1rem;
+    padding: 1.35rem 1rem;
+  }
+
+  .edu-stat-tile {
+    border: none;
+    padding: 0;
+  }
+
+  .edu-card-content {
+    padding: 1.5rem;
+  }
+
+  /* Skills */
+  .sv2-block {
+    padding: 1.4rem 1.1rem;
+  }
+
+  .sv2-pill {
+    padding: 0.95rem 1.05rem;
+  }
+
+  .driving-showcase-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .badge-driving {
+    white-space: normal;
+    border-radius: 14px;
+  }
+
+  .sv2-lang-row {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.8rem;
+  }
+
+  .sv2-lang-card {
+    padding: 1.15rem 0.7rem;
+  }
+
+  .sv2-ring-wrap {
+    width: 92px;
+    height: 92px;
+  }
+
+  .sv2-flag {
+    width: 34px;
+    height: 34px;
+  }
+
+  .cefr-legend-text {
+    font-size: 0.66rem;
+  }
+
+  /* Contact: compact horizontal cards */
+  .contact-icon-pill {
+    flex: 1 1 100%;
+    max-width: none;
+    flex-direction: row;
+    text-align: left;
+    padding: 1.1rem 1.25rem;
+  }
+
+  .contact-pill-text {
+    min-width: 0;
+  }
+
+  /* Footer & overlays */
+  .footer-top {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .footer-nav {
+    justify-content: center;
+  }
+
+  .scroll-top-btn {
+    width: 42px;
+    height: 42px;
+    bottom: max(1rem, env(safe-area-inset-bottom));
+    right: max(1rem, env(safe-area-inset-right));
+  }
+
+  .diploma-modal {
+    padding: 0.75rem;
+  }
+
+  .diploma-modal-content {
+    padding: 0.5rem;
+  }
+}
+
+@media (max-width: 340px) {
+  .sv2-lang-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Phones held sideways: don't force a full-height hero */
+@media (max-height: 520px) and (orientation: landscape) {
+  .hero-exec {
+    min-height: auto;
+  }
+
+  .exec-portrait-card img {
+    max-height: 60vh;
+  }
+}
+
+/* ─── Touch screens: no sticky hover lifts after a tap ─── */
+@media (hover: none) {
+  .stat-card:hover,
+  .vtl-card:hover,
+  .edu-grid-card:hover,
+  .sv2-pill:hover,
+  .sv2-lang-card:hover,
+  .driving-cat-card:hover,
+  .contact-icon-pill:hover,
+  .btn-hero-primary:hover,
+  .btn-hero-secondary:hover,
+  .hero-social-btn:hover {
+    transform: none;
+  }
+
+  .exec-portrait-wrapper:hover .exec-portrait-card img {
+    transform: none;
+  }
+}
+
+/* ─── Respect "reduce motion" system setting ─── */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    animation-delay: 0s !important;
+    transition-duration: 0.01ms !important;
+    transition-delay: 0s !important;
+  }
+
+  .js .reveal,
+  .js .exp-image-panel,
+  .js .exp-img-popup,
+  .js .lang-drop-in,
+  .js .edu-char {
+    opacity: 1;
+    transform: none;
   }
 }
