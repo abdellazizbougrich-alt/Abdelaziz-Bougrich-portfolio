@@ -63,12 +63,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const toggleNav = () => {
     const isExpanded = navToggle.getAttribute('aria-expanded') === 'true';
-    navToggle.setAttribute('aria-expanded', !isExpanded);
-    navToggle.classList.toggle('open');
-    navLinks.classList.toggle('open');
+    const nextExpanded = !isExpanded;
+    navToggle.setAttribute('aria-expanded', String(nextExpanded));
+    navToggle.classList.toggle('open', nextExpanded);
+    navLinks.classList.toggle('open', nextExpanded);
+    if (nextExpanded) {
+      const langMenu = document.getElementById('lang-dropdown-menu');
+      const langBtn = document.getElementById('lang-toggle-btn');
+      if (langMenu) langMenu.classList.remove('open');
+      if (langBtn) langBtn.setAttribute('aria-expanded', 'false');
+    }
   };
 
-  navToggle.addEventListener('click', toggleNav);
+  navToggle.addEventListener('click', (e) => {
+    e.stopPropagation();
+    toggleNav();
+  });
 
   // Close mobile menu when a link is clicked
   navItems.forEach(item => {
@@ -85,6 +95,22 @@ document.addEventListener('DOMContentLoaded', () => {
         !navToggle.contains(e.target) && 
         !navLinks.contains(e.target)) {
       toggleNav();
+    }
+  });
+
+  // Close mobile menu on Escape or desktop resize
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && navLinks.classList.contains('open')) {
+      toggleNav();
+      navToggle.focus();
+    }
+  });
+
+  window.addEventListener('resize', () => {
+    if (window.innerWidth > 860 && navLinks.classList.contains('open')) {
+      navLinks.classList.remove('open');
+      navToggle.classList.remove('open');
+      navToggle.setAttribute('aria-expanded', 'false');
     }
   });
 
@@ -194,14 +220,14 @@ document.addEventListener('DOMContentLoaded', () => {
       'skills.order_tracking': 'Order Tracking',
       'skills.after_sales': 'After-Sales Service',
       'skills.ms_office': 'Microsoft Office Suite',
-      'skills.driving': 'Driving Licences: B, C, D, EB, EC, ED',
-      'skills.driving_sub': 'Categories: B · C · D · EB · EC · ED',
-      'licence.b': 'Cat. B · Passenger & Light Commercial',
-      'licence.c': 'Cat. C · Heavy Goods Vehicles (>3.5t)',
-      'licence.d': 'Cat. D · Passenger Transit Buses',
-      'licence.eb': 'Cat. EB · Vehicle + Heavy Trailer',
-      'licence.ec': 'Cat. EC · Heavy Articulated Cargo',
-      'licence.ed': 'Cat. ED · Articulated Passenger Coaches',
+      'skills.driving': 'Driving Licences',
+      'skills.driving_sub': 'Full Light, Heavy & Passenger Fleet Qualification',
+      'licence.b': 'Passenger & Light Commercial',
+      'licence.c': 'Heavy Goods Vehicles (>3.5t)',
+      'licence.d': 'Passenger Transit Buses',
+      'licence.eb': 'Vehicle + Heavy Trailer',
+      'licence.ec': 'Heavy Articulated Cargo',
+      'licence.ed': 'Articulated Passenger Coaches',
       'skills.sales_mgmt': 'Sales Management',
       'skills.customer_svc': 'Customer Service Excellence',
       'skills.leadership': 'Leadership',
@@ -346,14 +372,14 @@ document.addEventListener('DOMContentLoaded', () => {
       'skills.order_tracking': 'Suivi des commandes',
       'skills.after_sales': 'Service après-vente',
       'skills.ms_office': 'Suite Microsoft Office',
-      'skills.driving': 'Permis de conduire : B, C, D, EB, EC, ED',
-      'skills.driving_sub': 'Catégories : B · C · D · EB · EC · ED',
-      'licence.b': 'Cat. B · Voitures & Véhicules Légers',
-      'licence.c': 'Cat. C · Poids Lourds & Camions (>3.5t)',
-      'licence.d': 'Cat. D · Autocars & Autobus de Voyageurs',
-      'licence.eb': 'Cat. EB · Véhicule avec Remorque Lourde',
-      'licence.ec': 'Cat. EC · Ensembles Articulés & Semi-Remorques',
-      'licence.ed': 'Cat. ED · Autobus & Cars Articulés',
+      'skills.driving': 'Permis de conduire',
+      'skills.driving_sub': 'Qualification Complète Véhicules Légers & Lourds',
+      'licence.b': 'Voitures & Véhicules Légers',
+      'licence.c': 'Poids Lourds & Camions (>3.5t)',
+      'licence.d': 'Autocars & Autobus de Voyageurs',
+      'licence.eb': 'Véhicule avec Remorque Lourde',
+      'licence.ec': 'Ensembles Articulés & Semi-Remorques',
+      'licence.ed': 'Autobus & Cars Articulés',
       'skills.sales_mgmt': 'Management commercial',
       'skills.customer_svc': 'Excellence du service client',
       'skills.leadership': 'Leadership',
@@ -498,14 +524,14 @@ document.addEventListener('DOMContentLoaded', () => {
       'skills.order_tracking': 'Tracciamento ordini',
       'skills.after_sales': 'Servizio post-vendita',
       'skills.ms_office': 'Pacchetto Microsoft Office',
-      'skills.driving': 'Patente di guida: B, C, D, EB, EC, ED',
-      'skills.driving_sub': 'Categorie: B · C · D · EB · EC · ED',
-      'licence.b': 'Cat. B · Autovetture & Veicoli Commerciali Leggeri',
-      'licence.c': 'Cat. C · Autocarri & Mezzi Pesanti (>3.5t)',
-      'licence.d': 'Cat. D · Autobus & Trasporto Persone',
-      'licence.eb': 'Cat. EB · Auto con Rimorchio Pesante',
-      'licence.ec': 'Cat. EC · Autoarticolati & Mezzi Combinati Pesanti',
-      'licence.ed': 'Cat. ED · Autosnodati & Autobus Doppi',
+      'skills.driving': 'Patenti di guida',
+      'skills.driving_sub': 'Abilitazione Completa Veicoli Leggeri & Pesanti',
+      'licence.b': 'Autovetture & Veicoli Commerciali Leggeri',
+      'licence.c': 'Autocarri & Mezzi Pesanti (>3.5t)',
+      'licence.d': 'Autobus & Trasporto Persone',
+      'licence.eb': 'Auto con Rimorchio Pesante',
+      'licence.ec': 'Autoarticolati & Mezzi Combinati Pesanti',
+      'licence.ed': 'Autosnodati & Autobus Doppi',
       'skills.sales_mgmt': 'Gestione commerciale',
       'skills.customer_svc': 'Eccellenza nel servizio clienti',
       'skills.leadership': 'Leadership',
@@ -608,7 +634,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Update the button text indicator
     const display = document.getElementById('current-lang-display');
     if (display) {
-      display.textContent = lang;
+      display.textContent = lang.toUpperCase();
     }
 
     applyTranslation(lang);
@@ -622,8 +648,18 @@ document.addEventListener('DOMContentLoaded', () => {
   const langToggleBtn = document.getElementById('lang-toggle-btn');
   const langDropdownMenu = document.getElementById('lang-dropdown-menu');
 
+  // Helper: close mobile nav cleanly
+  const closeMobileNav = () => {
+    if (navLinks && navLinks.classList.contains('open')) {
+      navLinks.classList.remove('open');
+      navToggle.classList.remove('open');
+      navToggle.setAttribute('aria-expanded', 'false');
+    }
+  };
+
   // Helper: open/close the dropdown
   const openLangMenu = () => {
+    closeMobileNav();
     langDropdownMenu.classList.add('open');
     langToggleBtn.setAttribute('aria-expanded', 'true');
   };
@@ -648,6 +684,7 @@ document.addEventListener('DOMContentLoaded', () => {
       e.stopPropagation();
       setLanguage(option.getAttribute('data-lang'));
       closeLangMenu();
+      option.blur();
     });
 
     // Close when clicking anywhere outside the wrapper
@@ -684,15 +721,6 @@ document.addEventListener('DOMContentLoaded', () => {
   let lastScrollY   = window.scrollY;
   let scrollTicking = false;
 
-  // Helper: close mobile nav cleanly
-  const closeMobileNav = () => {
-    if (navLinks && navLinks.classList.contains('open')) {
-      navLinks.classList.remove('open');
-      navToggle.classList.remove('open');
-      navToggle.setAttribute('aria-expanded', 'false');
-    }
-  };
-
   const handleScrollEvents = () => {
     // Clamp: iOS/Android rubber-banding reports negative values at the edges
     const scrollY = Math.max(0, window.scrollY);
@@ -707,12 +735,18 @@ document.addEventListener('DOMContentLoaded', () => {
         header.classList.add('header--hidden');
         // Auto-close the mobile nav & language menu when header hides
         closeMobileNav();
+        if (langDropdownMenu) closeLangMenu();
       } else if (delta < -6) {
         header.classList.remove('header--hidden');
       }
 
       // Shrink effect
-      header.classList.toggle('scrolled', scrollY > 50);
+      header.classList.toggle('scrolled', scrollY > 40);
+    }
+
+    // Clear active nav highlight when user returns to Hero top
+    if (scrollY < 180) {
+      document.querySelectorAll('.nav-link.active').forEach(l => l.classList.remove('active'));
     }
 
     // 2. Back-to-top button: only show once the user has scrolled a screen or so
@@ -720,9 +754,12 @@ document.addEventListener('DOMContentLoaded', () => {
       scrollTopBtn.classList.toggle('visible', scrollY > Math.min(600, window.innerHeight * 0.8));
     }
 
-    // 3. Auto-close mobile nav on a real scroll gesture (UX: prevents lost menu)
+    // 3. Auto-close mobile nav & language menu on a real scroll gesture (UX: prevents lost menu)
     if (Math.abs(delta) > 8) {
       closeMobileNav();
+      if (langDropdownMenu && langDropdownMenu.classList.contains('open')) {
+        closeLangMenu();
+      }
     }
 
     // Only remember the position when it moved enough, so slow scrolls still accumulate
