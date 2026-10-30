@@ -1084,7 +1084,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const isMobile = ('ontouchstart' in window) || navigator.maxTouchPoints > 0 || /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
     if (isMobile) {
       // Changing the link to mailto: which triggers the default native mail app (e.g. Gmail) on mobile devices
-      contactEmailLink.href = 'mailto:abdelaziz.bougrich@gmail.com';
+      contactEmailLink.href = 'mailto:abdellaziz.bougrich@gmail.com';
       contactEmailLink.removeAttribute('target'); // Removing target="_blank" since it's unnecessary for app links
     }
   }
