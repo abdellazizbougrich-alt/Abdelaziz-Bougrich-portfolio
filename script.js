@@ -144,7 +144,7 @@ document.addEventListener('DOMContentLoaded', () => {
       'hero.stat_skills': 'Accounts',
       'hero.stat_skills_sub': 'CRM & Client Retention',
       'hero.stat_lic': 'Licences',
-      'hero.stat_lic_sub': 'Categories B, C, D, EB, EC, ED',
+      'hero.stat_lic_sub': 'Categories B, C, D, E, EB, EC, ED',
       'hero.stat_countries': 'Countries',
       'hero.stat_commit': 'Committed',
       // ABOUT
@@ -225,6 +225,7 @@ document.addEventListener('DOMContentLoaded', () => {
       'licence.b': 'Passenger & Light Commercial',
       'licence.c': 'Heavy Goods Vehicles (>3.5t)',
       'licence.d': 'Passenger Transit Buses',
+      'licence.e': 'Heavy Coupled Trailers (>750kg)',
       'licence.eb': 'Vehicle + Heavy Trailer',
       'licence.ec': 'Heavy Articulated Cargo',
       'licence.ed': 'Articulated Passenger Coaches',
@@ -235,6 +236,12 @@ document.addEventListener('DOMContentLoaded', () => {
       'skills.problem_solving': 'Creative Problem Solving',
       'skills.persuasion': 'Persuasion',
       'skills.adaptability': 'Adaptability',
+      'skills.soft_desc_1': 'Guiding commercial initiatives, motivating cross-functional teams, and taking decisive ownership of regional B2B targets.',
+      'skills.soft_desc_2': 'Collaborating seamlessly across sales, warehouse, finance, and logistics teams to deliver unified operational excellence.',
+      'skills.soft_desc_3': 'Diagnosing complex technical, inventory, and after-sales challenges rapidly and turning obstacles into client loyalty.',
+      'skills.soft_desc_4': 'Thriving in fast-paced multicultural markets across four languages while adjusting swiftly to shifting commercial priorities.',
+      'skills.soft_desc_5': 'Building lasting B2B and retail relationships through attentive listening, proactive follow-up, and dependable after-sales care.',
+      'skills.soft_desc_6': 'Presenting clear value propositions, negotiating win-win commercial terms, and closing high-value contracts with confidence.',
       // LANG CARDS
       'lang.arabic': 'Arabic',
       'lang.arabic_level': 'Native · C2',
@@ -296,7 +303,7 @@ document.addEventListener('DOMContentLoaded', () => {
       'hero.stat_skills': 'Comptes',
       'hero.stat_skills_sub': 'CRM & Fidélisation Client',
       'hero.stat_lic': 'Permis',
-      'hero.stat_lic_sub': 'Catégories B, C, D, EB, EC, ED',
+      'hero.stat_lic_sub': 'Catégories B, C, D, E, EB, EC, ED',
       'hero.stat_countries': 'Pays',
       'hero.stat_commit': 'Engagé',
       // ABOUT
@@ -377,6 +384,7 @@ document.addEventListener('DOMContentLoaded', () => {
       'licence.b': 'Voitures & Véhicules Légers',
       'licence.c': 'Poids Lourds & Camions (>3.5t)',
       'licence.d': 'Autocars & Autobus de Voyageurs',
+      'licence.e': 'Remorques Lourdes Attelées (>750kg)',
       'licence.eb': 'Véhicule avec Remorque Lourde',
       'licence.ec': 'Ensembles Articulés & Semi-Remorques',
       'licence.ed': 'Autobus & Cars Articulés',
@@ -387,6 +395,12 @@ document.addEventListener('DOMContentLoaded', () => {
       'skills.problem_solving': 'Résolution créative de problèmes',
       'skills.persuasion': 'Persuasion',
       'skills.adaptability': 'Adaptabilité',
+      'skills.soft_desc_1': 'Pilotage des initiatives commerciales, motivation des équipes pluridisciplinaires et prise en charge décisive des objectifs B2B régionaux.',
+      'skills.soft_desc_2': 'Collaboration fluide entre les équipes commerciales, logistiques, financières et entrepôt pour garantir une exécution sans faille.',
+      'skills.soft_desc_3': 'Diagnostic rapide des défis techniques, logistiques et SAV complexes pour transformer chaque obstacle en fidélisation client.',
+      'skills.soft_desc_4': 'Aisance dans des environnements multiculturels exigeants en quatre langues, avec une adaptation rapide aux priorités du marché.',
+      'skills.soft_desc_5': 'Construction de relations B2B et retail durables grâce à une écoute active, un suivi proactif et un service après-vente fiable.',
+      'skills.soft_desc_6': 'Présentation claire de propositions de valeur, négociation gagnant-gagnant et conclusion de contrats stratégiques avec assurance.',
       // LANG CARDS
       'lang.arabic': 'Arabe',
       'lang.arabic_level': 'Natif · C2',
@@ -448,7 +462,7 @@ document.addEventListener('DOMContentLoaded', () => {
       'hero.stat_skills': 'Clienti',
       'hero.stat_skills_sub': 'CRM & Fidelizzazione Clientela',
       'hero.stat_lic': 'Patenti',
-      'hero.stat_lic_sub': 'Categorie B, C, D, EB, EC, ED',
+      'hero.stat_lic_sub': 'Categorie B, C, D, E, EB, EC, ED',
       'hero.stat_countries': 'Paesi',
       'hero.stat_commit': 'Impegno',
       // ABOUT
@@ -529,6 +543,7 @@ document.addEventListener('DOMContentLoaded', () => {
       'licence.b': 'Autovetture & Veicoli Commerciali Leggeri',
       'licence.c': 'Autocarri & Mezzi Pesanti (>3.5t)',
       'licence.d': 'Autobus & Trasporto Persone',
+      'licence.e': 'Rimorchi Pesanti Accoppiati (>750kg)',
       'licence.eb': 'Auto con Rimorchio Pesante',
       'licence.ec': 'Autoarticolati & Mezzi Combinati Pesanti',
       'licence.ed': 'Autosnodati & Autobus Doppi',
@@ -539,6 +554,12 @@ document.addEventListener('DOMContentLoaded', () => {
       'skills.problem_solving': 'Risoluzione creativa dei problemi',
       'skills.persuasion': 'Persuasione',
       'skills.adaptability': 'Adattabilità',
+      'skills.soft_desc_1': 'Guida delle iniziative commerciali, motivazione di team interfunzionali e piena responsabilità sugli obiettivi B2B regionali.',
+      'skills.soft_desc_2': 'Collaborazione sinergica tra vendite, magazzino, amministrazione e logistica per garantire eccellenza operativa.',
+      'skills.soft_desc_3': 'Diagnosi rapida di criticità tecniche, di scorte e post-vendita, trasformando ogni imprevisto in fidelizzazione del cliente.',
+      'skills.soft_desc_4': 'Massima efficacia in contesti dinamici e multiculturali in quattro lingue, con rapido adattamento alle priorità commerciali.',
+      'skills.soft_desc_5': 'Costruzione di relazioni B2B e retail durature tramite ascolto attivo, follow-up costante e assistenza post-vendita puntuale.',
+      'skills.soft_desc_6': 'Presentazione efficace del valore tecnico, negoziazione di accordi win-win e chiusura di contratti strategici con sicurezza.',
       // LANG CARDS
       'lang.arabic': 'Arabo',
       'lang.arabic_level': 'Madrelingua · C2',
@@ -1368,5 +1389,178 @@ document.addEventListener('DOMContentLoaded', () => {
     
     statTiles.forEach(tile => statsObserver.observe(tile));
   }
+
+  // ==========================================================
+  // 14. SOFT SKILLS SPOTLIGHT SLIDER & PROJECT-WIDE SLIDES EFFECT
+  // ==========================================================
+  (function initSoftSkillsSliderAndSlidesEffect() {
+    // 1. Add directional slide-in classes across sections for a cohesive slides effect
+    const isPhoneView = window.matchMedia('(max-width: 900px)').matches;
+    document.querySelectorAll('.vtl-entry--left .vtl-card, .about-text').forEach(el => {
+      el.classList.remove('reveal-left', 'reveal-right');
+      el.classList.add('reveal', isPhoneView ? 'reveal-up' : 'reveal-left');
+      revealObserver.observe(el);
+    });
+    document.querySelectorAll('.vtl-entry--right .vtl-card, .about-stats').forEach(el => {
+      el.classList.remove('reveal-left', 'reveal-right');
+      el.classList.add('reveal', isPhoneView ? 'reveal-up' : 'reveal-right');
+      revealObserver.observe(el);
+    });
+    document.querySelectorAll('.sv2-block').forEach((el, idx) => {
+      el.classList.remove('reveal-left', 'reveal-right');
+      el.classList.add('reveal', isPhoneView ? 'reveal-up' : (idx % 2 === 0 ? 'reveal-left' : 'reveal-right'));
+      revealObserver.observe(el);
+    });
+
+    // Observe Soft Skills & Driving Licences block for staggered tile entrance
+    const softBlock = document.getElementById('sv2-soft-block');
+    if (softBlock) {
+      const licObserver = new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => {
+          if (!entry.isIntersecting) return;
+          entry.target.classList.add('soft-block-animated');
+          obs.unobserve(entry.target);
+        });
+      }, { threshold: 0.08, rootMargin: '0px 0px 40px 0px' });
+      licObserver.observe(softBlock);
+    }
+
+    // 2. Interactive Soft Skills Carousel Slider
+    const slider = document.getElementById('portSoftSlider');
+    const track = document.getElementById('portSoftTrack');
+    if (!slider || !track) return;
+
+    const slides = Array.from(track.querySelectorAll('.port-soft-slide'));
+    const dots = Array.from(slider.querySelectorAll('.port-soft-dot'));
+    const pills = Array.from(document.querySelectorAll('.sv2-pill[data-slide-idx]'));
+    const prevBtn = document.getElementById('portSoftPrev');
+    const nextBtn = document.getElementById('portSoftNext');
+    const progressBar = document.getElementById('portSoftProgress');
+    const counterEl = document.getElementById('portSoftCounter');
+    const count = slides.length;
+    if (!count) return;
+
+    let currentIndex = 0;
+    let lockUntil = 0;
+    let scrollRaf = 0;
+
+    const offsetOf = (i) => {
+      const raw = slides[i].offsetLeft - slides[0].offsetLeft;
+      const max = Math.max(0, track.scrollWidth - track.clientWidth);
+      return Math.min(raw, max);
+    };
+
+    const closestSlideIndex = (scrollLeft) => {
+      let best = 0;
+      let bestDist = Infinity;
+      for (let n = 0; n < count; n++) {
+        const dist = Math.abs(scrollLeft - offsetOf(n));
+        if (dist < bestDist) {
+          bestDist = dist;
+          best = n;
+        }
+      }
+      return best;
+    };
+
+    const restartProgress = () => {
+      if (prefersReducedMotion || !progressBar) return;
+      progressBar.classList.remove('run');
+      void progressBar.offsetWidth;
+      progressBar.classList.add('run');
+    };
+
+    const setActive = (i) => {
+      currentIndex = i;
+      slides.forEach((s, n) => s.classList.toggle('is-active', n === i));
+      dots.forEach((d, n) => {
+        d.classList.toggle('is-active', n === i);
+        d.setAttribute('aria-selected', n === i ? 'true' : 'false');
+      });
+      pills.forEach((p, n) => p.classList.toggle('is-active', n === i));
+      if (counterEl) {
+        counterEl.textContent = `0${i + 1} / 0${count}`;
+      }
+      restartProgress();
+    };
+
+    const goTo = (i) => {
+      const next = (i + count) % count;
+      lockUntil = Date.now() + 950;
+      track.scrollTo({
+        left: offsetOf(next),
+        behavior: prefersReducedMotion ? 'auto' : 'smooth'
+      });
+      if (next !== currentIndex) {
+        setActive(next);
+      } else {
+        restartProgress();
+      }
+    };
+
+    track.addEventListener('scroll', () => {
+      if (Date.now() < lockUntil) return;
+      cancelAnimationFrame(scrollRaf);
+      scrollRaf = requestAnimationFrame(() => {
+        const idx = closestSlideIndex(track.scrollLeft);
+        if (idx !== currentIndex) setActive(idx);
+      });
+    }, { passive: true });
+
+    if (prevBtn) prevBtn.addEventListener('click', () => goTo(currentIndex - 1));
+    if (nextBtn) nextBtn.addEventListener('click', () => goTo(currentIndex + 1));
+
+    dots.forEach((dot, i) => {
+      dot.addEventListener('click', () => goTo(i));
+    });
+
+    pills.forEach((pill, i) => {
+      pill.addEventListener('click', () => goTo(i));
+      pill.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          goTo(i);
+        }
+      });
+    });
+
+    track.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowLeft') { e.preventDefault(); goTo(currentIndex - 1); }
+      else if (e.key === 'ArrowRight') { e.preventDefault(); goTo(currentIndex + 1); }
+    });
+
+    window.addEventListener('resize', () => {
+      track.scrollTo({ left: offsetOf(currentIndex), behavior: 'auto' });
+    }, { passive: true });
+
+    if (prefersReducedMotion || !progressBar) return;
+
+    const paused = { hover: false, focus: false, touch: false, hidden: false };
+    const syncPause = () => {
+      const isPaused = paused.hover || paused.focus || paused.touch || paused.hidden;
+      slider.classList.toggle('is-paused', isPaused);
+    };
+
+    progressBar.addEventListener('animationend', () => goTo(currentIndex + 1));
+    slider.addEventListener('mouseenter', () => { paused.hover = true; syncPause(); });
+    slider.addEventListener('mouseleave', () => { paused.hover = false; syncPause(); });
+    slider.addEventListener('focusin', () => { paused.focus = true; syncPause(); });
+    slider.addEventListener('focusout', () => { paused.focus = false; syncPause(); });
+    slider.addEventListener('touchstart', () => { paused.touch = true; syncPause(); }, { passive: true });
+    slider.addEventListener('touchend', () => {
+      setTimeout(() => { paused.touch = false; syncPause(); }, 1800);
+    }, { passive: true });
+
+    if ('IntersectionObserver' in window) {
+      paused.hidden = true;
+      syncPause();
+      new IntersectionObserver((entries) => {
+        paused.hidden = !entries[0].isIntersecting;
+        syncPause();
+      }, { threshold: 0.25 }).observe(slider);
+    }
+
+    restartProgress();
+  })();
 
 });
